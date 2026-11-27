@@ -17,6 +17,8 @@ export interface FeedUpdate {
   platform: "ios" | "android";
   releaseDate: string;
   releaseNotes: string;
+  notesAreExcerpt?: boolean;
+  releaseCaptureUrl?: string;
   added: string[];
   improved: string[];
   changed: string[];

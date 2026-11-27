@@ -1,0 +1,110 @@
+.ad-release-cards {
+  margin: 0 0 20px;
+}
+.ad-release-navigation {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) 36px;
+  gap: 4px;
+  align-items: center;
+  margin: 12px 0 4px;
+}
+.ad-release-navigation > button,
+.ad-release-pages > button {
+  min-height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+.ad-release-navigation > button {
+  display: grid;
+  place-items: center;
+}
+.ad-release-navigation > button:disabled {
+  color: var(--muted);
+  opacity: 0.5;
+  cursor: default;
+}
+.ad-release-pages {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}
+.ad-release-pages > button {
+  flex: 1;
+  padding: 4px;
+  font-size: 13px;
+}
+.ad-release-pages > button[aria-current] {
+  background: var(--violet);
+  border-color: var(--violet);
+  color: #fff;
+}
+.ad-release-page-number {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 12px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.ad-release-track {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.ad-release-track::-webkit-scrollbar {
+  display: none;
+}
+.ad-release-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  border: 1px solid var(--line);
+  padding: 16px;
+  background: #fff;
+  border-radius: 12px;
+}
+.ad-release-slide h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 8px;
+}
+.ad-release-slide p {
+  margin: 8px 0;
+}
+.ad-release-summary + .ad-release-summary {
+  border-top: 1px solid var(--line);
+  margin-top: 16px;
+  padding-top: 16px;
+}
+.ad-release-summary ul {
+  list-style: disc;
+  padding-inline-start: 20px;
+  margin: 0;
+}
+.ad-release-summary li + li {
+  margin-top: 4px;
+}
+.ad-release-slide figure {
+  margin: 0;
+}
+.ad-release-slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.ad-release-slide figcaption {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.ad-release-slide .ad-links {
+  margin-top: 12px;
+}

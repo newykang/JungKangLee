@@ -38,7 +38,8 @@ export const apps: FeedApp[] = catalog.map(app => {
 export const releases = catalog.flatMap(app => app.stores.flatMap(store => store.releases.map(release => {
   const card: FeedUpdate = {
     id: release.id, appId: app.id, platform: store.platform, version: release.version ?? '미확인',
-    releaseDate: release.updatedOn ?? '', releaseNotes: (release.releaseNotes ?? '') + (release.notesAreExcerpt ? '\n(공식 원문 발췌)' : ''),
+    releaseDate: release.updatedOn ?? '', releaseNotes: release.releaseNotes ?? '',
+    notesAreExcerpt: release.notesAreExcerpt,
     added: release.added, changed: release.changed, improved: release.improved, sourceUrl: release.sourceUrl,
   }
   return { card, storeUrl: store.storeUrl, canVote: Boolean(release.version) }
