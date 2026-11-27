@@ -4,6 +4,8 @@ export interface FeedApp {
   name: string;
   category: string;
   developer?: string;
+  aliases?: readonly string[];
+  nameHistory?: readonly { name: string; aliases: readonly string[]; message: string }[];
   bankFeatures?: readonly string[];
   /** Set when the catalog has verified a mandatory latest-version policy. */
   requiresLatestVersion?: boolean;
@@ -20,6 +22,7 @@ export interface FeedUpdate {
   releaseNotes: string;
   notesAreExcerpt?: boolean;
   releaseCaptureUrl?: string;
+  summaryKo?: string | null;
   added: string[];
   improved: string[];
   changed: string[];

@@ -1,6 +1,6 @@
 import { apps as catalog } from '../../data'
 import type { FeedApp, FeedUpdate } from '../../features/feed/model'
-import { profilesById } from '../../features/ecosystem/graph'
+import { byId, nameHistoryFor, profilesById } from '../../features/ecosystem/graph'
 import publishers from '../../data/publishers.json'
 
 const icons = new Set(Object.keys(import.meta.glob('/public/icons/*.jpg')).map(path => path.split('/').pop()?.slice(0, -4)))
@@ -24,6 +24,7 @@ const bankFeatures: Record<string, readonly string[]> = {
 
 export const apps: FeedApp[] = catalog.map(app => {
   const profile = profilesById.get(app.id)
+  const node = byId.get(app.id)
   const listing = app.stores.find(store => store.platform === 'ios') ?? app.stores[0]
   const listingIconUrl = listing?.iconUrl || app.stores.find(store => store.iconUrl)?.iconUrl || ''
   const storeIconUrl = listingIconUrl.startsWith('/icons/')
@@ -32,11 +33,13 @@ export const apps: FeedApp[] = catalog.map(app => {
   const localIconUrl = icons.has(app.id) ? `${import.meta.env.BASE_URL}icons/${app.id}.jpg` : ''
   return {
     id: app.id,
-    developer: app.developer ?? publisherByApp[app.id] ?? profile?.developer,
+    developer: app.developer ?? publisherByApp[app.id] ?? profile?.developer ?? node?.operator,
+    aliases: [app.name, node?.operator ?? '', ...(node?.aliases ?? []), ...app.stores.map(store => store.name)],
+    nameHistory: nameHistoryFor(app.id),
     name: profile?.name ?? app.name,
     category: app.id === 'kakao-bank' ? '은행' : profile?.category ?? app.category,
     bankFeatures: app.bankFeatures ?? bankFeatures[app.id] ?? (profile?.category === '은행' ? profile.features : undefined),
-    iconUrl: localIconUrl || storeIconUrl,
+    iconUrl: localIconUrl || node?.iconUrl || storeIconUrl,
     fallbackIconUrl: localIconUrl && storeIconUrl && storeIconUrl !== localIconUrl ? storeIconUrl : undefined,
     storeUrl: listing?.storeUrl ?? '',
   }
@@ -47,6 +50,7 @@ export const releases = catalog.flatMap(app => app.stores.flatMap(store => store
   const card: FeedUpdate = {
     id: release.id, appId: app.id, platform: store.platform, version: release.version ?? '미확인',
     releaseDate: release.updatedOn ?? '', releaseNotes: release.releaseNotes ?? '',
+    summaryKo: release.summaryKo,
     notesAreExcerpt: release.notesAreExcerpt,
     releaseCaptureUrl: releaseCaptures.has(captureName) ? '/release-captures/' + captureName : undefined,
     added: release.added, changed: release.changed, improved: release.improved, sourceUrl: release.sourceUrl,
