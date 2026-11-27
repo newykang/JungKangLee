@@ -111,3 +111,56 @@
 .ad-platform-links {
   margin: 0 0 16px;
 }
+.ad-timeline-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0 24px;
+}
+.ad-timeline-heading h1 {
+  font-size: clamp(26px, 4vw, 36px);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+.ad-timeline-heading p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+.ad-timeline-list {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+}
+.ad-timeline-list li + li {
+  border-top: 1px solid var(--line);
+}
+.ad-timeline-list button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+  padding: 12px 16px;
+}
+.ad-timeline-list button > span {
+  display: grid;
+  gap: 4px;
+}
+.ad-timeline-list svg {
+  flex: none;
+  color: var(--muted);
+}
+.ad-timeline-list button:hover {
+  background: #f7f6fa;
+}
+.ad-timeline-summary {
+  font-size: 14px;
+}

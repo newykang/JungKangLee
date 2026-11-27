@@ -29,7 +29,7 @@ export function UpdateFeed({
   const [category, setCategory] = useState("");
   const [publisher, setPublisher] = useState("");
   const { preferences, save } = useFeedPreferences();
-  const { showBugFixes, hideRequired, markedIds } = preferences;
+  const { showBugFixes, hideRequired, markedIds, mineOnly } = preferences;
   const categories = [...new Set(apps.map((app) => app.category))];
   const publisherOf = (app: FeedApp) =>
     app.developer?.trim() || "퍼블리셔 미확인";
@@ -45,6 +45,7 @@ export function UpdateFeed({
       const app = catalog.get(update.appId);
       if (
         !app ||
+        (mineOnly && !selected.has(app.id)) ||
         (category && app.category !== category) ||
         (publisher && publisherOf(app) !== publisher) ||
         (hideRequired &&
@@ -73,6 +74,14 @@ export function UpdateFeed({
   return (
     <section className="ad-feed">
       <h1>업데이트 피드</h1>
+      <button
+        type="button"
+        className="ad-mine ad-mine-filter"
+        aria-pressed={mineOnly}
+        onClick={() => save({ mineOnly: !mineOnly })}
+      >
+        <BookmarkCheck size={16} aria-hidden="true" /> 내 앱만 보기
+      </button>
       <div className="ad-search">
         <Search size={19} />
         <input
@@ -197,9 +206,7 @@ export function UpdateFeed({
               {limited && <small>세부 내용 미공개</small>}
               <button
                 className="ad-open-update"
-                aria-label={
-                  app.name + " " + update.version + " 업데이트 상세 보기"
-                }
+                aria-label={app.name + " 업데이트 기록 보기"}
                 onClick={() => onOpenUpdate(update)}
               >
                 {items.length > 3 && <small>외 {items.length - 3}건</small>}
@@ -213,21 +220,33 @@ export function UpdateFeed({
         <div className="ad-empty">
           <Search />
           <p>
-            {search || category || publisher || hideRequired || !showBugFixes
-              ? "조건에 맞는 업데이트가 없어요."
-              : "아직 등록된 업데이트가 없어요."}
+            {mineOnly && !selected.size
+              ? "내 앱에서 앱을 등록하면 여기에 표시됩니다."
+              : search ||
+                  category ||
+                  publisher ||
+                  hideRequired ||
+                  !showBugFixes ||
+                  mineOnly
+                ? "조건에 맞는 업데이트가 없어요."
+                : "아직 등록된 업데이트가 없어요."}
           </p>
           {(search ||
             category ||
             publisher ||
             hideRequired ||
-            !showBugFixes) && (
+            !showBugFixes ||
+            mineOnly) && (
             <button
               onClick={() => {
                 setCategory("");
                 setQuery("");
                 setPublisher("");
-                save({ showBugFixes: true, hideRequired: false });
+                save({
+                  showBugFixes: true,
+                  hideRequired: false,
+                  mineOnly: false,
+                });
               }}
             >
               전체 업데이트 보기

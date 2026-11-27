@@ -5,6 +5,7 @@ import { UpdateFeed } from "../UpdateFeed";
 import { AppGroupLanding, type AppGroup } from "../AppGroupLanding";
 import { BankOverview } from "../BankOverview";
 import { UpdateDetail } from "../../updates/UpdateDetail";
+import { AppTimeline } from "../../updates/AppTimeline";
 import type { FeedApp, FeedUpdate } from "../model";
 import snapshot from "./releases.json";
 
@@ -139,8 +140,13 @@ function Preview() {
     window.addEventListener("hashchange", sync);
     return () => window.removeEventListener("hashchange", sync);
   }, []);
-  const [route, updateId] = current.split("/");
-  const item = updates.find((u) => u.id === (updateId ?? route));
+  const [route, pathId, timelineReleaseId] = current.split("/");
+  const timelineApp =
+    route === "app" ? apps.find((app) => app.id === pathId) : undefined;
+  const updateId = timelineApp ? timelineReleaseId : (pathId ?? route);
+  const item = updates.find(
+    (u) => u.id === updateId && (!timelineApp || u.appId === timelineApp.id),
+  );
   const landing =
     route === "groups" ||
     (!route && selectedGroups === null && !selected.length);
@@ -228,16 +234,28 @@ function Preview() {
             onSave={saveGroups}
           />
         )}
-        <div hidden={landing || banking || Boolean(item)}>
+        <div hidden={landing || banking || Boolean(item || timelineApp)}>
           <UpdateFeed
             apps={apps}
             updates={updates}
             selectedAppIds={prioritized}
             onOpenUpdate={(u) => {
-              location.hash = "feed/" + u.id;
+              location.hash = "app/" + u.appId;
             }}
           />
         </div>
+        {timelineApp && !item && (
+          <AppTimeline
+            app={timelineApp}
+            updates={updates}
+            onOpenUpdate={(update) => {
+              location.hash = "app/" + timelineApp.id + "/" + update.id;
+            }}
+            onBack={() => {
+              location.hash = "feed";
+            }}
+          />
+        )}
         {banking && !item && (
           <BankOverview
             apps={apps}
@@ -253,12 +271,27 @@ function Preview() {
             update={item}
             history={updates}
             onOpenUpdate={(item) => {
-              location.hash = (banking ? "banks/" : "feed/") + item.id;
+              location.hash =
+                (timelineApp
+                  ? "app/" + timelineApp.id + "/"
+                  : banking
+                    ? "banks/"
+                    : "feed/") + item.id;
             }}
             onBack={() => {
-              location.hash = banking ? "banks" : "feed";
+              location.hash = timelineApp
+                ? "app/" + timelineApp.id
+                : banking
+                  ? "banks"
+                  : "feed";
             }}
-            backLabel={banking ? "은행 앱 한눈에 보기" : undefined}
+            backLabel={
+              timelineApp
+                ? "앱 업데이트 기록"
+                : banking
+                  ? "은행 앱 한눈에 보기"
+                  : undefined
+            }
           />
         )}
       </main>

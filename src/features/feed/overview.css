@@ -275,14 +275,32 @@
   font-weight: 600;
   margin-right: 4px;
 }
-.ad-library-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+.library-controls > button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.ad-library-heading {
+  margin: 0 0 12px;
+  font-size: 15px;
+  font-weight: 600;
 }
 .ad-bank-info ul {
   list-style: disc;
 }
 .ad-bank-filter {
   margin-top: 16px;
+}
+.ad-other-groups {
+  margin-top: 8px;
+}
+.ad-other-groups summary {
+  padding: 12px;
+  color: var(--muted);
+}
+.ad-other-groups > div {
+  margin-top: 4px;
+}
+.ad-library-notice {
+  margin: 0 0 12px;
 }

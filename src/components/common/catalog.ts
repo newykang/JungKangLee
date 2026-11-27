@@ -4,6 +4,7 @@ import { profilesById } from '../../features/ecosystem/graph'
 import publishers from '../../data/publishers.json'
 
 const icons = new Set(Object.keys(import.meta.glob('/public/icons/*.jpg')).map(path => path.split('/').pop()?.slice(0, -4)))
+const releaseCaptures = new Set(Object.keys(import.meta.glob('/public/release-captures/*.jpg')).map(path => path.split('/').pop()))
 const publisherByApp: Record<string, string> = {
   ...publishers,
   'kb-business': 'Kookmin Bank Co., Ltd.',
@@ -36,10 +37,12 @@ export const apps: FeedApp[] = catalog.map(app => {
 })
 
 export const releases = catalog.flatMap(app => app.stores.flatMap(store => store.releases.map(release => {
+  const captureName = release.id.replace(/[^\w.-]+/g, '--') + '.jpg'
   const card: FeedUpdate = {
     id: release.id, appId: app.id, platform: store.platform, version: release.version ?? '미확인',
     releaseDate: release.updatedOn ?? '', releaseNotes: release.releaseNotes ?? '',
     notesAreExcerpt: release.notesAreExcerpt,
+    releaseCaptureUrl: releaseCaptures.has(captureName) ? '/release-captures/' + captureName : undefined,
     added: release.added, changed: release.changed, improved: release.improved, sourceUrl: release.sourceUrl,
   }
   return { card, storeUrl: store.storeUrl, canVote: Boolean(release.version) }
