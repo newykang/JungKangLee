@@ -1,0 +1,89 @@
+[
+  {
+    "id": "kb-star",
+    "name": "KB스타뱅킹",
+    "category": "은행",
+    "stores": [
+      {
+        "platform": "ios",
+        "storeId": "373742138",
+        "name": "KB스타뱅킹",
+        "iconUrl": "/icons/kb-star.jpg",
+        "storeUrl": "https://apps.apple.com/kr/app/id373742138",
+        "sourceUrl": "https://apps.apple.com/kr/app/id373742138",
+        "releases": [
+          {
+            "id": "ios:373742138:6.5.17",
+            "version": "6.5.17",
+            "updatedOn": "2026-11-27",
+            "releaseNotes": "KB스타뱅킹을 더욱 편리하게 이용하실 수 있도록 일부 서비스 사용성을 개선했어요.",
+            "summaryKo": null,
+            "notesAreExcerpt": false,
+            "sourceUrl": "https://apps.apple.com/kr/app/id373742138",
+            "added": [],
+            "improved": [],
+            "changed": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "kb-pay",
+    "name": "KB Pay",
+    "category": "카드",
+    "stores": [
+      {
+        "platform": "ios",
+        "storeId": "695436326",
+        "name": "KB Pay",
+        "iconUrl": "/icons/kb-pay.jpg",
+        "storeUrl": "https://apps.apple.com/kr/app/id695436326",
+        "sourceUrl": "https://apps.apple.com/kr/app/id695436326",
+        "releases": [
+          {
+            "id": "ios:695436326:6.1.8",
+            "version": "6.1.8",
+            "updatedOn": "2026-11-25",
+            "releaseNotes": "·  사용자 편의성 개선",
+            "summaryKo": null,
+            "notesAreExcerpt": false,
+            "sourceUrl": "https://apps.apple.com/kr/app/id695436326",
+            "added": [],
+            "improved": [],
+            "changed": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "kb-mable",
+    "name": "M-able",
+    "category": "증권",
+    "stores": [
+      {
+        "platform": "ios",
+        "storeId": "350742701",
+        "name": "M-able",
+        "iconUrl": "/icons/kb-mable.jpg",
+        "storeUrl": "https://apps.apple.com/kr/app/id350742701",
+        "sourceUrl": "https://apps.apple.com/kr/app/id350742701",
+        "releases": [
+          {
+            "id": "ios:350742701:10.8.4",
+            "version": "10.8.4",
+            "updatedOn": "2026-11-19",
+            "releaseNotes": "-안정선 개선",
+            "summaryKo": null,
+            "notesAreExcerpt": false,
+            "sourceUrl": "https://apps.apple.com/kr/app/id350742701",
+            "added": [],
+            "improved": [],
+            "changed": []
+          }
+        ]
+      }
+    ]
+  }
+]

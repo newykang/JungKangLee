@@ -1,5 +1,6 @@
 import type { AppCatalog, AppRelease, StoreListing, TrackedApp } from '../types'
 import snapshot from './apps.json'
+import bankingSnapshot from '../features/ecosystem/banking.json'
 
 export interface ReleaseDetails extends AppRelease {
   added: string[]
@@ -17,7 +18,9 @@ export interface AppUpdate extends ReleaseDetails {
   platform: StoreListing['platform']
 }
 
-export const appCatalog = snapshot as Omit<AppCatalog, 'apps'> & { apps: AppInfo[] }
+const official = snapshot as Omit<AppCatalog, 'apps'> & { apps: AppInfo[] }
+const knownIds = new Set(official.apps.map(app => app.id))
+export const appCatalog = { ...official, apps: [...official.apps, ...(bankingSnapshot as AppInfo[]).filter(app => !knownIds.has(app.id))] }
 export const apps = appCatalog.apps
 
 export const updates: AppUpdate[] = apps.flatMap(app =>
