@@ -28,7 +28,6 @@ export function BankOverview({
 
   const latest = new Map<string, Map<FeedUpdate["platform"], FeedUpdate>>();
   for (const update of updates) {
-    if (!update.version.trim()) continue;
     const versions = latest.get(update.appId) ?? new Map();
     const current = versions.get(update.platform);
     if (!current || current.releaseDate < update.releaseDate)
@@ -81,7 +80,7 @@ export function BankOverview({
                               onClick={() => onOpenUpdate(update)}
                             >
                               <span>
-                                {platformLabel(update)} · v{update.version}
+                              {platformLabel(update)} · {update.version === "미확인" || !update.version.trim() ? "버전 미확인" : "v" + update.version}
                               </span>
                               {update.releaseDate && (
                                 <time dateTime={update.releaseDate}>

@@ -248,3 +248,13 @@
     justify-items: start;
   }
 }
+.ad-overview {
+  --violet: var(--accent, #503db6);
+}
+.ad-group-settings {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: var(--accent);
+  text-decoration: underline;
+}
+.ad-bank-info ul { list-style: disc; }

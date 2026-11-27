@@ -22,11 +22,15 @@ export function useMyApps(allowed: Set<string>) {
   function onToggleApp(id: string) {
     if (!allowed.has(id)) return
     const next = selectedAppIds.includes(id) ? selectedAppIds.filter(item => item !== id) : [...selectedAppIds, id]
+    saveSelectedApps(next)
+  }
+  function saveSelectedApps(ids: readonly string[]) {
+    const next = [...new Set(ids.filter(id => allowed.has(id)))]
     setSelected(next)
     try {
       localStorage.setItem(key, JSON.stringify(next))
       setStorageMessage('')
     } catch { setStorageMessage('이 브라우저에서는 새로고침하면 선택이 사라져요.') }
   }
-  return { selectedAppIds, onToggleApp, storageMessage }
+  return { selectedAppIds, onToggleApp, storageMessage, saveSelectedApps }
 }
