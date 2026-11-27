@@ -3,13 +3,15 @@ import { ArrowLeft, Search } from 'lucide-react'
 import RelationshipMap, { NodeIcon } from './RelationshipMap'
 import type { Connection } from './RelationshipMap'
 import RelationshipDetails from './RelationshipDetails'
-import { byId, kindLabels, neighbors, nodes, relations, topics } from './graph'
+import { byId, kindLabels, nameHistoryFor, neighbors, nodes, relations, topics } from './graph'
 import type { Filter } from './graph'
+import { searchApps } from '../feed/search'
 import './explorer.css'
 
 export interface EcosystemProps { selectedAppIds: readonly string[] }
 
-const normalize = (value: string) => value.normalize('NFKC').toLowerCase().replace(/[\s·-]/g, '')
+
+const searchIndex = nodes.map(node => ({ ...node, developer: node.operator, nameHistory: nameHistoryFor(node.id) }))
 
 export default function Ecosystem({ selectedAppIds }: EcosystemProps) {
   const [trail, setTrail] = useState<string[]>(['kb-pay'])
@@ -20,8 +22,8 @@ export default function Ecosystem({ selectedAppIds }: EcosystemProps) {
   const all = neighbors(center.id, '전체')
   const connected = filter === '전체' ? all : neighbors(center.id, filter)
   const available = new Set(all.flatMap(item => item.reasons.map(edge => relations[edge.kind][1])))
-  const needle = normalize(query.trim())
-  const matches = needle ? nodes.filter(node => [node.name, node.operator, ...(node.aliases ?? [])].some(value => normalize(value).includes(needle))) : []
+  const results = query.trim() ? searchApps(searchIndex, query) : new Map<string, string[]>()
+  const matches = nodes.filter(node => results.has(node.id))
 
   function changeCenter(nextTrail: string[]) {
     setTrail(nextTrail)
@@ -42,7 +44,7 @@ export default function Ecosystem({ selectedAppIds }: EcosystemProps) {
           placeholder="앱 이름이나 운영사 검색" value={query} onChange={e => setQuery(e.target.value)} onKeyDown={e => { if (e.key === 'Escape') setQuery('') }}/></label>
         {query.trim() && <div className="rel-results"><p role="status">{matches.length ? '검색 결과 ' + matches.length + '개' : '일치하는 앱이나 서비스가 없어요.'}</p>
           {matches.map(node => <button type="button" key={node.id} onClick={() => explore(node.id)}><NodeIcon node={node}/>
-            <span><strong>{node.name}</strong><small>{kindLabels[node.kind]} · {node.operator}</small></span></button>)}</div>}
+            <span><strong>{node.name}</strong><small>{kindLabels[node.kind]} · {node.operator}</small>{results.get(node.id)?.map(note => <small key={note}>{note}</small>)}</span></button>)}</div>}
       </div>
       <label className="rel-select">주제별 탐색<select value={topics.some(([,id])=>id === center.id) ? center.id : ''} onChange={e=>explore(e.target.value)}>
         <option value="" disabled>주제 선택</option>{topics.map(([title,id])=><option key={id} value={id}>{title}</option>)}</select></label>

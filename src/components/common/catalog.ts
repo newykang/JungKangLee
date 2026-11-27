@@ -1,6 +1,6 @@
 import { apps as catalog } from '../../data'
 import type { FeedApp, FeedUpdate } from '../../features/feed/model'
-import { profilesById } from '../../features/ecosystem/graph'
+import { byId, nameHistoryFor, profilesById } from '../../features/ecosystem/graph'
 import publishers from '../../data/publishers.json'
 
 const icons = new Set(Object.keys(import.meta.glob('/public/icons/*.jpg')).map(path => path.split('/').pop()?.slice(0, -4)))
@@ -23,14 +23,17 @@ const bankFeatures: Record<string, readonly string[]> = {
 
 export const apps: FeedApp[] = catalog.map(app => {
   const profile = profilesById.get(app.id)
+  const node = byId.get(app.id)
   const listing = app.stores.find(store => store.platform === 'ios') ?? app.stores[0]
   return {
     id: app.id,
-    developer: publisherByApp[app.id] ?? profile?.developer,
+    developer: publisherByApp[app.id] ?? profile?.developer ?? node?.operator,
+    aliases: [app.name, node?.operator ?? '', ...(node?.aliases ?? []), ...app.stores.map(store => store.name)],
+    nameHistory: nameHistoryFor(app.id),
     name: profile?.name ?? app.name,
     category: app.id === 'kakao-bank' ? '은행' : profile?.category ?? app.category,
     bankFeatures: bankFeatures[app.id] ?? (profile?.category === '은행' ? profile.features : undefined),
-    iconUrl: icons.has(app.id) ? '/icons/' + app.id + '.jpg' : listing?.iconUrl ?? '',
+    iconUrl: icons.has(app.id) ? '/icons/' + app.id + '.jpg' : node?.iconUrl ?? listing?.iconUrl ?? '',
     storeUrl: listing?.storeUrl ?? '',
   }
 })
@@ -38,7 +41,7 @@ export const apps: FeedApp[] = catalog.map(app => {
 export const releases = catalog.flatMap(app => app.stores.flatMap(store => store.releases.map(release => {
   const card: FeedUpdate = {
     id: release.id, appId: app.id, platform: store.platform, version: release.version ?? '미확인',
-    releaseDate: release.updatedOn ?? '', releaseNotes: (release.releaseNotes ?? '') + (release.notesAreExcerpt ? '\n(공식 원문 발췌)' : ''),
+    releaseDate: release.updatedOn ?? '', summaryKo: release.summaryKo, releaseNotes: (release.releaseNotes ?? '') + (release.notesAreExcerpt ? '\n(공식 원문 발췌)' : ''),
     added: release.added, changed: release.changed, improved: release.improved, sourceUrl: release.sourceUrl,
   }
   return { card, storeUrl: store.storeUrl, canVote: Boolean(release.version) }

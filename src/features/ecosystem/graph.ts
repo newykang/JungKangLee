@@ -124,3 +124,14 @@ export function neighbors(id: string, filter: Filter) {
   }
   return [...result].map(([id, reasons]) => ({ node: byId.get(id)!, reasons }))
 }
+
+export function nameHistoryFor(appId: string) {
+  return edges.flatMap(edge => {
+    if (edge.to !== appId || (edge.kind !== 'renamed' && edge.kind !== 'merged')) return []
+    const previous = byId.get(edge.from)!
+    const message = edge.kind === 'renamed'
+      ? `${previous.name}의 현재 이름은 ${byId.get(appId)!.name}입니다.`
+      : edge.reason
+    return [{ name: previous.name, aliases: previous.aliases ?? [], message }]
+  })
+}
