@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowUpRight, BookmarkCheck, Search, X } from "lucide-react";
+import { ChevronRight, BookmarkCheck, Search, X } from "lucide-react";
 import { AppIcon } from "./AppIcon";
 import {
   dateLabel,
@@ -48,10 +48,7 @@ export function UpdateFeed({
     );
   return (
     <section className="ad-feed">
-      <h1>
-        업데이트 피드<span>.</span>
-      </h1>
-      <p className="ad-intro">내가 쓰는 앱, 무엇이 달라졌을까요?</p>
+      <h1>업데이트 피드</h1>
       <div className="ad-search">
         <Search size={19} />
         <input
@@ -78,46 +75,56 @@ export function UpdateFeed({
         ))}
       </div>
       <div className="ad-list-head">
-        <h2>
-          업데이트 <span>{rows.length}</span>
-        </h2>
+        <small aria-live="polite">{rows.length}건</small>
         <small>{selected.size ? "내 앱 우선 · 최신순" : "최신순"}</small>
       </div>
       <div className="ad-grid">
-        {rows.map(({ app, update }, i) => (
-          <button
-            key={update.id}
-            className={"ad-card" + (i === 0 ? " ad-lead" : "")}
-            onClick={() => onOpenUpdate(update)}
-          >
-            <div className="ad-app">
-              <AppIcon app={app} />
-              <div>
-                <strong>{app.name}</strong>
-                <small>
-                  {app.category} · {platformLabel(update)}
-                </small>
+        {rows.map(({ app, update }) => {
+          const summary = headline(update);
+          const limited = summary.endsWith("세부 내용 미공개.");
+          const title = limited
+            ? summary
+                .slice(0, -"세부 내용 미공개.".length)
+                .trim()
+                .replace(/\.$/, "")
+            : summary;
+          return (
+            <button
+              key={update.id}
+              className="ad-card"
+              onClick={() => onOpenUpdate(update)}
+            >
+              <div className="ad-app">
+                <AppIcon app={app} />
+                <div>
+                  <strong>{app.name}</strong>
+                  <small>
+                    {app.category} · {platformLabel(update)} · v{update.version}{" "}
+                    ·{" "}
+                    <time dateTime={update.releaseDate}>
+                      {dateLabel(update.releaseDate)}
+                    </time>
+                  </small>
+                </div>
+                {selected.has(app.id) && (
+                  <BookmarkCheck size={18} aria-label="내 앱" />
+                )}
               </div>
-              {selected.has(app.id) && (
-                <BookmarkCheck size={18} aria-label="내 앱" />
-              )}
-            </div>
-            <div className="ad-tags">
-              {sections
-                .filter((s) => update[s.key].length)
-                .map((s) => (
-                  <span key={s.key}>{s.label}</span>
-                ))}
-            </div>
-            <h3>{headline(update)}</h3>
-            <div className="ad-meta">
-              <span>
-                v{update.version} · <time>{dateLabel(update.releaseDate)}</time>
-              </span>
-              <ArrowUpRight size={18} />
-            </div>
-          </button>
-        ))}
+              <div className="ad-tags">
+                {sections
+                  .filter((s) => update[s.key].length)
+                  .map((s) => (
+                    <span key={s.key}>{s.label}</span>
+                  ))}
+              </div>
+              <div className="ad-summary">
+                <h3>{title || "업데이트"}</h3>
+                <ChevronRight size={16} aria-hidden="true" />
+              </div>
+              {limited && <small>세부 내용 미공개</small>}
+            </button>
+          );
+        })}
       </div>
       {!rows.length && (
         <div className="ad-empty">
