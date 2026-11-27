@@ -1,8 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import type { VersionVote } from '../../types'
-import { getVoteStorage, nextVote, readVote, saveVote, voteKey } from './votes'
+import { getVoteStorage, readVote, saveVote, voteKey } from './votes'
 
-export type ReviewSummary = { releaseId: string; likes: number; dislikes: number; myVote: VersionVote | null }
+export type ReviewSummary = {
+  releaseId: string
+  likes: number
+  dislikes: number
+  myVote: VersionVote | null
+  myReasons: string[]
+  reasonCounts: { vote: VersionVote; id: string; count: number }[]
+}
 type ReviewPayload = { signedIn: boolean; reviews: ReviewSummary[] }
 type ReviewState = { query: string; data?: ReviewPayload; error?: 'unavailable' | 'no-api' }
 
@@ -38,8 +45,8 @@ export function useSharedReviews(query: string) {
     }
   }, [query, revision])
 
-  async function castVote(summary: ReviewSummary, choice: VersionVote) {
-    if (pending.current || !current?.data?.signedIn) return
+  async function castVote(summary: ReviewSummary, vote: VersionVote | null, reasons: string[]) {
+    if (pending.current || !current?.data?.signedIn) return false
     pending.current = true
     setSaving(summary.releaseId)
     setSaveError(undefined)
@@ -47,15 +54,15 @@ export function useSharedReviews(query: string) {
       const response = await fetch('/api/reviews', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ releaseId: summary.releaseId, vote: nextVote(summary.myVote, choice) }),
+        body: JSON.stringify({ releaseId: summary.releaseId, vote, reasons }),
         signal: AbortSignal.timeout(8_000),
       })
       if (response.status === 401) {
         setState(latest => latest?.query === query && latest.data ? {
-          ...latest, data: { signedIn: false, reviews: latest.data.reviews.map(row => ({ ...row, myVote: null })) },
+          ...latest, data: { signedIn: false, reviews: latest.data.reviews.map(row => ({ ...row, myVote: null, myReasons: [] })) },
         } : latest)
         setSaveError({ query, message: '로그인 세션이 만료되었습니다. 다시 로그인해 주세요.' })
-        return
+        return false
       }
       if (!response.ok) throw new Error('Vote save failed')
       const updated: ReviewSummary = await response.json()
@@ -67,8 +74,10 @@ export function useSharedReviews(query: string) {
           reviews: latest.data.reviews.map(row => row.releaseId === updated.releaseId ? updated : row),
         },
       } : latest)
+      return true
     } catch {
       setSaveError({ query, message: '평가 저장을 확인하지 못했습니다. 다시 시도해 주세요.' })
+      return false
     } finally {
       pending.current = false
       setSaving('')

@@ -95,7 +95,7 @@ export default function Reviews({ initialAppId, initialPlatform = 'ios' }: { ini
                       </a>
                       {release.version ? (
                         summary && reviews.data && <ReviewControls summary={summary} version={release.version}
-                          signedIn={reviews.data.signedIn} saving={reviews.saving} onVote={choice => void reviews.castVote(summary, choice)} />
+                          signedIn={reviews.data.signedIn} saving={reviews.saving} onVote={(choice, reasons) => reviews.castVote(summary, choice, reasons)} />
                       ) : (
                         <p className="mt-3 text-sm text-slate-600">공식 출처에 버전이 표시되면 평가할 수 있습니다.</p>
                       )}
