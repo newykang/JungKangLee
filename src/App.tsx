@@ -1,61 +1,44 @@
 import { useEffect, useState } from 'react'
-import { Activity, Compass, Heart, LayoutGrid, Sparkles, Star } from 'lucide-react'
-import Feed from './features/feed'
-import Updates from './features/updates'
+import { Bookmark, ChartNoAxesColumn, House, Network } from 'lucide-react'
+import { apps, appIds, releases, updates } from './components/common/catalog'
+import ReleaseReview from './components/common/ReleaseReview'
+import { UpdateFeed } from './features/feed/UpdateFeed'
+import { UpdateDetail } from './features/updates/UpdateDetail'
 import Reviews from './features/reviews'
 import Ecosystem from './features/ecosystem'
 import MyApps from './features/myapps'
+import { useMyApps } from './features/myapps/useMyApps'
 
 const tabs = [
-  { id: 'feed', label: '피드', icon: LayoutGrid, Page: Feed },
-  { id: 'updates', label: '업데이트', icon: Activity, Page: Updates },
-  { id: 'reviews', label: '평가', icon: Star, Page: Reviews },
-  { id: 'ecosystem', label: '관계도', icon: Compass, Page: Ecosystem },
-  { id: 'myapps', label: '내 앱', icon: Heart, Page: MyApps },
+  { id: 'feed', label: '홈', icon: House },
+  { id: 'myapps', label: '내 앱', icon: Bookmark },
+  { id: 'ecosystem', label: '관계도', icon: Network },
+  { id: 'reviews', label: '평가', icon: ChartNoAxesColumn },
 ] as const
 
-function getActiveTab() {
-  return tabs.find(({ id }) => location.hash === `#${id}`) ?? tabs[0]
-}
-
 export default function App() {
-  const [active, setActive] = useState(getActiveTab)
-  const { Page } = active
-
+  const [route, setRoute] = useState(() => location.hash.slice(1))
+  const selection = useMyApps(appIds)
   useEffect(() => {
-    const onHashChange = () => setActive(getActiveTab())
-    window.addEventListener('hashchange', onHashChange)
-    return () => window.removeEventListener('hashchange', onHashChange)
+    function handleHash() { setRoute(location.hash.slice(1)); window.scrollTo(0, 0) }
+    window.addEventListener('hashchange', handleHash)
+    return () => window.removeEventListener('hashchange', handleHash)
   }, [])
-
-  return (
-    <div className="min-h-dvh">
-      <a href="#main-content" onClick={event => {
-        event.preventDefault()
-        document.getElementById('main-content')?.focus()
-      }} className="sr-only focus:not-sr-only focus:fixed focus:z-20 focus:rounded-lg focus:bg-white focus:p-3">본문으로 건너뛰기</a>
-      <header className="border-b border-slate-100">
-        <div className="mx-auto flex max-w-5xl items-center px-4 py-4 sm:px-8">
-          <a href="#feed" className="inline-flex items-center gap-2 text-xl font-extrabold tracking-tight">
-            <span className="grid size-8 place-items-center rounded-xl bg-indigo-600 text-white"><Sparkles size={17} aria-hidden="true" /></span>
-            appdate
-          </a>
-        </div>
-      </header>
-      <main id="main-content" tabIndex={-1} className="mx-auto max-w-5xl px-4 pt-6 pb-28 sm:px-8 sm:pt-10">
-        <Page />
-      </main>
-      <nav aria-label="주 내비게이션" className="fixed inset-x-0 bottom-0 z-10 border-t border-slate-200 bg-white pb-[env(safe-area-inset-bottom)]">
-        <div className="mx-auto grid max-w-lg grid-cols-5 gap-1 px-2 py-2">
-          {tabs.map(({ id, label, icon: Icon }) => (
-            <a key={id} href={`#${id}`} aria-current={active.id === id ? 'page' : undefined}
-              className={`flex min-h-12 flex-col items-center justify-center gap-1 rounded-xl px-1 text-xs font-medium ${active.id === id ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'}`}>
-              <Icon size={19} aria-hidden="true" />
-              {label}
-            </a>
-          ))}
-        </div>
-      </nav>
-    </div>
-  )
+  const active = tabs.find(item => item.id === route)?.id ?? 'feed'
+  const release = route.startsWith('update/') && releases.find(item => item.card.id === route.slice(7))
+  const app = release && apps.find(item => item.id === release.card.appId)
+  const nav = tabs.map(({ id, label, icon: Icon }) => <a key={id} href={'#' + id} aria-current={active === id ? 'page' : undefined}><Icon size={19} /><span>{label}</span></a>)
+  return <>
+    <a className="skip" href="#content" onClick={event => { event.preventDefault(); document.getElementById('content')?.focus() }}>본문으로 이동</a>
+    <header className="frame-header"><div><a className="brand" href="#feed"><img src="/appdate.svg" alt=""/>appdate</a><nav className="top-nav" aria-label="주 메뉴">{nav}</nav></div></header>
+    <main id="content" tabIndex={-1} className="frame-main">
+      <div hidden={active !== 'feed' || Boolean(release && app)}><UpdateFeed apps={apps} updates={updates} selectedAppIds={selection.selectedAppIds} onOpenUpdate={item => { location.hash = 'update/' + item.id }} /></div>
+      {release && app && <UpdateDetail key={release.card.id} app={{...app, storeUrl: release.storeUrl}} update={release.card} history={updates} onBack={() => { location.hash = 'feed' }}
+        review={release.canVote ? <ReleaseReview key={release.card.id} id={release.card.id} version={release.card.version} /> : <p className="pane">버전이 확인되면 평가할 수 있어요.</p>} />}
+      {active === 'myapps' && <MyApps apps={apps} {...selection} />}
+      {active === 'ecosystem' && <Ecosystem selectedAppIds={selection.selectedAppIds} />}
+      {active === 'reviews' && <Reviews />}
+    </main>
+    <nav className="bottom-nav" aria-label="모바일 주 메뉴">{nav}</nav>
+  </>
 }
