@@ -75,6 +75,31 @@
   border-radius: 12px;
   cursor: pointer;
 }
+.ad-group-picker .ad-platform-picker {
+  margin-bottom: 24px;
+}
+.ad-platform-picker > div {
+  display: flex;
+  gap: 8px;
+}
+.ad-platform-picker label {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  cursor: pointer;
+}
+.ad-platform-picker input {
+  margin: 0;
+  accent-color: var(--violet);
+}
+.ad-platform-picker label:has(:checked) {
+  border-color: var(--violet);
+}
 .ad-group-option + .ad-group-option {
   margin-top: 8px;
 }

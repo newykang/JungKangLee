@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ChevronRight, BookmarkCheck, Search, X } from "lucide-react";
 import { AppIcon } from "./AppIcon";
 import { useFeedPreferences } from "./preferences";
+import { platformNames, type PlatformChoice } from "./usePlatformFeed";
 import {
   isBugFixOnly,
   dateLabel,
@@ -14,12 +15,14 @@ import {
 import "./feed.css";
 
 interface Props {
+  platform: PlatformChoice;
   apps: readonly FeedApp[];
   updates: readonly FeedUpdate[];
   selectedAppIds: readonly string[];
   onOpenUpdate: (update: FeedUpdate) => void;
 }
 export function UpdateFeed({
+  platform,
   apps,
   updates,
   selectedAppIds,
@@ -74,6 +77,9 @@ export function UpdateFeed({
   return (
     <section className="ad-feed">
       <h1>업데이트 피드</h1>
+      <a className="ad-group-settings" href="#groups">
+        운영체제 변경 · {platform === "all" ? "Android + iOS" : platformNames[platform]}
+      </a>
       <button
         type="button"
         className="ad-mine ad-mine-filter"
