@@ -178,6 +178,60 @@
   font-size: 13px;
   color: var(--muted);
 }
+.ad-fix-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  margin-right: auto;
+  cursor: pointer;
+  font-size: 14px;
+}
+.ad-fix-filter input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--violet);
+}
+.ad-preferences {
+  border-bottom: 1px solid var(--line);
+  padding: 8px 0;
+}
+.ad-publisher,
+.ad-checks,
+.ad-preferences fieldset {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+}
+.ad-publisher,
+.ad-preferences summary,
+.ad-preferences legend {
+  font-size: 14px;
+  color: var(--muted);
+}
+.ad-publisher select {
+  font: inherit;
+  color: var(--ink);
+  background: white;
+  border: 1px solid var(--line);
+  padding: 6px 8px;
+  border-radius: 8px;
+  max-width: 100%;
+}
+.ad-preferences .ad-fix-filter {
+  margin: 0;
+}
+.ad-preferences summary {
+  cursor: pointer;
+  padding: 4px 0;
+}
+.ad-preferences fieldset {
+  margin: 8px 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
 .ad-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

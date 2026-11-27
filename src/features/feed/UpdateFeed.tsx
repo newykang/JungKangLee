@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { ChevronRight, BookmarkCheck, Search, X } from "lucide-react";
 import { AppIcon } from "./AppIcon";
+import { useFeedPreferences } from "./preferences";
 import {
+  isBugFixOnly,
   dateLabel,
   headline,
   platformLabel,
@@ -25,7 +27,15 @@ export function UpdateFeed({
 }: Props) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("");
-  const categories = Array.from(new Set(apps.map((app) => app.category)));
+  const [publisher, setPublisher] = useState("");
+  const { preferences, save } = useFeedPreferences();
+  const { showBugFixes, hideRequired, markedIds } = preferences;
+  const categories = [...new Set(apps.map((app) => app.category))];
+  const publisherOf = (app: FeedApp) =>
+    app.developer?.trim() || "퍼블리셔 미확인";
+  const publishers = [...new Set(apps.map(publisherOf))].sort((a, b) =>
+    a.localeCompare(b, "ko"),
+  );
   const selected = new Set(selectedAppIds);
   const catalog = new Map(apps.map((app) => [app.id, app]));
   const search = query.trim().toLocaleLowerCase();
@@ -35,6 +45,10 @@ export function UpdateFeed({
       if (
         !app ||
         (category && app.category !== category) ||
+        (publisher && publisherOf(app) !== publisher) ||
+        (hideRequired &&
+          (app.requiresLatestVersion || markedIds.includes(app.id))) ||
+        (!showBugFixes && isBugFixOnly(update)) ||
         !app.name.toLocaleLowerCase().includes(search)
       )
         return [];
@@ -64,7 +78,10 @@ export function UpdateFeed({
         )}
       </div>
       <div className="ad-filters" aria-label="카테고리">
-        {["", ...categories.filter(Boolean)].map((value) => (
+        {[
+          "",
+          ...categories.filter((value): value is string => Boolean(value)),
+        ].map((value) => (
           <button
             key={value}
             aria-pressed={value === category}
@@ -73,6 +90,64 @@ export function UpdateFeed({
             {value || "전체"}
           </button>
         ))}
+      </div>
+      <div className="ad-preferences">
+        <label className="ad-publisher">
+          퍼블리셔
+          <select
+            value={publisher}
+            onChange={(e) => setPublisher(e.target.value)}
+          >
+            <option value="">전체 퍼블리셔</option>
+            {publishers.map((name) => (
+              <option key={name}>{name}</option>
+            ))}
+          </select>
+        </label>
+        <div className="ad-checks">
+          <label className="ad-fix-filter">
+            <input
+              type="checkbox"
+              checked={showBugFixes}
+              onChange={(e) => save({ showBugFixes: e.target.checked })}
+            />
+            버그 픽스 표시
+          </label>
+          <label className="ad-fix-filter">
+            <input
+              type="checkbox"
+              checked={hideRequired}
+              onChange={(e) => save({ hideRequired: e.target.checked })}
+            />
+            최신 버전 필수 앱 숨기기
+          </label>
+        </div>
+        <details>
+          <summary>최신 버전 필수 앱 지정</summary>
+          <fieldset>
+            <legend>피드에서 숨길 앱 선택</legend>
+            {apps.map((app) => (
+              <label className="ad-fix-filter" key={app.id}>
+                <input
+                  type="checkbox"
+                  disabled={app.requiresLatestVersion}
+                  checked={Boolean(
+                    app.requiresLatestVersion || markedIds.includes(app.id),
+                  )}
+                  onChange={(e) =>
+                    save({
+                      markedIds: e.target.checked
+                        ? [...markedIds, app.id]
+                        : markedIds.filter((id) => id !== app.id),
+                    })
+                  }
+                />
+                {app.name}
+                {app.requiresLatestVersion && " (공식 확인)"}
+              </label>
+            ))}
+          </fieldset>
+        </details>
       </div>
       <div className="ad-list-head">
         <small aria-live="polite">{rows.length}건</small>
@@ -130,15 +205,21 @@ export function UpdateFeed({
         <div className="ad-empty">
           <Search />
           <p>
-            {search || category
+            {search || category || publisher || hideRequired || !showBugFixes
               ? "조건에 맞는 업데이트가 없어요."
               : "아직 등록된 업데이트가 없어요."}
           </p>
-          {(search || category) && (
+          {(search ||
+            category ||
+            publisher ||
+            hideRequired ||
+            !showBugFixes) && (
             <button
               onClick={() => {
                 setCategory("");
                 setQuery("");
+                setPublisher("");
+                save({ showBugFixes: true, hideRequired: false });
               }}
             >
               전체 업데이트 보기
