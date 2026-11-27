@@ -5,10 +5,11 @@ import { maxReasons, reasonOptions, ReviewReasonResults } from './ReviewReasons'
 import { readLegacyVote, type ReviewSummary } from './useSharedReviews'
 import { positiveRate } from './votes'
 
-export function ReviewSignIn({ returnHash }: { returnHash: string }) {
-  const returnTo = '/' + returnHash
-  return <a className="inline-flex min-h-11 items-center text-sm font-semibold text-indigo-700 underline underline-offset-2"
-    href={'/signin-with-chatgpt?return_to=' + encodeURIComponent(returnTo)} target="_top">ChatGPT로 로그인해 평가하기</a>
+export function ReviewSaveError({ message, retry }: { message: string; retry: () => void }) {
+  return <p role="status" className="rounded-xl bg-amber-50 px-3 py-1 text-sm text-amber-900">
+    {message}{' '}
+    <button type="button" className="min-h-11 font-semibold underline underline-offset-2" onClick={retry}>다시 불러오기</button>
+  </p>
 }
 
 export function ReviewLoadError({ error, retry }: { error: 'unavailable' | 'no-api'; retry: () => void }) {
@@ -20,10 +21,10 @@ export function ReviewLoadError({ error, retry }: { error: 'unavailable' | 'no-a
   </p>
 }
 
-export function ReviewControls({ summary, version, signedIn, saving, expandedReasons, onVote }: {
+export function ReviewControls({ summary, version, canVote, saving, expandedReasons, onVote }: {
   summary: ReviewSummary
   version: string
-  signedIn: boolean
+  canVote: boolean
   saving: string
   expandedReasons?: boolean
   onVote: (choice: VersionVote | null, reasons: string[]) => Promise<boolean>
@@ -49,13 +50,13 @@ export function ReviewControls({ summary, version, signedIn, saving, expandedRea
     <p aria-live="polite" className="mb-3 mt-3 flex flex-wrap gap-x-3 gap-y-1 text-sm text-slate-600">
       <span>좋아요 {likes.toLocaleString('ko-KR')}표</span>
       <span>아쉬워요 {dislikes.toLocaleString('ko-KR')}표</span>
-      <span>참여 {(likes + dislikes).toLocaleString('ko-KR')}명</span>
+      <span>전체 {(likes + dislikes).toLocaleString('ko-KR')}표</span>
       <span>{rate === null ? '평가 대기 중' : `긍정 비율 ${rate}%`}</span>
     </p>
     {legacy && <p className="mb-2 text-xs text-slate-600">
       이 브라우저의 이전 평가: {legacy === 'like' ? '좋아요' : '아쉬워요'}. 평가를 다시 제출하면 전체 집계에 반영됩니다.
     </p>}
-    {signedIn && <div aria-busy={saving === releaseId}>
+    {canVote && <div aria-busy={saving === releaseId}>
       <div className="review-vote-actions">
         {([{ value: 'like', label: '좋아요', Icon: ThumbsUp }, { value: 'dislike', label: '아쉬워요', Icon: ThumbsDown }] as const)
           .map(({ value, label, Icon }) => (

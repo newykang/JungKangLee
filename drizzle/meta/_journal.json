@@ -3,6 +3,7 @@
   "dialect": "sqlite",
   "entries": [
     { "idx": 0, "version": "6", "when": 1795730400000, "tag": "0000_release_votes", "breakpoints": true },
-    { "idx": 1, "version": "6", "when": 1795740000000, "tag": "0001_vote_reasons", "breakpoints": true }
+    { "idx": 1, "version": "6", "when": 1795762800000, "tag": "0001_review_visitors", "breakpoints": true },
+    { "idx": 2, "version": "6", "when": 1795762801000, "tag": "0002_vote_reasons", "breakpoints": true }
   ]
 }

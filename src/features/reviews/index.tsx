@@ -2,7 +2,7 @@ import { lazy, Suspense, useState } from 'react'
 import { ExternalLink } from 'lucide-react'
 import type { AppPlatform } from '../../types'
 import { appCatalog } from '../../data'
-import { ReviewControls, ReviewLoadError, ReviewSignIn } from './ReviewControls'
+import { ReviewControls, ReviewLoadError, ReviewSaveError } from './ReviewControls'
 import { useSharedReviews } from './useSharedReviews'
 
 const VersionChart = lazy(() => import('./VersionChart'))
@@ -66,8 +66,7 @@ export default function Reviews({ initialAppId, initialPlatform = 'ios' }: { ini
 
           {reviews.loading && <p role="status" className="text-sm text-slate-600">평가를 불러오는 중입니다.</p>}
           {reviews.error && <ReviewLoadError error={reviews.error} retry={reviews.retry} />}
-          {reviews.saveError && <p role="status" className="rounded-xl bg-amber-50 p-3 text-sm text-amber-900">{reviews.saveError}</p>}
-          {reviews.data && !reviews.data.signedIn && app && <ReviewSignIn returnHash={`#reviews/${app.id}/${platform}`} />}
+          {reviews.saveError && <ReviewSaveError message={reviews.saveError} retry={reviews.retry} />}
 
           {releases.length === 0 ? (
             <p className="rounded-2xl border border-slate-200 p-4 text-sm text-slate-600">{platforms[platform]}에서 확인된 업데이트가 없습니다.</p>
@@ -95,7 +94,7 @@ export default function Reviews({ initialAppId, initialPlatform = 'ios' }: { ini
                       </a>
                       {release.version ? (
                         summary && reviews.data && <ReviewControls summary={summary} version={release.version}
-                          signedIn={reviews.data.signedIn} saving={reviews.saving} onVote={(choice, reasons) => reviews.castVote(summary, choice, reasons)} />
+                          canVote={reviews.data.canVote} saving={reviews.saving} onVote={(choice, reasons) => reviews.castVote(summary, choice, reasons)} />
                       ) : (
                         <p className="mt-3 text-sm text-slate-600">공식 출처에 버전이 표시되면 평가할 수 있습니다.</p>
                       )}

@@ -28,13 +28,39 @@ function formatSummary(row) {
   return { ...row, myReasons: JSON.parse(row.myReasons), reasonCounts: JSON.parse(row.reasonCounts) }
 }
 
-async function voterKey(request) {
-  // Sites injects this header after authenticating the visitor at the edge.
-  const id = request.headers.get('oai-authenticated-user-id')
-  if (!id) return null
-  const bytes = new TextEncoder().encode('appdate:release-vote:' + id)
+const visitorCookie = '__Host-appdate-voter'
+const visitorTokenPattern = /^[\da-f]{8}-[\da-f]{4}-4[\da-f]{3}-[89ab][\da-f]{3}-[\da-f]{12}$/
+
+async function hashVoter(namespace, id) {
+  const bytes = new TextEncoder().encode(namespace + id)
   const hash = await crypto.subtle.digest('SHA-256', bytes)
   return Array.from(new Uint8Array(hash), byte => byte.toString(16).padStart(2, '0')).join('')
+}
+
+async function findVoter(request, db) {
+  // Sites supplies this header after authenticating the visitor at the edge.
+  const account = request.headers.get('oai-authenticated-user-id')
+  if (account) return { key: await hashVoter('appdate:release-vote:', account), signedIn: true }
+
+  const cookiePrefix = visitorCookie + '='
+  const token = request.headers.get('Cookie')?.split(';').map(cookie => cookie.trim())
+    .find(cookie => cookie.startsWith(cookiePrefix))?.slice(cookiePrefix.length)
+  if (!token || !visitorTokenPattern.test(token)) return null
+
+  const key = await hashVoter('appdate:browser-vote:', token)
+  const { results } = await db.prepare('SELECT 1 FROM review_visitors WHERE voter_key = ?').bind(key).all()
+  return results.length ? { key, signedIn: false } : null
+}
+
+async function createVisitor(db) {
+  const token = crypto.randomUUID()
+  const key = await hashVoter('appdate:browser-vote:', token)
+  await db.prepare('INSERT INTO review_visitors (voter_key) VALUES (?)').bind(key).run()
+  return {
+    key,
+    signedIn: false,
+    cookie: visitorCookie + '=' + token + '; Path=/; Max-Age=31536000; Secure; HttpOnly; SameSite=Lax',
+  }
 }
 
 async function readVoteBody(request) {
@@ -73,9 +99,7 @@ export function createReviewsHandler({ apps, updates, json, error }) {
     }
 
     try {
-      const voter = await voterKey(request)
       if (method === 'PUT') {
-        if (!voter) return error(request, 401, 'SIGN_IN_REQUIRED', '로그인 후 평가할 수 있습니다.')
         if (request.headers.get('Origin') !== origin) {
           return error(request, 403, 'INVALID_ORIGIN', '이 사이트에서 평가를 제출해 주세요.')
         }
@@ -91,9 +115,12 @@ export function createReviewsHandler({ apps, updates, json, error }) {
           return error(request, 400, 'INVALID_REASONS', '평가 이유를 확인해 주세요.')
         }
 
+        const voter = await findVoter(request, db)
+        if (!voter) return error(request, 401, 'VOTER_COOKIE_REQUIRED', '쿠키를 허용한 후 평가 화면을 다시 불러와 주세요.')
+
         const encodedReasons = reasons === undefined ? null : JSON.stringify(reasons)
         const mutation = vote === null
-          ? db.prepare('DELETE FROM release_votes WHERE release_id = ? AND voter_key = ?').bind(releaseId, voter)
+          ? db.prepare('DELETE FROM release_votes WHERE release_id = ? AND voter_key = ?').bind(releaseId, voter.key)
           : db.prepare(`
             INSERT INTO release_votes (release_id, voter_key, vote, reason_ids)
             VALUES (?, ?, ?, COALESCE(?, '[]'))
@@ -101,8 +128,8 @@ export function createReviewsHandler({ apps, updates, json, error }) {
               reason_ids = CASE WHEN ? IS NULL AND release_votes.vote = excluded.vote
                 THEN release_votes.reason_ids ELSE excluded.reason_ids END,
               vote = excluded.vote
-          `).bind(releaseId, voter, vote, encodedReasons, encodedReasons)
-        const [, summary] = await db.batch([mutation, db.prepare(summarySql).bind(voter, voter, JSON.stringify([releaseId]))])
+          `).bind(releaseId, voter.key, vote, encodedReasons, encodedReasons)
+        const [, summary] = await db.batch([mutation, db.prepare(summarySql).bind(voter.key, voter.key, JSON.stringify([releaseId]))])
         return json(request, formatSummary(summary.results[0]))
       }
 
@@ -122,8 +149,13 @@ export function createReviewsHandler({ apps, updates, json, error }) {
         return error(request, 400, 'INVALID_FILTER', '앱과 플랫폼 또는 릴리스를 확인해 주세요.')
       }
 
-      const { results } = await db.prepare(summarySql).bind(voter, voter, JSON.stringify(releaseIds)).all()
-      return json(request, { signedIn: voter !== null, reviews: results.map(formatSummary) })
+      let voter = await findVoter(request, db)
+      if (!voter && releaseIds.length && request.headers.get('Sec-Fetch-Site') !== 'cross-site') {
+        voter = await createVisitor(db)
+      }
+      const { results } = await db.prepare(summarySql).bind(voter?.key ?? null, voter?.key ?? null, JSON.stringify(releaseIds)).all()
+      return json(request, { signedIn: voter?.signedIn ?? false, canVote: Boolean(voter), reviews: results.map(formatSummary) }, 200,
+        voter?.cookie ? { 'Set-Cookie': voter.cookie } : undefined)
     } catch (exception) {
       console.error('Review database request failed', exception instanceof Error ? exception.name : 'UnknownError')
       return error(request, 503, 'REVIEWS_UNAVAILABLE', '평가 서버에 연결할 수 없습니다. 잠시 후 다시 시도해 주세요.')

@@ -14,14 +14,16 @@ const origin = 'https://appdate.test'
 function fixture(t, beforeMigration = () => {}) {
   const sql = new DatabaseSync(':memory:')
   sql.exec(readFileSync(new URL('../drizzle/0000_release_votes.sql', import.meta.url), 'utf8'))
+  sql.exec(readFileSync(new URL('../drizzle/0001_review_visitors.sql', import.meta.url), 'utf8'))
   beforeMigration(sql)
-  sql.exec(readFileSync(new URL('../drizzle/0001_vote_reasons.sql', import.meta.url), 'utf8'))
+  sql.exec(readFileSync(new URL('../drizzle/0002_vote_reasons.sql', import.meta.url), 'utf8'))
   t.after(() => sql.close())
   const env = { DB: {
     prepare(query) {
       const statement = sql.prepare(query)
       return { bind: (...values) => ({
         all: async () => ({ results: statement.all(...values) }),
+        run: async () => statement.run(...values),
         execute: () => statement.all(...values),
       }) }
     },
@@ -37,9 +39,11 @@ function fixture(t, beforeMigration = () => {}) {
       }
     },
   } }
-  function request(path, { user, method = 'GET', body, from = origin } = {}) {
+  function request(path, { user, cookie, method = 'GET', body, from = origin, fetchSite } = {}) {
     const headers = new Headers()
     if (user) headers.set('oai-authenticated-user-id', user)
+    if (cookie) headers.set('Cookie', cookie)
+    if (fetchSite) headers.set('Sec-Fetch-Site', fetchSite)
     if (method === 'PUT') {
       headers.set('Origin', from)
       headers.set('Content-Type', 'application/json')
@@ -71,6 +75,7 @@ test('combines distinct accounts, replaces or removes only their own vote, and s
   await write('first', 'dislike', 'android:1')
   assert.deepEqual(await read(), {
     signedIn: false,
+    canVote: true,
     reviews: [{ releaseId: 'ios:1', likes: 2, dislikes: 1, myVote: null, myReasons: [], reasonCounts: [] }],
   })
   assert.deepEqual((await read('first')).reviews[0], { releaseId: 'ios:1', likes: 2, dislikes: 1, myVote: 'like', myReasons: [], reasonCounts: [] })
@@ -78,14 +83,59 @@ test('combines distinct accounts, replaces or removes only their own vote, and s
   assert.deepEqual(await write('first', null), { releaseId: 'ios:1', likes: 1, dislikes: 1, myVote: null, myReasons: [], reasonCounts: [] })
 })
 
-test('rejects anonymous, cross-origin, invalid and unversioned votes', async t => {
+test('rejects unissued visitors, cross-origin requests, invalid and unversioned votes', async t => {
   const { request, read } = fixture(t)
   const body = { releaseId: 'ios:1', vote: 'like' }
   assert.equal((await request('', { method: 'PUT', body })).status, 401)
+  const unissued = '__Host-appdate-voter=12345678-0000-4000-8000-123456789012'
+  assert.equal((await request('', { method: 'PUT', body, cookie: unissued })).status, 401)
   assert.equal((await request('', { method: 'PUT', body, user: 'first', from: 'https://elsewhere.test' })).status, 403)
   assert.equal((await request('', { method: 'PUT', body: { ...body, vote: 'maybe' }, user: 'first' })).status, 400)
   assert.equal((await request('', { method: 'PUT', body: { ...body, releaseId: 'ios:unknown' }, user: 'first' })).status, 404)
   assert.deepEqual((await read()).reviews[0], { releaseId: 'ios:1', likes: 0, dislikes: 0, myVote: null, myReasons: [], reasonCounts: [] })
+})
+
+test('anonymous browsers can vote, persist, switch, and remove their own vote', async t => {
+  const { request } = fixture(t)
+  const query = '?appId=app&platform=ios'
+  async function startVisitor() {
+    const response = await request(query)
+    const header = response.headers.get('Set-Cookie')
+    assert.match(header, /^__Host-appdate-voter=/)
+    assert.match(header, /Path=\/; Max-Age=31536000; Secure; HttpOnly; SameSite=Lax$/)
+    const { signedIn, canVote, reviews } = await response.json()
+    assert.equal(signedIn, false)
+    assert.equal(canVote, true)
+    assert.equal(reviews[0].myVote, null)
+    return header.split(';')[0]
+  }
+  async function vote(cookie, choice, reasons) {
+    const response = await request('', { method: 'PUT', cookie, body: { releaseId: 'ios:1', vote: choice, reasons } })
+    assert.equal(response.status, 200)
+    return response.json()
+  }
+
+  const first = await startVisitor()
+  assert.deepEqual(await vote(first, 'like'), { releaseId: 'ios:1', likes: 1, dislikes: 0, myVote: 'like', myReasons: [], reasonCounts: [] })
+  assert.deepEqual(await vote(first, 'like'), { releaseId: 'ios:1', likes: 1, dislikes: 0, myVote: 'like', myReasons: [], reasonCounts: [] })
+  const second = await startVisitor()
+  assert.deepEqual(await vote(second, 'dislike'), { releaseId: 'ios:1', likes: 1, dislikes: 1, myVote: 'dislike', myReasons: [], reasonCounts: [] })
+
+  const persisted = await request(query, { cookie: first })
+  assert.equal(persisted.headers.has('Set-Cookie'), false)
+  assert.equal((await persisted.json()).reviews[0].myVote, 'like')
+  assert.deepEqual(await vote(first, 'dislike'), { releaseId: 'ios:1', likes: 0, dislikes: 2, myVote: 'dislike', myReasons: [], reasonCounts: [] })
+  assert.deepEqual(await vote(first, null), { releaseId: 'ios:1', likes: 0, dislikes: 1, myVote: null, myReasons: [], reasonCounts: [] })
+
+  const guestReason = await vote(second, 'dislike', ['speed'])
+  assert.deepEqual(guestReason.myReasons, ['speed'])
+  assert.deepEqual(guestReason.reasonCounts, [{ vote: 'dislike', id: 'speed', count: 1 }])
+  const expired = await request(query)
+  assert.deepEqual((await expired.json()).reviews[0].myReasons, [])
+
+  const crossSite = await request(query, { fetchSite: 'cross-site' })
+  assert.equal(crossSite.headers.has('Set-Cookie'), false)
+  assert.equal((await crossSite.json()).canVote, false)
 })
 
 test('aggregates reasons by sentiment and changes or removes them with their vote', async t => {
