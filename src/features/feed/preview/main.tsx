@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { Bookmark, Layers2 } from "lucide-react";
 import { UpdateFeed } from "../UpdateFeed";
+import { usePlatformFeed, type PlatformChoice } from "../usePlatformFeed";
 import { AppGroupLanding, type AppGroup } from "../AppGroupLanding";
 import { BankOverview } from "../BankOverview";
 import { UpdateDetail } from "../../updates/UpdateDetail";
@@ -128,6 +129,7 @@ function readSelection(): string[] {
   }
 }
 function Preview() {
+  const { platform, savePlatform, feedUpdates } = usePlatformFeed(updates);
   const [selected, setSelected] = useState(readSelection);
   const [selectedGroups, setSelectedGroups] = useState(readGroups);
   const [editing, setEditing] = useState(false);
@@ -155,7 +157,8 @@ function Preview() {
     .filter((group) => selectedGroups?.includes(group.id))
     .flatMap((group) => group.apps.map((app) => app.id));
   const prioritized = [...new Set([...selected, ...groupApps])];
-  function saveGroups(ids: string[]) {
+  function saveGroups(ids: string[], nextPlatform: PlatformChoice) {
+    savePlatform(nextPlatform);
     setSelectedGroups(ids);
     try {
       localStorage.setItem(groupKey, JSON.stringify(ids));
@@ -229,6 +232,7 @@ function Preview() {
       <main>
         {landing && (
           <AppGroupLanding
+            platform={platform}
             groups={groups}
             selected={selectedGroups ?? []}
             onSave={saveGroups}
@@ -236,8 +240,9 @@ function Preview() {
         )}
         <div hidden={landing || banking || Boolean(item || timelineApp)}>
           <UpdateFeed
+            platform={platform}
             apps={apps}
-            updates={updates}
+            updates={feedUpdates}
             selectedAppIds={prioritized}
             onOpenUpdate={(u) => {
               location.hash = "app/" + u.appId;
@@ -247,7 +252,7 @@ function Preview() {
         {timelineApp && !item && (
           <AppTimeline
             app={timelineApp}
-            updates={updates}
+            updates={feedUpdates}
             onOpenUpdate={(update) => {
               location.hash = "app/" + timelineApp.id + "/" + update.id;
             }}
@@ -269,7 +274,7 @@ function Preview() {
           <UpdateDetail
             app={apps.find((app) => app.id === item.appId)!}
             update={item}
-            history={updates}
+            history={timelineApp ? feedUpdates : updates}
             onOpenUpdate={(item) => {
               location.hash =
                 (timelineApp

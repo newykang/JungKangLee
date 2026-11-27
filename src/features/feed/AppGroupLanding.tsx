@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ArrowRight, Check } from "lucide-react";
 import { AppIcon } from "./AppIcon";
 import type { FeedApp } from "./model";
+import { platformNames, type PlatformChoice } from "./usePlatformFeed";
 import "./overview.css";
 
 export interface AppGroup {
@@ -13,13 +14,16 @@ export interface AppGroup {
 export function AppGroupLanding({
   groups,
   selected,
+  platform,
   onSave,
 }: {
   groups: AppGroup[];
   selected: string[];
-  onSave: (ids: string[]) => void;
+  platform: PlatformChoice;
+  onSave: (ids: string[], platform: PlatformChoice) => void;
 }) {
   const [draft, setDraft] = useState(selected);
+  const [draftPlatform, setDraftPlatform] = useState(platform);
   const featured = groups.filter((group) => !group.id.startsWith("bank:"));
   const otherBanks = groups.filter((group) => group.id.startsWith("bank:"));
   function toggle(id: string) {
@@ -46,9 +50,21 @@ export function AppGroupLanding({
         className="ad-group-picker"
         onSubmit={(event) => {
           event.preventDefault();
-          onSave(draft);
+          onSave(draft, draftPlatform);
         }}
       >
+        <fieldset className="ad-platform-picker">
+          <legend>업데이트를 볼 운영체제</legend>
+          <div>
+            {(["android", "ios", "all"] as const).map(value => (
+              <label key={value}>
+                <input type="radio" name="platform" checked={draftPlatform === value}
+                  onChange={() => setDraftPlatform(value)} />
+                {platformNames[value]}
+              </label>
+            ))}
+          </div>
+        </fieldset>
         <fieldset>
           <legend>사용하는 앱 그룹</legend>
           {featured.map(renderGroup)}
@@ -67,7 +83,7 @@ export function AppGroupLanding({
         </fieldset>
         <div className="ad-group-actions">
           <button className="ad-start" type="submit">
-            {draft.length ? "선택 저장하고 피드 보기" : "전체 피드 보기"}
+            {draft.length || draftPlatform !== "all" ? "선택 저장하고 피드 보기" : "전체 피드 보기"}
             <ArrowRight size={16} strokeWidth={1.5} aria-hidden="true" />
           </button>
         </div>
