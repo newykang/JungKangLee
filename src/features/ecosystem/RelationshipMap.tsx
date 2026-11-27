@@ -1,52 +1,81 @@
-import { useId } from 'react'
-import { isDirectional, kindLabels, palette, relations } from './graph'
-import type { Edge, GraphNode } from './graph'
+import { useState } from 'react'
+import {
+  Archive, ArrowLeftRight, BookOpen, Bookmark, Building2, ChartNoAxesColumn,
+  CreditCard, Fingerprint, FolderTree, GitMerge, History, Landmark, Layers,
+  Link2, PencilLine, Shapes, Smartphone, Tag, Users, Wallet,
+} from 'lucide-react'
+import { kindLabels, palette, relations } from './graph'
+import type { Edge, GraphNode, Relation } from './graph'
 
-type Connection = { node: GraphNode; reasons: Edge[] }
+const relationIcons = {
+  group: FolderTree, operator: Building2, brand: Tag, overlap: Layers, specialization: Users,
+  similarName: PencilLine, includes: Shapes, interop: Link2, merged: GitMerge, renamed: ArrowLeftRight,
+} satisfies Record<Relation, typeof Layers>
+
+const relationText: Record<Relation, string> = {
+  group: '같은 그룹', operator: '같은 운영사', brand: '같은 브랜드', overlap: '비슷한 기능',
+  specialization: '다른 이용 대상', similarName: '비슷한 이름', includes: '앱 안의 서비스',
+  interop: '서비스 연결', merged: '서비스 통합', renamed: '이름 변경',
+}
+
+export function RelationLabel({ kind, label }: { kind: Relation; label?: string }) {
+  const Icon = relationIcons[kind]
+  return <span className="rel-label" style={{ color: palette[relations[kind][1]].color }}>
+    <Icon size={21} aria-hidden="true"/>{label ?? relationText[kind]}
+  </span>
+}
+
+function cardLabel(edge: Edge, node: GraphNode) {
+  const isSource = edge.from === node.id
+  if (edge.kind === 'renamed') return isSource ? '예전 이름' : '바뀐 이름'
+  if (edge.kind === 'merged') return isSource ? kindLabels[node.kind] + ' 통합' : '통합된 곳'
+  if (edge.kind === 'includes') return isSource ? '여기서 이용' : '앱 안의 서비스'
+  return relationText[edge.kind]
+}
+
+const categoryIcons: Record<string, typeof Layers> = {
+  '은행': Landmark, '증권': ChartNoAxesColumn, '카드': CreditCard, '공공 인증': Fingerprint,
+  '자산·혜택': Wallet, '훈련': BookOpen, '통신': Smartphone,
+}
+
+export function NodeIcon({ node }: { node: GraphNode }) {
+  const [failedUrl, setFailedUrl] = useState('')
+  if (node.iconUrl && node.iconUrl !== failedUrl) {
+    return <img className="rel-art" src={node.iconUrl} alt="" onError={() => setFailedUrl(node.iconUrl!)} />
+  }
+  const Icon = categoryIcons[node.category] ?? (node.kind === 'legacyService' ? Archive : node.kind === 'legacy' ? History : Layers)
+  return <span className={'rel-art rel-fallback ' + node.kind} aria-hidden="true"><Icon/></span>
+}
+
+export interface Connection { node: GraphNode; reasons: Edge[] }
+
 interface MapProps {
   center: GraphNode
   connections: Connection[]
   selectedAppIds: readonly string[]
-  onExplore: (id: string) => void
+  onSelect: (connection: Connection) => void
 }
-
-export default function RelationshipMap({ center, connections, selectedAppIds, onExplore }: MapProps) {
-  const uid = useId().replace(/:/g, '')
-  const height = Math.max(165, connections.length * 57 + 22)
-  const mid = height / 2
-  const rightY = (index: number) => mid + (index - (connections.length - 1) / 2) * 57
-  const families = new Set(connections.flatMap(({ reasons }) => reasons.map(edge => relations[edge.kind][1])))
-  return <figure className="rel-map">
-    <svg viewBox={`0 0 356 ${height}`} role="group" aria-label={center.name + ' 중심 관계도'}>
-      <defs>{Object.entries(palette).map(([family, style], i) => <marker key={family} id={uid + '-arrow-' + i}
-        viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-        <path d="M0 0 L8 4 L0 8 Z" fill={style.color} /></marker>)}</defs>
-      {connections.map(({ node, reasons }, i) => reasons.map((edge, j) => {
-        const family = relations[edge.kind][1], style = palette[family]
-        const offset = (j - (reasons.length - 1) / 2) * 8
-        const y1 = mid + offset, y2 = rightY(i) + offset
-        const marker = isDirectional(edge.kind) ? `url(#${uid}-arrow-${Object.keys(palette).indexOf(family)})` : undefined
-        return <path key={node.id + edge.kind} d={`M119 ${y1} C165 ${y1},162 ${y2},207 ${y2}`}
-          stroke={style.color} strokeWidth="2" strokeDasharray={style.dash} fill="none"
-          markerStart={edge.from === node.id ? marker : undefined} markerEnd={edge.to === node.id ? marker : undefined}>
-          <title>{[edge.from === center.id ? center.name : node.name, relations[edge.kind][0], edge.to === center.id ? center.name : node.name].join(' · ')}</title>
-        </path>
-      }))}
-      <rect x="7" y={mid-47} width="110" height="94" rx="17" fill="#43358a"/>
-      {center.iconUrl ? <image x="46" y={mid-36} width="32" height="32" href={center.iconUrl} /> : <text x="62" y={mid-13} textAnchor="middle" fill="#eeeaff" fontSize="13">{kindLabels[center.kind]}</text>}
-      <text x="62" y={mid+16} textAnchor="middle" fill="white" fontSize={center.name.length > 9 ? 12 : 14} fontWeight="700">{center.name}</text>
-      <text x="62" y={mid+34} textAnchor="middle" fill="#e0dafd" fontSize="12">{selectedAppIds.includes(center.id) ? '내 앱 · 기준' : '기준'}</text>
-      {connections.map(({node, reasons}, i) => <g key={node.id} role="button" className="rel-node" tabIndex={0}
-        aria-label={node.name + ' 중심으로 탐색'} onClick={() => onExplore(node.id)}
-        onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onExplore(node.id) } }}>
-        <rect x="210" y={rightY(i)-23} width="141" height="46" rx="10" fill="white" stroke="#cfcadd" />
-        <text x="280" y={rightY(i)-2} textAnchor="middle" fontSize="14" fontWeight="650" fill="#282138">{node.name}</text>
-        <text x="280" y={rightY(i)+15} textAnchor="middle" fontSize="12" fill="#615a70">
-          {selectedAppIds.includes(node.id) ? '내 앱 · ' : ''}{relations[reasons[0].kind][0]}{reasons.length > 1 && ' +' + (reasons.length - 1)}
-        </text>
-      </g>)}
-    </svg>
-    <figcaption>{[...families].map(family => <span key={family}><svg width="23" height="10" aria-hidden="true">
-      <line x1="1" y1="5" x2="22" y2="5" stroke={palette[family].color} strokeWidth="2" strokeDasharray={palette[family].dash}/></svg>{family}</span>)}</figcaption>
-  </figure>
+export default function RelationshipMap({ center, connections, selectedAppIds, onSelect }: MapProps) {
+  return <div className="rel-map" role="group" aria-label={center.name + ' 중심 관계도'}>
+    <div className="rel-origin">
+      <NodeIcon node={center}/>
+      <div><span className="rel-caption">기준 {center.kind === 'app' ? '앱' : kindLabels[center.kind]}</span>
+        <h2 id="rel-center" tabIndex={-1}>{center.name}</h2>
+        {selectedAppIds.includes(center.id) && <span className="rel-saved"><Bookmark size={16}/>내 앱</span>}
+      </div>
+    </div>
+    <div className="rel-branch"><span>연결된 앱·서비스 {connections.length}개</span></div>
+    <ul className="rel-grid">
+      {connections.map(connection => {
+        const { node, reasons } = connection
+        return <li key={node.id}><button className="rel-card" type="button" aria-haspopup="dialog"
+          onClick={() => onSelect(connection)}>
+          <NodeIcon node={node}/>
+          <strong>{node.name}</strong>
+          <span className="rel-labels">{reasons.map(edge => <RelationLabel key={edge.kind} kind={edge.kind} label={cardLabel(edge, node)}/>)}</span>
+          {selectedAppIds.includes(node.id) && <span className="rel-saved"><Bookmark size={16}/>내 앱</span>}
+        </button></li>
+      })}
+    </ul>
+  </div>
 }
