@@ -1,0 +1,100 @@
+[
+  {
+    "id": "kakaotalk",
+    "name": "카카오톡",
+    "category": "SNS",
+    "purpose": "친구와 채팅하거나 통화할 때",
+    "features": [
+      "메시지",
+      "음성 통화",
+      "그룹 채팅"
+    ],
+    "developer": "Kakao Corp.",
+    "storeUrl": "https://apps.apple.com/kr/app/id362057947",
+    "iconUrl": "/icons/kakaotalk.jpg"
+  },
+  {
+    "id": "kakao-pay",
+    "name": "카카오페이",
+    "category": "금융",
+    "purpose": "카톡 친구에게 송금하거나 매장에서 결제할 때",
+    "features": [
+      "송금",
+      "간편 결제",
+      "자산 조회"
+    ],
+    "developer": "kakaopay corp.",
+    "storeUrl": "https://apps.apple.com/kr/app/id1464496236",
+    "iconUrl": "/icons/kakao-pay.jpg"
+  },
+  {
+    "id": "kb-star",
+    "name": "KB스타뱅킹",
+    "category": "은행",
+    "purpose": "계좌를 개설하고 은행 업무를 볼 때",
+    "features": [
+      "계좌 개설",
+      "송금",
+      "KB Pay 결제"
+    ],
+    "developer": "Kookmin Bank Co., Ltd.",
+    "storeUrl": "https://apps.apple.com/kr/app/id373742138",
+    "iconUrl": "/icons/kb-star.jpg"
+  },
+  {
+    "id": "kb-pay",
+    "name": "KB Pay",
+    "category": "카드",
+    "purpose": "매장에서 결제하고 카드 이용 내역을 볼 때",
+    "features": [
+      "간편 결제",
+      "카드 관리",
+      "이용 내역"
+    ],
+    "developer": "KB KOOKMINCARD CO., LTD.",
+    "storeUrl": "https://apps.apple.com/kr/app/id695436326",
+    "iconUrl": "/icons/kb-pay.jpg"
+  },
+  {
+    "id": "kb-mable",
+    "name": "M-able",
+    "category": "증권",
+    "purpose": "주식 시세를 확인하고 매매할 때",
+    "features": [
+      "주식 주문",
+      "시세 조회",
+      "잔고 조회"
+    ],
+    "developer": "KB Securities Co., Ltd.",
+    "storeUrl": "https://apps.apple.com/kr/app/id350742701",
+    "iconUrl": "/icons/kb-mable.jpg"
+  },
+  {
+    "id": "kakao-map",
+    "name": "카카오맵",
+    "category": "생활",
+    "purpose": "주변 장소를 찾고 이동 경로를 고를 때",
+    "features": [
+      "길찾기",
+      "장소 검색",
+      "내비게이션"
+    ],
+    "developer": "Kakao Corp.",
+    "storeUrl": "https://apps.apple.com/kr/app/id304608425",
+    "iconUrl": "/icons/kakao-map.jpg"
+  },
+  {
+    "id": "naver-map",
+    "name": "네이버지도",
+    "category": "생활",
+    "purpose": "이동 경로와 방문할 장소를 함께 찾을 때",
+    "features": [
+      "길찾기",
+      "장소 검색",
+      "네이버 예약"
+    ],
+    "developer": "NAVER Corp.",
+    "storeUrl": "https://apps.apple.com/kr/app/id311867728",
+    "iconUrl": "/icons/naver-map.jpg"
+  }
+]
