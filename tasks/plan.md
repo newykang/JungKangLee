@@ -2,37 +2,32 @@
 
 ## 시연 범위
 
-- 사용자가 모바일 웹에서 Google Play 관심 앱을 선택하고, 선택한 앱의 업데이트를 최신순으로 확인한다. 각 카드에서 핵심 변경사항과 개발사 공식 출처를 볼 수 있다. 새로고침 후에도 같은 브라우저에서 선택이 유지된다.
-- 공식 출처와 대조한 앱 3개, 업데이트 기록 4개 이상으로 시작한다. 피드에는 `검증된 시연용 샘플`이라고 표시한다. 번역·요약은 원문에 근거하고, 원문에 없는 기능이나 날짜는 표시하지 않는다.
-- 정적 웹을 저장소 루트에서 제공한다. 시작 시 저장소에 앱 뼈대가 없으면 HTML·CSS·JavaScript와 로컬 JSON을 사용한다. 계정, DB, 네이티브 Android, 푸시 알림은 후속 범위다. 실시간 수집은 기본 시연이 통과하고 남는 시간이 있을 때 독립 브랜치에서만 검토한다.
-- A는 시작과 동시에 아래 담당표에 실제 이름을 배정하고 공유한다. [작업 체크리스트](todo.md)와 [Vercel 및 QA 실행표](vercel-qa.md)를 함께 사용한다.
+- 모바일 웹에서 Google Play 관심 앱을 선택하고, 최신 업데이트의 한국어 요약과 공식 출처를 확인한다. 선택은 새로고침 후 같은 브라우저에 복원된다.
+- 개발사 공식 출처와 대조한 앱 3개, 업데이트 4건 이상을 사용한다. 화면에 “검증된 시연용 샘플”을 표시한다. 계정·DB·푸시 알림·네이티브 앱은 후속 범위다. 실시간 수집은 필수 QA가 끝나고 시간이 남으면 독립 브랜치에서 검토한다.
+- 정적 HTML·CSS·JavaScript는 `public/`에 두고 백엔드는 같은 Vercel 프로젝트의 Node.js Function으로 제공한다. 사용자는 한 URL에서 화면과 `/api/updates`를 사용한다. [Vercel Node.js 런타임](https://vercel.com/docs/functions/runtimes/node-js) · [정적 파일 배포 설정](https://vercel.com/docs/builds/configure-a-build)
 
 ## 세 사람의 작업 경계
 
-| 담당 | 결과물과 브랜치 | 전담 파일 |
+| 역할 | 기능 브랜치 | 전담 파일과 완료 조건 |
 | --- | --- | --- |
-| A · 통합/앱 로직 | `feat/demo-base`로 기본 시연 경로 구축. 이후 `feat/app-shell`에서 선택·저장·필터 로직 완성. PR 통합 및 Vercel 담당. | `index.html`, `app.js`, 배포 설정이 필요한 경우 `vercel.json` |
-| B · UI | `feat/feed-ui`에서 모바일 레이아웃, 업데이트 카드, 출처 링크, 피드 상태 표시 구현. | `styles.css`, `feed-view.js` |
-| C · 데이터/QA | `feat/demo-data`에서 공식 출처 검증, 샘플 추가, QA 증거 기록. | `data/updates.json`, 신규 `tasks/qa-results.md` |
+| A · 프론트엔드 / 통합 | `feat/frontend` | `public/index.html`, `public/app.js` 및 필요한 경우 루트 배포 설정. API 호출, 화면 상태, 관심 앱 선택·저장·필터, UI 모듈 연결. Vercel 연결과 병합 진행 담당. |
+| B · 백엔드 | `feat/backend` | `api/updates.mjs`, `server/demo-data.mjs`. 샘플 데이터 검증 및 정렬, JSON 응답, HTTP 오류 처리. 공식 출처와 버전·날짜·요약 대조. |
+| C · UI | `feat/ui` | `public/styles.css`, `public/feed-view.js`, `public/assets/**` 및 QA 기록 `tasks/qa-results.md`. 모바일·데스크톱 카드, 샘플 표시, 출처 링크, 로딩·빈 상태·오류 화면, 접근성 확인. |
 
-- 기본 PR에서 A가 전담 파일의 초기 빈 파일·간단한 기본 구현을 커밋한다. 첫 PR 이후에는 표의 소유자가 자기 파일만 편집한다. B의 공통 마크업 요청은 A에게, C의 스키마 변경 요청은 A와 B에게 전달한다. 리뷰와 진행 상황은 PR에 기록한다.
-- B는 기본 PR을 기다리는 동안 카드나 모바일 레이아웃을 초안으로 만들고, C는 공식 링크와 변경사항을 모은다. A가 기본 PR을 병합하면 각자 갱신된 `main`에서 기능 브랜치를 만든다. 이미 작업했다면 각자 소유한 파일만 새 브랜치로 가져온다.
-- 첫 PR 병합 전에 아래 파일 계약을 합의한다. 이후 계약 수정이 필요하면 A가 단일 PR로 조율하고, UI와 데이터를 함께 확인한 뒤 병합한다.
-- 기능 PR의 대상은 `main`이다. PR 본문에 담당 파일, 재현 경로, 테스트 결과, Preview URL과 확인한 커밋 SHA를 남긴다. 다른 한 명이 검토하고 A가 한 번에 하나씩 병합한다. 기본 순서는 **기본 PR → 데이터 → UI → 앱 로직**이며 독립 PR이 준비되면 앞당길 수 있다. 최신 `main` 반영이 필요하면 브랜치 소유자가 자신의 브랜치에 `origin/main`을 병합하고 Preview를 다시 확인한다. 충돌 파일은 담당자가 해결하고, 공유 브랜치 강제 푸시는 피한다.
-
-## 공통 파일 계약
-
-- **데이터** · `data/updates.json`은 `{ "apps": [...], "updates": [...] }` 형식이다. 앱은 `packageId`, `name`을 가진다. 업데이트는 `id`, `packageId`, `summaryKo`, `sourceUrl`, `observedOn`이 필수이고 `version`, `releasedOn`은 모르면 `null`을 쓴다. 날짜는 `YYYY-MM-DD`로 저장한다. `id`는 고유하며 모든 `packageId`는 앱 목록을 참조한다. `sourceUrl`은 해당 변경을 입증하는 개발사 공식 HTTPS 주소다. 기본 PR은 이 형식의 데이터 한 건과 카드가 연결된 상태를 제공한다.
-- **동작** · A의 `app.js`가 JSON을 읽고 `packageId` 단위로 관심 앱을 관리한다. 첫 방문은 전체 업데이트를 보여준다. 사용자가 관심 앱을 선택하면 선택 결과만 표시하고, 전부 해제하면 전체 보기로 돌아간다. 선택은 `localStorage`에 저장한다. 피드는 `releasedOn ?? observedOn` 내림차순이며 동률은 `id`로 정렬해 고정한다.
-- **렌더링** · A는 `#app-options`, `#feed`와 샘플 배지를 제공한다. B의 `feed-view.js`는 `renderFeed(container, { apps, updates, status })`를 내보낸다. `updates`에는 필터·정렬을 끝낸 값이 들어가고 `status`는 `loading`, `ready`, `empty`, `error` 중 하나다. B는 카드와 상태를 렌더링하고 날짜의 출처를 구분한다. 텍스트는 `textContent` 등으로 삽입한다.
+- [API·UI 계약](api-contract.md)을 먼저 확인한다. A는 `feat/demo-base`에서 각 전담 파일의 최소 구현을 한 번에 연결한다. 첫 Preview에 카드 한 건과 실제 `GET /api/updates` 응답이 함께 보여야 한다. B는 공식 출처 확인과 Function 초안을, C는 계약 예시에 맞춘 화면 초안을 병렬로 진행한다.
+- 기본 PR을 병합한 시점의 `main`에서 세 기능 브랜치를 시작한다. 초안을 먼저 만들었다면 담당 파일만 가져온다. 초기 뼈대가 들어간 뒤에는 각자 전담 경로를 수정한다. 공통 HTML 변경은 A에게 요청하고, 계약 변경은 세 사람이 확인한 단일 PR에서 반영한다.
+- PR에는 담당 파일, 확인 절차·결과, Vercel Preview URL·커밋 SHA를 남긴다. 작성자 외 한 명이 검토한다. 기본 병합 순서는 **기본 → 백엔드 → UI → 프론트엔드**다. A가 하나씩 병합하고, 최신 `main` 반영이나 충돌 해결은 PR 작성자가 자신의 브랜치에서 진행한다. 갱신 후 Preview를 다시 확인한다.
+- 내 PR의 Preview에는 다른 미병합 PR이 들어오지 않는다. 프론트엔드가 샘플 응답으로 개발했더라도 통합 QA는 같은 배포 URL에서 실제 Function을 호출해 확인한다.
 
 ## 150분 운영표
 
-| 경과 | 팀이 남겨야 하는 결과 |
+| 경과 | 완료 기준 |
 | --- | --- |
-| 0–15분 | 역할과 계약 합의. A는 GitHub↔Vercel 연결, Production 브랜치 `main`, 평가자 접근 경로를 확인한다. B와 C는 카드·출처를 준비한다. |
-| 15–35분 | A가 데이터 한 건이 보이는 기본 PR을 연다. Preview에서 기본 경로를 확인하고 `main`에 병합한 뒤 Production의 URL과 SHA를 기록한다. B와 C는 준비한 작업을 각자의 브랜치로 옮긴다. |
-| 35–85분 | 세 사람이 각자 파일을 구현한다. 기능 PR은 준비되는 순서대로 올리고, 각 PR에서 담당 기능과 Preview SHA를 확인한다. |
-| 85–110분 | 준비된 P0 PR을 순차 병합한다. 110분에는 새 기능을 동결하고 `main`의 통합 배포를 확보한다. |
-| 110–135분 | 평가자가 열 URL에서 [필수 QA](vercel-qa.md)를 실행한다. 시연을 막는 문제만 수정하고 수정 후 동일 경로를 재검증한다. |
-| 135–150분 | 시연 URL·배포 SHA·QA 결과를 고정하고 시연을 한 번 리허설한다. 지연에 대비해 앞서 통과한 Vercel URL과 그 기능 범위를 함께 준비한다. |
+| 0–15분 | 담당 이름과 계약 확정. A는 Vercel과 GitHub 연결, `main` 추적, 평가자 접근 경로 확인. B와 C는 출처·화면 준비 시작. |
+| 15–35분 | 기본 PR의 Preview에서 API `200`과 카드 한 건 확인. 승인 후 병합하고 Production URL과 배포 SHA 기록. |
+| 35–85분 | 세 역할 병렬 구현. 준비된 PR부터 Preview에서 검증. |
+| 85–110분 | 기능 PR 순차 병합. 110분에 기능 동결 및 통합 Production 배포 확인. |
+| 110–135분 | [Vercel 및 QA 실행표](vercel-qa.md)의 필수 경로 실행. 시연을 막는 결함만 수정하고 재배포 확인. |
+| 135–150분 | 평가자용 Production URL, 실제 QA한 배포 SHA 및 결과 고정. 검증된 예비 Vercel URL을 준비하고 리허설. |
+
+[담당별 작업 체크리스트](todo.md)
