@@ -51,6 +51,7 @@ const apps: FeedApp[] = snapshot.map((item) => ({
   id: item.id,
   name: labels[item.id][0],
   category: labels[item.id][1],
+  developer: item.developer,
   iconUrl: icons["./icons/" + item.id + ".jpg"],
   storeUrl: item.url,
 }));
@@ -62,6 +63,7 @@ const updates: FeedUpdate[] = snapshot.map((item) => ({
   releaseDate: item.date.slice(0, 10),
   releaseNotes: item.notes,
   sourceUrl: item.url,
+  bugFixOnly: item.id === "839333328" && item.version === "5.286.0",
   added: [],
   improved: [],
   changed: [],
