@@ -75,6 +75,31 @@
   border-radius: 12px;
   cursor: pointer;
 }
+.ad-group-picker .ad-platform-picker {
+  margin-bottom: 24px;
+}
+.ad-platform-picker > div {
+  display: flex;
+  gap: 8px;
+}
+.ad-platform-picker label {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  cursor: pointer;
+}
+.ad-platform-picker input {
+  margin: 0;
+  accent-color: var(--violet);
+}
+.ad-platform-picker label:has(:checked) {
+  border-color: var(--violet);
+}
 .ad-group-option + .ad-group-option {
   margin-top: 8px;
 }
@@ -257,4 +282,50 @@
   color: var(--accent);
   text-decoration: underline;
 }
-.ad-bank-info ul { list-style: disc; }
+.ad-my-groups {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.ad-my-groups p,
+.ad-my-groups a {
+  margin: 0;
+}
+.ad-my-groups strong {
+  color: var(--ink);
+  font-weight: 600;
+  margin-right: 4px;
+}
+.library-controls > button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.ad-library-heading {
+  margin: 0 0 12px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.ad-bank-info ul {
+  list-style: disc;
+}
+.ad-bank-filter {
+  margin-top: 16px;
+}
+.ad-other-groups {
+  margin-top: 8px;
+}
+.ad-other-groups summary {
+  padding: 12px;
+  color: var(--muted);
+}
+.ad-other-groups > div {
+  margin-top: 4px;
+}
+.ad-library-notice {
+  margin: 0 0 12px;
+}

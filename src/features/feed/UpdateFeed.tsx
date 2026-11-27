@@ -2,10 +2,12 @@ import { useState } from "react";
 import { ChevronRight, BookmarkCheck, Search, X } from "lucide-react";
 import { AppIcon } from "./AppIcon";
 import { useFeedPreferences } from "./preferences";
+import { platformNames, type PlatformChoice } from "./usePlatformFeed";
 import {
   isBugFixOnly,
   dateLabel,
   feedChanges,
+  latestUpdatesByPlatform,
   platformLabel,
   type FeedApp,
   type FeedUpdate,
@@ -13,12 +15,14 @@ import {
 import "./feed.css";
 
 interface Props {
+  platform: PlatformChoice;
   apps: readonly FeedApp[];
   updates: readonly FeedUpdate[];
   selectedAppIds: readonly string[];
   onOpenUpdate: (update: FeedUpdate) => void;
 }
 export function UpdateFeed({
+  platform,
   apps,
   updates,
   selectedAppIds,
@@ -28,7 +32,7 @@ export function UpdateFeed({
   const [category, setCategory] = useState("");
   const [publisher, setPublisher] = useState("");
   const { preferences, save } = useFeedPreferences();
-  const { showBugFixes, hideRequired, markedIds } = preferences;
+  const { showBugFixes, hideRequired, markedIds, mineOnly } = preferences;
   const categories = [...new Set(apps.map((app) => app.category))];
   const publisherOf = (app: FeedApp) =>
     app.developer?.trim() || "퍼블리셔 미확인";
@@ -38,11 +42,13 @@ export function UpdateFeed({
   const selected = new Set(selectedAppIds);
   const catalog = new Map(apps.map((app) => [app.id, app]));
   const search = query.trim().toLocaleLowerCase();
-  const rows = updates
+  const shown = new Set<string>();
+  const rows = latestUpdatesByPlatform(updates)
     .flatMap((update) => {
       const app = catalog.get(update.appId);
       if (
         !app ||
+        (mineOnly && !selected.has(app.id)) ||
         (category && app.category !== category) ||
         (publisher && publisherOf(app) !== publisher) ||
         (hideRequired &&
@@ -57,11 +63,31 @@ export function UpdateFeed({
       (a, b) =>
         Number(selected.has(b.app.id)) - Number(selected.has(a.app.id)) ||
         b.update.releaseDate.localeCompare(a.update.releaseDate) ||
+        Number(b.update.version !== "미확인") -
+          Number(a.update.version !== "미확인") ||
+        Number(b.update.platform === "ios") -
+          Number(a.update.platform === "ios") ||
         a.update.id.localeCompare(b.update.id),
-    );
+    )
+    .filter(({ app }) => {
+      if (shown.has(app.id)) return false;
+      shown.add(app.id);
+      return true;
+    });
   return (
     <section className="ad-feed">
       <h1>업데이트 피드</h1>
+      <a className="ad-group-settings" href="#groups">
+        운영체제 변경 · {platform === "all" ? "Android + iOS" : platformNames[platform]}
+      </a>
+      <button
+        type="button"
+        className="ad-mine ad-mine-filter"
+        aria-pressed={mineOnly}
+        onClick={() => save({ mineOnly: !mineOnly })}
+      >
+        <BookmarkCheck size={16} aria-hidden="true" /> 내 앱만 보기
+      </button>
       <div className="ad-search">
         <Search size={19} />
         <input
@@ -186,7 +212,7 @@ export function UpdateFeed({
               {limited && <small>세부 내용 미공개</small>}
               <button
                 className="ad-open-update"
-                aria-label={app.name + " " + update.version + " 업데이트 상세 보기"}
+                aria-label={app.name + " 업데이트 기록 보기"}
                 onClick={() => onOpenUpdate(update)}
               >
                 {items.length > 3 && <small>외 {items.length - 3}건</small>}
@@ -200,21 +226,33 @@ export function UpdateFeed({
         <div className="ad-empty">
           <Search />
           <p>
-            {search || category || publisher || hideRequired || !showBugFixes
-              ? "조건에 맞는 업데이트가 없어요."
-              : "아직 등록된 업데이트가 없어요."}
+            {mineOnly && !selected.size
+              ? "내 앱에서 앱을 등록하면 여기에 표시됩니다."
+              : search ||
+                  category ||
+                  publisher ||
+                  hideRequired ||
+                  !showBugFixes ||
+                  mineOnly
+                ? "조건에 맞는 업데이트가 없어요."
+                : "아직 등록된 업데이트가 없어요."}
           </p>
           {(search ||
             category ||
             publisher ||
             hideRequired ||
-            !showBugFixes) && (
+            !showBugFixes ||
+            mineOnly) && (
             <button
               onClick={() => {
                 setCategory("");
                 setQuery("");
                 setPublisher("");
-                save({ showBugFixes: true, hideRequired: false });
+                save({
+                  showBugFixes: true,
+                  hideRequired: false,
+                  mineOnly: false,
+                });
               }}
             >
               전체 업데이트 보기

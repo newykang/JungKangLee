@@ -3,12 +3,14 @@ import { useState } from "react";
 interface Preferences {
   showBugFixes: boolean;
   hideRequired: boolean;
+  mineOnly: boolean;
   markedIds: string[];
 }
 const storageKey = "appdate.feed.preferences.v1";
 const defaults: Preferences = {
   showBugFixes: true,
   hideRequired: false,
+  mineOnly: false,
   markedIds: [],
 };
 function read(): Preferences {
@@ -17,6 +19,7 @@ function read(): Preferences {
     return {
       showBugFixes: saved.showBugFixes !== false,
       hideRequired: saved.hideRequired === true,
+      mineOnly: saved.mineOnly === true,
       markedIds: Array.isArray(saved.markedIds)
         ? saved.markedIds.filter((id: unknown) => typeof id === "string")
         : [],

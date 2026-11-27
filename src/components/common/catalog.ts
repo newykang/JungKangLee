@@ -4,6 +4,7 @@ import { profilesById } from '../../features/ecosystem/graph'
 import publishers from '../../data/publishers.json'
 
 const icons = new Set(Object.keys(import.meta.glob('/public/icons/*.jpg')).map(path => path.split('/').pop()?.slice(0, -4)))
+const releaseCaptures = new Set(Object.keys(import.meta.glob('/public/release-captures/*.jpg')).map(path => path.split('/').pop()))
 const publisherByApp: Record<string, string> = {
   ...publishers,
   'kb-business': 'Kookmin Bank Co., Ltd.',
@@ -24,24 +25,30 @@ const bankFeatures: Record<string, readonly string[]> = {
 export const apps: FeedApp[] = catalog.map(app => {
   const profile = profilesById.get(app.id)
   const listing = app.stores.find(store => store.platform === 'ios') ?? app.stores[0]
-  const storeIconUrl = listing?.iconUrl || app.stores.find(store => store.iconUrl)?.iconUrl || ''
+  const listingIconUrl = listing?.iconUrl || app.stores.find(store => store.iconUrl)?.iconUrl || ''
+  const storeIconUrl = listingIconUrl.startsWith('/icons/')
+    ? import.meta.env.BASE_URL + listingIconUrl.slice(1)
+    : listingIconUrl
   const localIconUrl = icons.has(app.id) ? `${import.meta.env.BASE_URL}icons/${app.id}.jpg` : ''
   return {
     id: app.id,
-    developer: publisherByApp[app.id] ?? profile?.developer,
+    developer: app.developer ?? publisherByApp[app.id] ?? profile?.developer,
     name: profile?.name ?? app.name,
     category: app.id === 'kakao-bank' ? '은행' : profile?.category ?? app.category,
-    bankFeatures: bankFeatures[app.id] ?? (profile?.category === '은행' ? profile.features : undefined),
+    bankFeatures: app.bankFeatures ?? bankFeatures[app.id] ?? (profile?.category === '은행' ? profile.features : undefined),
     iconUrl: localIconUrl || storeIconUrl,
-    fallbackIconUrl: localIconUrl && storeIconUrl ? storeIconUrl : undefined,
+    fallbackIconUrl: localIconUrl && storeIconUrl && storeIconUrl !== localIconUrl ? storeIconUrl : undefined,
     storeUrl: listing?.storeUrl ?? '',
   }
 })
 
 export const releases = catalog.flatMap(app => app.stores.flatMap(store => store.releases.map(release => {
+  const captureName = release.id.replace(/[^\w.-]+/g, '--') + '.jpg'
   const card: FeedUpdate = {
     id: release.id, appId: app.id, platform: store.platform, version: release.version ?? '미확인',
-    releaseDate: release.updatedOn ?? '', releaseNotes: (release.releaseNotes ?? '') + (release.notesAreExcerpt ? '\n(공식 원문 발췌)' : ''),
+    releaseDate: release.updatedOn ?? '', releaseNotes: release.releaseNotes ?? '',
+    notesAreExcerpt: release.notesAreExcerpt,
+    releaseCaptureUrl: releaseCaptures.has(captureName) ? '/release-captures/' + captureName : undefined,
     added: release.added, changed: release.changed, improved: release.improved, sourceUrl: release.sourceUrl,
   }
   return { card, storeUrl: store.storeUrl, canVote: Boolean(release.version) }

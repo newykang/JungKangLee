@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { Bookmark, Layers2 } from "lucide-react";
 import { UpdateFeed } from "../UpdateFeed";
+import { usePlatformFeed, type PlatformChoice } from "../usePlatformFeed";
 import { AppGroupLanding, type AppGroup } from "../AppGroupLanding";
 import { BankOverview } from "../BankOverview";
 import { UpdateDetail } from "../../updates/UpdateDetail";
+import { AppTimeline } from "../../updates/AppTimeline";
 import type { FeedApp, FeedUpdate } from "../model";
 import snapshot from "./releases.json";
 
@@ -127,6 +129,7 @@ function readSelection(): string[] {
   }
 }
 function Preview() {
+  const { platform, savePlatform, feedUpdates } = usePlatformFeed(updates);
   const [selected, setSelected] = useState(readSelection);
   const [selectedGroups, setSelectedGroups] = useState(readGroups);
   const [editing, setEditing] = useState(false);
@@ -139,8 +142,13 @@ function Preview() {
     window.addEventListener("hashchange", sync);
     return () => window.removeEventListener("hashchange", sync);
   }, []);
-  const [route, updateId] = current.split("/");
-  const item = updates.find((u) => u.id === (updateId ?? route));
+  const [route, pathId, timelineReleaseId] = current.split("/");
+  const timelineApp =
+    route === "app" ? apps.find((app) => app.id === pathId) : undefined;
+  const updateId = timelineApp ? timelineReleaseId : (pathId ?? route);
+  const item = updates.find(
+    (u) => u.id === updateId && (!timelineApp || u.appId === timelineApp.id),
+  );
   const landing =
     route === "groups" ||
     (!route && selectedGroups === null && !selected.length);
@@ -149,7 +157,8 @@ function Preview() {
     .filter((group) => selectedGroups?.includes(group.id))
     .flatMap((group) => group.apps.map((app) => app.id));
   const prioritized = [...new Set([...selected, ...groupApps])];
-  function saveGroups(ids: string[]) {
+  function saveGroups(ids: string[], nextPlatform: PlatformChoice) {
+    savePlatform(nextPlatform);
     setSelectedGroups(ids);
     try {
       localStorage.setItem(groupKey, JSON.stringify(ids));
@@ -223,21 +232,35 @@ function Preview() {
       <main>
         {landing && (
           <AppGroupLanding
+            platform={platform}
             groups={groups}
             selected={selectedGroups ?? []}
             onSave={saveGroups}
           />
         )}
-        <div hidden={landing || banking || Boolean(item)}>
+        <div hidden={landing || banking || Boolean(item || timelineApp)}>
           <UpdateFeed
+            platform={platform}
             apps={apps}
-            updates={updates}
+            updates={feedUpdates}
             selectedAppIds={prioritized}
             onOpenUpdate={(u) => {
-              location.hash = "feed/" + u.id;
+              location.hash = "app/" + u.appId;
             }}
           />
         </div>
+        {timelineApp && !item && (
+          <AppTimeline
+            app={timelineApp}
+            updates={feedUpdates}
+            onOpenUpdate={(update) => {
+              location.hash = "app/" + timelineApp.id + "/" + update.id;
+            }}
+            onBack={() => {
+              location.hash = "feed";
+            }}
+          />
+        )}
         {banking && !item && (
           <BankOverview
             apps={apps}
@@ -251,11 +274,29 @@ function Preview() {
           <UpdateDetail
             app={apps.find((app) => app.id === item.appId)!}
             update={item}
-            history={updates}
-            onBack={() => {
-              location.hash = banking ? "banks" : "feed";
+            history={timelineApp ? feedUpdates : updates}
+            onOpenUpdate={(item) => {
+              location.hash =
+                (timelineApp
+                  ? "app/" + timelineApp.id + "/"
+                  : banking
+                    ? "banks/"
+                    : "feed/") + item.id;
             }}
-            backLabel={banking ? "은행 앱 한눈에 보기" : undefined}
+            onBack={() => {
+              location.hash = timelineApp
+                ? "app/" + timelineApp.id
+                : banking
+                  ? "banks"
+                  : "feed";
+            }}
+            backLabel={
+              timelineApp
+                ? "앱 업데이트 기록"
+                : banking
+                  ? "은행 앱 한눈에 보기"
+                  : undefined
+            }
           />
         )}
       </main>
