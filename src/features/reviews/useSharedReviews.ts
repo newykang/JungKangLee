@@ -10,7 +10,7 @@ export type ReviewSummary = {
   myReasons: string[]
   reasonCounts: { vote: VersionVote; id: string; count: number }[]
 }
-type ReviewPayload = { signedIn: boolean; reviews: ReviewSummary[] }
+type ReviewPayload = { canVote: boolean; reviews: ReviewSummary[] }
 type ReviewState = { query: string; data?: ReviewPayload; error?: 'unavailable' | 'no-api' }
 
 export function useSharedReviews(query: string) {
@@ -33,7 +33,7 @@ export function useSharedReviews(query: string) {
       }
       if (!response.ok) throw new Error('Review request failed')
       const data: ReviewPayload = await response.json()
-      if (typeof data.signedIn !== 'boolean' || !Array.isArray(data.reviews)) throw new Error('Invalid review response')
+      if (typeof data.canVote !== 'boolean' || !Array.isArray(data.reviews)) throw new Error('Invalid review response')
       if (active) setState({ query, data })
     }).catch(() => {
       if (active) setState({ query, error: 'unavailable' })
@@ -46,22 +46,24 @@ export function useSharedReviews(query: string) {
   }, [query, revision])
 
   async function castVote(summary: ReviewSummary, vote: VersionVote | null, reasons: string[]) {
-    if (pending.current || !current?.data?.signedIn) return false
+    if (pending.current || !current?.data?.canVote) return false
     pending.current = true
     setSaving(summary.releaseId)
     setSaveError(undefined)
+    const controller = new AbortController()
+    const timeout = window.setTimeout(() => controller.abort(), 8_000)
     try {
       const response = await fetch('/api/reviews', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ releaseId: summary.releaseId, vote, reasons }),
-        signal: AbortSignal.timeout(8_000),
+        signal: controller.signal,
       })
       if (response.status === 401) {
         setState(latest => latest?.query === query && latest.data ? {
-          ...latest, data: { signedIn: false, reviews: latest.data.reviews.map(row => ({ ...row, myVote: null, myReasons: [] })) },
+          ...latest, data: { canVote: false, reviews: latest.data.reviews.map(row => ({ ...row, myVote: null, myReasons: [] })) },
         } : latest)
-        setSaveError({ query, message: '로그인 세션이 만료되었습니다. 다시 로그인해 주세요.' })
+        setSaveError({ query, message: '이 사이트의 쿠키를 허용한 후 평가를 다시 불러와 주세요.' })
         return false
       }
       if (!response.ok) throw new Error('Vote save failed')
@@ -70,7 +72,7 @@ export function useSharedReviews(query: string) {
       saveVote(getVoteStorage(), voteKey(summary.releaseId), null)
       setState(latest => latest?.query === query && latest.data ? {
         ...latest, data: {
-          signedIn: latest.data.signedIn,
+          canVote: latest.data.canVote,
           reviews: latest.data.reviews.map(row => row.releaseId === updated.releaseId ? updated : row),
         },
       } : latest)
@@ -79,6 +81,7 @@ export function useSharedReviews(query: string) {
       setSaveError({ query, message: '평가 저장을 확인하지 못했습니다. 다시 시도해 주세요.' })
       return false
     } finally {
+      window.clearTimeout(timeout)
       pending.current = false
       setSaving('')
     }
@@ -91,7 +94,7 @@ export function useSharedReviews(query: string) {
     saving,
     saveError: saveError?.query === query ? saveError.message : '',
     castVote,
-    retry: () => { setState(undefined); setRevision(value => value + 1) },
+    retry: () => { setState(undefined); setSaveError(undefined); setRevision(value => value + 1) },
   }
 }
 

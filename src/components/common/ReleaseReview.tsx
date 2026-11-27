@@ -1,4 +1,4 @@
-import { ReviewControls, ReviewLoadError, ReviewSignIn } from '../../features/reviews/ReviewControls'
+import { ReviewControls, ReviewLoadError, ReviewSaveError } from '../../features/reviews/ReviewControls'
 import { useSharedReviews } from '../../features/reviews/useSharedReviews'
 
 export default function ReleaseReview({ id, version }: { id: string; version: string }) {
@@ -7,14 +7,13 @@ export default function ReleaseReview({ id, version }: { id: string; version: st
 
   return <section className="pane">
     <h2>이 버전은 어땠나요?</h2>
-    <p className="subtext">v{version} · 커뮤니티 평가</p>
+    <p className="subtext">v{version} · 이 브라우저에서 한 표를 남길 수 있어요.</p>
     {reviews.loading && <p role="status">평가를 불러오는 중입니다.</p>}
     {reviews.error && <ReviewLoadError error={reviews.error} retry={reviews.retry} />}
-    {reviews.saveError && <p role="status" className="mt-2 text-sm text-amber-800">{reviews.saveError}</p>}
-    {summary && reviews.data && <>
-      <ReviewControls summary={summary} version={version} signedIn={reviews.data.signedIn} saving={reviews.saving} expandedReasons
+    {reviews.saveError && <ReviewSaveError message={reviews.saveError} retry={reviews.retry} />}
+    {summary && reviews.data &&
+      <ReviewControls summary={summary} version={version} canVote={reviews.data.canVote} saving={reviews.saving} expandedReasons
         onVote={(choice, reasons) => reviews.castVote(summary, choice, reasons)} />
-      {!reviews.data.signedIn && <ReviewSignIn returnHash={window.location.hash} />}
-    </>}
+    }
   </section>
 }
