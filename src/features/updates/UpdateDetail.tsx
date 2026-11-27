@@ -16,6 +16,7 @@ interface Props {
   update: FeedUpdate;
   history?: readonly FeedUpdate[];
   onBack: () => void;
+  backLabel?: string;
   review?: ReactNode;
 }
 export function UpdateDetail({
@@ -23,6 +24,7 @@ export function UpdateDetail({
   update,
   history = [],
   onBack,
+  backLabel = "업데이트 피드",
   review,
 }: Props) {
   const versions = history
@@ -37,7 +39,7 @@ export function UpdateDetail({
   return (
     <article className="ad-detail">
       <button className="ad-back" onClick={onBack}>
-        <ArrowLeft size={17} /> 업데이트 피드
+        <ArrowLeft size={17} /> {backLabel}
       </button>
       <div className="ad-detail-hero">
         <AppIcon app={app} />
