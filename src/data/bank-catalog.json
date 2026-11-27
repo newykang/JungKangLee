@@ -4,11 +4,7 @@
     "name": "하나원큐",
     "category": "은행",
     "developer": "Hana Bank",
-    "bankFeatures": [
-      "계좌 조회·이체",
-      "금융상품",
-      "자산관리"
-    ],
+    "bankFeatures": ["계좌 조회·이체", "금융상품", "자산관리"],
     "stores": [
       {
         "platform": "ios",
@@ -27,7 +23,7 @@
             "notesAreExcerpt": false,
             "sourceUrl": "https://apps.apple.com/kr/app/%ED%95%98%EB%82%98%EC%9D%80%ED%96%89-%EC%83%88%EB%A1%9C%EC%9B%8C%EC%A7%84-%ED%95%98%EB%82%98%EC%9B%90%ED%81%90%EB%A5%BC-%EA%B2%BD%ED%97%98%ED%95%B4-%EB%B3%B4%EC%84%B8%EC%9A%94/id6743190232",
             "added": [],
-            "improved": [],
+            "improved": ["사용성 개선"],
             "changed": []
           }
         ]
@@ -39,11 +35,7 @@
     "name": "하나원큐 기업",
     "category": "은행",
     "developer": "Hana Bank",
-    "bankFeatures": [
-      "기업 계좌·이체",
-      "전자결재",
-      "외환"
-    ],
+    "bankFeatures": ["기업 계좌·이체", "전자결재", "외환"],
     "stores": [
       {
         "platform": "ios",
@@ -62,7 +54,7 @@
             "notesAreExcerpt": false,
             "sourceUrl": "https://apps.apple.com/kr/app/%ED%95%98%EB%82%98%EC%9B%90%ED%81%90-%EA%B8%B0%EC%97%85-%ED%95%98%EB%82%98%EC%9D%80%ED%96%89-%EA%B8%B0%EC%97%85%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%8F%B0%EB%B1%85%ED%82%B9/id395878804",
             "added": [],
-            "improved": [],
+            "improved": ["사용성 개선"],
             "changed": []
           }
         ]
@@ -74,10 +66,7 @@
     "name": "Hana EZ",
     "category": "은행",
     "developer": "Hana Bank",
-    "bankFeatures": [
-      "해외송금",
-      "다국어 지원"
-    ],
+    "bankFeatures": ["해외송금", "다국어 지원"],
     "stores": [
       {
         "platform": "ios",
@@ -96,7 +85,7 @@
             "notesAreExcerpt": false,
             "sourceUrl": "https://apps.apple.com/kr/app/hana-ez-%ED%95%98%EB%82%98%EC%9D%80%ED%96%89-%ED%95%B4%EC%99%B8%EC%86%A1%EA%B8%88-%EC%A0%84%EC%9A%A9-%EB%8B%A4%EA%B5%AD%EC%96%B4-%EB%B1%85%ED%82%B9/id1472964746",
             "added": [],
-            "improved": [],
+            "improved": ["일부 기능 개선"],
             "changed": []
           }
         ]
@@ -108,11 +97,7 @@
     "name": "NH올원뱅크",
     "category": "은행",
     "developer": "NH농협은행",
-    "bankFeatures": [
-      "계좌 조회·이체",
-      "금융상품",
-      "생활 서비스"
-    ],
+    "bankFeatures": ["계좌 조회·이체", "금융상품", "생활 서비스"],
     "stores": [
       {
         "platform": "ios",
@@ -131,7 +116,7 @@
             "notesAreExcerpt": false,
             "sourceUrl": "https://apps.apple.com/kr/app/nh%EC%98%AC%EC%9B%90%EB%B1%85%ED%81%AC-%EB%86%8D%ED%98%91%EC%9D%80%ED%96%89-%EB%8C%80%ED%91%9C-%ED%94%8C%EB%9E%AB%ED%8F%BC/id1641628055",
             "added": [],
-            "improved": [],
+            "improved": ["성능 개선", "안정성 개선"],
             "changed": []
           }
         ]
@@ -143,10 +128,7 @@
     "name": "NH스마트뱅킹",
     "category": "은행",
     "developer": "National Agricultural Cooperative Federation",
-    "bankFeatures": [
-      "계좌 조회·이체",
-      "금융상품"
-    ],
+    "bankFeatures": ["이체·모바일OTP", "금융상품", "퇴직연금"],
     "stores": [
       {
         "platform": "ios",
@@ -165,7 +147,7 @@
             "notesAreExcerpt": false,
             "sourceUrl": "https://apps.apple.com/kr/app/nh%EC%8A%A4%EB%A7%88%ED%8A%B8%EB%B1%85%ED%82%B9/id1444712671",
             "added": [],
-            "improved": [],
+            "improved": ["안정성 개선"],
             "changed": []
           }
         ]
@@ -177,11 +159,7 @@
     "name": "NH기업뱅킹",
     "category": "은행",
     "developer": "NH농협은행",
-    "bankFeatures": [
-      "기업 계좌·이체",
-      "결재·승인",
-      "공과금·외환"
-    ],
+    "bankFeatures": ["기업 계좌·이체", "결재·승인", "공과금·외환"],
     "stores": [
       {
         "platform": "ios",
@@ -200,7 +178,7 @@
             "notesAreExcerpt": false,
             "sourceUrl": "https://apps.apple.com/kr/app/nh%EA%B8%B0%EC%97%85%EB%B1%85%ED%82%B9/id1611270718",
             "added": [],
-            "improved": [],
+            "improved": ["안정성 개선"],
             "changed": []
           }
         ]
@@ -212,10 +190,7 @@
     "name": "i-ONE Bank 개인",
     "category": "은행",
     "developer": "INDUSTRIAL BANK OF KOREA",
-    "bankFeatures": [
-      "개인 계좌·이체",
-      "금융상품"
-    ],
+    "bankFeatures": ["개인 계좌·이체", "금융상품"],
     "stores": [
       {
         "platform": "ios",
@@ -234,7 +209,7 @@
             "notesAreExcerpt": false,
             "sourceUrl": "https://apps.apple.com/kr/app/i-one-bank-%EA%B0%9C%EC%9D%B8%EA%B3%A0%EA%B0%9D%EC%9A%A9/id1460543865",
             "added": [],
-            "improved": [],
+            "improved": ["안정성 개선", "일부 기능 최적화"],
             "changed": []
           }
         ]
@@ -246,10 +221,7 @@
     "name": "i-ONE Bank 기업",
     "category": "은행",
     "developer": "INDUSTRIAL BANK OF KOREA",
-    "bankFeatures": [
-      "기업 계좌 관리",
-      "이체·결재"
-    ],
+    "bankFeatures": ["기업 계좌 관리", "다계좌·예약이체", "디지털OTP"],
     "stores": [
       {
         "platform": "ios",
@@ -268,7 +240,7 @@
             "notesAreExcerpt": false,
             "sourceUrl": "https://apps.apple.com/kr/app/i-one-bank-%EA%B8%B0%EC%97%85%EA%B3%A0%EA%B0%9D%EC%9A%A9/id6738371777",
             "added": [],
-            "improved": [],
+            "improved": ["안정화"],
             "changed": []
           }
         ]
@@ -280,10 +252,7 @@
     "name": "iM뱅크",
     "category": "은행",
     "developer": "iM Bank Co., Ltd.",
-    "bankFeatures": [
-      "계좌 조회·이체",
-      "금융상품"
-    ],
+    "bankFeatures": ["계좌 조회·이체", "금융상품"],
     "stores": [
       {
         "platform": "ios",
@@ -302,7 +271,7 @@
             "notesAreExcerpt": false,
             "sourceUrl": "https://apps.apple.com/kr/app/im%EB%B1%85%ED%81%AC-%EC%95%84%EC%9D%B4%EC%97%A0%EB%B1%85%ED%81%AC-%EB%AA%A8%EB%B0%94%EC%9D%BC%EB%B1%85%ED%82%B9/id1067748687",
             "added": [],
-            "improved": [],
+            "improved": ["세부 내용 미공개"],
             "changed": []
           }
         ]
@@ -314,10 +283,7 @@
     "name": "iM뱅크 기업",
     "category": "은행",
     "developer": "iM Bank Co., Ltd.",
-    "bankFeatures": [
-      "기업 계좌·이체",
-      "결재·승인"
-    ],
+    "bankFeatures": ["기업 계좌개설", "예적금·외환 상품", "디지털OTP"],
     "stores": [
       {
         "platform": "ios",
@@ -336,7 +302,7 @@
             "notesAreExcerpt": false,
             "sourceUrl": "https://apps.apple.com/kr/app/im%EB%B1%85%ED%81%AC-%EA%B8%B0%EC%97%85/id966412270",
             "added": [],
-            "improved": [],
+            "improved": ["세부 내용 미공개"],
             "changed": []
           }
         ]
@@ -348,10 +314,7 @@
     "name": "BNK부산은행 모바일뱅킹",
     "category": "은행",
     "developer": "Busan Bank",
-    "bankFeatures": [
-      "계좌 조회·이체",
-      "금융상품"
-    ],
+    "bankFeatures": ["계좌 조회·이체", "금융상품"],
     "stores": [
       {
         "platform": "ios",
@@ -370,7 +333,7 @@
             "notesAreExcerpt": false,
             "sourceUrl": "https://apps.apple.com/kr/app/bnk%EB%B6%80%EC%82%B0%EC%9D%80%ED%96%89%EB%AA%A8%EB%B0%94%EC%9D%BC%EB%B1%85%ED%82%B9/id1445137607",
             "added": [],
-            "improved": [],
+            "improved": ["버그 수정"],
             "changed": []
           }
         ]
@@ -382,10 +345,7 @@
     "name": "BNK부산은행 기업뱅킹",
     "category": "은행",
     "developer": "Busan Bank",
-    "bankFeatures": [
-      "기업 계좌·이체",
-      "결재·승인"
-    ],
+    "bankFeatures": ["기업 계좌·이체", "공과금 납부", "증명서 발급"],
     "stores": [
       {
         "platform": "ios",
@@ -404,7 +364,7 @@
             "notesAreExcerpt": false,
             "sourceUrl": "https://apps.apple.com/kr/app/bnk-%EB%B6%80%EC%82%B0%EC%9D%80%ED%96%89-%EA%B8%B0%EC%97%85%EB%B1%85%ED%82%B9/id1634125167",
             "added": [],
-            "improved": [],
+            "improved": ["버그 수정", "성능 개선"],
             "changed": []
           }
         ]
@@ -416,10 +376,7 @@
     "name": "BNK경남은행 모바일뱅킹",
     "category": "은행",
     "developer": "KYONGNAMBANK",
-    "bankFeatures": [
-      "계좌 조회·이체",
-      "금융상품"
-    ],
+    "bankFeatures": ["계좌 조회·이체", "금융상품"],
     "stores": [
       {
         "platform": "ios",
@@ -438,7 +395,7 @@
             "notesAreExcerpt": false,
             "sourceUrl": "https://apps.apple.com/kr/app/bnk%EA%B2%BD%EB%82%A8%EC%9D%80%ED%96%89-%EB%AA%A8%EB%B0%94%EC%9D%BC%EB%B1%85%ED%82%B9/id678852685",
             "added": [],
-            "improved": [],
+            "improved": ["일부 기능 개선"],
             "changed": []
           }
         ]
@@ -450,10 +407,7 @@
     "name": "BNK경남은행 기업모바일뱅킹",
     "category": "은행",
     "developer": "KYONGNAMBANK",
-    "bankFeatures": [
-      "기업 계좌·이체",
-      "결재·승인"
-    ],
+    "bankFeatures": ["기업 계좌·이체", "결재·승인"],
     "stores": [
       {
         "platform": "ios",
@@ -472,7 +426,7 @@
             "notesAreExcerpt": false,
             "sourceUrl": "https://apps.apple.com/kr/app/bnk%EA%B2%BD%EB%82%A8%EC%9D%80%ED%96%89-%EA%B8%B0%EC%97%85%EB%AA%A8%EB%B0%94%EC%9D%BC%EB%B1%85%ED%82%B9/id718821674",
             "added": [],
-            "improved": [],
+            "improved": ["일부 기능 개선"],
             "changed": []
           }
         ]
@@ -484,10 +438,7 @@
     "name": "광주 와뱅크",
     "category": "은행",
     "developer": "The Kwangju Bank, Ltd.",
-    "bankFeatures": [
-      "계좌 조회·이체",
-      "금융상품"
-    ],
+    "bankFeatures": ["계좌 조회·이체", "금융상품"],
     "stores": [
       {
         "platform": "ios",
@@ -506,7 +457,7 @@
             "notesAreExcerpt": false,
             "sourceUrl": "https://apps.apple.com/kr/app/%EA%B4%91%EC%A3%BC-%EC%99%80%EB%B1%85%ED%81%AC/id1576149106",
             "added": [],
-            "improved": [],
+            "improved": ["사용성 개선"],
             "changed": []
           }
         ]
@@ -518,10 +469,7 @@
     "name": "광주은행 기업뱅킹",
     "category": "은행",
     "developer": "The Kwangju Bank, Ltd.",
-    "bankFeatures": [
-      "기업 계좌·이체",
-      "전자결재"
-    ],
+    "bankFeatures": ["기업 계좌·이체", "전자결재"],
     "stores": [
       {
         "platform": "ios",
@@ -540,7 +488,7 @@
             "notesAreExcerpt": false,
             "sourceUrl": "https://apps.apple.com/kr/app/%EA%B4%91%EC%A3%BC%EC%9D%80%ED%96%89-%EA%B8%B0%EC%97%85%EB%B1%85%ED%82%B9/id1596261784",
             "added": [],
-            "improved": [],
+            "improved": ["사용성 개선"],
             "changed": []
           }
         ]
@@ -552,10 +500,7 @@
     "name": "전북은행 쏙뱅크",
     "category": "은행",
     "developer": "JEONBUK BANK",
-    "bankFeatures": [
-      "계좌 조회·이체",
-      "금융상품"
-    ],
+    "bankFeatures": ["계좌 조회·이체", "금융상품"],
     "stores": [
       {
         "platform": "ios",
@@ -574,7 +519,7 @@
             "notesAreExcerpt": false,
             "sourceUrl": "https://apps.apple.com/kr/app/%EC%A0%84%EB%B6%81%EC%9D%80%ED%96%89-%EC%8F%99%EB%B1%85%ED%81%AC/id1547903285",
             "added": [],
-            "improved": [],
+            "improved": ["안정성 개선", "오류 수정"],
             "changed": []
           }
         ]
@@ -586,10 +531,7 @@
     "name": "전북은행 기업뱅킹",
     "category": "은행",
     "developer": "JEONBUK BANK",
-    "bankFeatures": [
-      "기업 계좌·이체",
-      "결재·승인"
-    ],
+    "bankFeatures": ["기업 전용 뱅킹", "인증센터", "가맹점 통장 비대면 개설"],
     "stores": [
       {
         "platform": "ios",
@@ -608,7 +550,7 @@
             "notesAreExcerpt": false,
             "sourceUrl": "https://apps.apple.com/kr/app/%EC%A0%84%EB%B6%81%EC%9D%80%ED%96%89-%EA%B8%B0%EC%97%85%EB%B1%85%ED%82%B9/id1071766252",
             "added": [],
-            "improved": [],
+            "improved": ["안정성 개선", "오류 수정"],
             "changed": []
           }
         ]
@@ -620,10 +562,7 @@
     "name": "제주은행 JBANK",
     "category": "은행",
     "developer": "Jeju Bank",
-    "bankFeatures": [
-      "계좌 조회·이체",
-      "금융상품"
-    ],
+    "bankFeatures": ["계좌 조회·이체", "금융상품"],
     "stores": [
       {
         "platform": "ios",
@@ -642,7 +581,7 @@
             "notesAreExcerpt": false,
             "sourceUrl": "https://apps.apple.com/kr/app/%EC%A0%9C%EC%A3%BC%EC%9D%80%ED%96%89-jbank/id6443788309",
             "added": [],
-            "improved": [],
+            "improved": ["안정화", "버그 수정"],
             "changed": []
           }
         ]
@@ -654,11 +593,7 @@
     "name": "케이뱅크",
     "category": "은행",
     "developer": "케이뱅크",
-    "bankFeatures": [
-      "계좌 조회·이체",
-      "예금·적금",
-      "대출"
-    ],
+    "bankFeatures": ["계좌 조회·이체", "예금·적금", "대출"],
     "stores": [
       {
         "platform": "ios",
@@ -677,7 +612,7 @@
             "notesAreExcerpt": false,
             "sourceUrl": "https://apps.apple.com/kr/app/%EC%BC%80%EC%9D%B4%EB%B1%85%ED%81%AC/id1178872627",
             "added": [],
-            "improved": [],
+            "improved": ["일부 기능 개선"],
             "changed": []
           }
         ]

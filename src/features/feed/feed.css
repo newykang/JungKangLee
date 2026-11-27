@@ -433,3 +433,11 @@
     margin-top: 12px;
   }
 }
+.ad-mine-filter {
+  margin-bottom: 12px;
+}
+.ad-mine-filter[aria-pressed="true"] {
+  color: white;
+  background: var(--violet);
+  border-color: var(--violet);
+}
