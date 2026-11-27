@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:sites": "npm run build && node sites-worker/build-worker.mjs",
+    "test:sites": "node --test sites-worker/*.test.mjs src/features/reviews/votes.test.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.81.0",

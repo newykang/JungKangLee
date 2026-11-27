@@ -7,7 +7,8 @@ export default function VersionChart({ rows }: { rows: ChartRow[] }) {
 
   return (
     <section aria-labelledby="version-chart-title" className="rounded-2xl border border-slate-200 p-4 sm:p-5">
-      <h2 id="version-chart-title" className="text-base font-bold text-slate-900">버전별 평가</h2>
+      <h2 id="version-chart-title" className="text-base font-bold text-slate-900">버전별 전체 평가</h2>
+      {rows.every(row => row.likes + row.dislikes === 0) && <p className="mt-2 text-sm text-slate-600">아직 제출된 평가가 없어요.</p>}
       <ul className="mt-2 flex flex-wrap gap-3 text-xs font-medium text-slate-700">
         <li className="flex items-center gap-1.5"><span aria-hidden="true" className="size-2.5 rounded-sm bg-indigo-600" />좋아요</li>
         <li className="flex items-center gap-1.5"><span aria-hidden="true" className="size-2.5 rounded-sm bg-slate-500" />아쉬워요</li>
@@ -17,7 +18,7 @@ export default function VersionChart({ rows }: { rows: ChartRow[] }) {
           <BarChart data={rows} margin={{ top: 8, right: 14, bottom: 0, left: 0 }} accessibilityLayer={false}>
             <CartesianGrid vertical={false} stroke="#e2e8f0" />
             <XAxis dataKey="version" tick={{ fill: '#475569', fontSize: 11 }} tickLine={false} />
-            <YAxis domain={[0, 1]} ticks={[0, 1]} width={24} allowDecimals={false} tick={{ fill: '#475569', fontSize: 11 }} />
+            <YAxis width={44} allowDecimals={false} tick={{ fill: '#475569', fontSize: 11 }} />
             <Tooltip />
             <Bar name="좋아요" dataKey="likes" fill="#4f46e5" radius={[4, 4, 0, 0]} maxBarSize={24} isAnimationActive={false} />
             <Bar name="아쉬워요" dataKey="dislikes" fill="#64748b" radius={[4, 4, 0, 0]} maxBarSize={24} isAnimationActive={false} />
