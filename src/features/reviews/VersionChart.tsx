@@ -10,7 +10,7 @@ export default function VersionChart({ rows }: { rows: ChartRow[] }) {
       <h2 id="version-chart-title" className="text-base font-bold text-slate-900">버전별 평가</h2>
       <ul className="mt-2 flex flex-wrap gap-3 text-xs font-medium text-slate-700">
         <li className="flex items-center gap-1.5"><span aria-hidden="true" className="size-2.5 rounded-sm bg-indigo-600" />좋아요</li>
-        <li className="flex items-center gap-1.5"><span aria-hidden="true" className="size-2.5 rounded-sm bg-slate-500" />싫어요</li>
+        <li className="flex items-center gap-1.5"><span aria-hidden="true" className="size-2.5 rounded-sm bg-slate-500" />아쉬워요</li>
       </ul>
       <div aria-hidden="true" className="mt-4 h-52 min-w-0">
         <ResponsiveContainer width="100%" height="100%" minWidth={0}>
@@ -20,7 +20,7 @@ export default function VersionChart({ rows }: { rows: ChartRow[] }) {
             <YAxis domain={[0, 1]} ticks={[0, 1]} width={24} allowDecimals={false} tick={{ fill: '#475569', fontSize: 11 }} />
             <Tooltip />
             <Bar name="좋아요" dataKey="likes" fill="#4f46e5" radius={[4, 4, 0, 0]} maxBarSize={24} isAnimationActive={false} />
-            <Bar name="싫어요" dataKey="dislikes" fill="#64748b" radius={[4, 4, 0, 0]} maxBarSize={24} isAnimationActive={false} />
+            <Bar name="아쉬워요" dataKey="dislikes" fill="#64748b" radius={[4, 4, 0, 0]} maxBarSize={24} isAnimationActive={false} />
           </BarChart>
         </ResponsiveContainer>
       </div>
