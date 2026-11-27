@@ -12,8 +12,8 @@ export default function ReleaseReview({ id, version }: { id: string; version: st
     {reviews.error && <ReviewLoadError error={reviews.error} retry={reviews.retry} />}
     {reviews.saveError && <p role="status" className="mt-2 text-sm text-amber-800">{reviews.saveError}</p>}
     {summary && reviews.data && <>
-      <ReviewControls summary={summary} version={version} signedIn={reviews.data.signedIn} saving={reviews.saving}
-        onVote={choice => void reviews.castVote(summary, choice)} />
+      <ReviewControls summary={summary} version={version} signedIn={reviews.data.signedIn} saving={reviews.saving} expandedReasons
+        onVote={(choice, reasons) => reviews.castVote(summary, choice, reasons)} />
       {!reviews.data.signedIn && <ReviewSignIn returnHash={window.location.hash} />}
     </>}
   </section>

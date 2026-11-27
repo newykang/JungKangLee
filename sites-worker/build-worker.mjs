@@ -32,10 +32,14 @@ async function collectAssets(directory, prefix = '') {
 const assets = Object.fromEntries(await collectAssets('dist'));
 if (!assets['/index.html']) throw new Error('Build the Vite app before packaging the Sites Worker.');
 const revision = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
-const reviews = (await readFile('sites-worker/reviews.mjs', 'utf8')).replace('export function createReviewsHandler', 'function createReviewsHandler');
+const reviewReasons = JSON.parse(await readFile('src/features/reviews/review-reasons.json', 'utf8'));
+const reviews = (await readFile('sites-worker/reviews.mjs', 'utf8'))
+  .replace(/^import reviewReasons .*;\r?\n/, '')
+  .replace('export function createReviewsHandler', 'function createReviewsHandler');
 const worker = (await readFile('sites-worker/worker.mjs', 'utf8'))
   .replace("import { createReviewsHandler } from './reviews.mjs';", '')
   .replace('export function createSiteWorker', 'function createSiteWorker');
 await mkdir('dist/server', { recursive: true });
-await writeFile('dist/server/index.js', reviews + '\n' + worker + '\nexport default createSiteWorker(' +
+await writeFile('dist/server/index.js', 'const reviewReasons = ' + JSON.stringify(reviewReasons) + ';\n' +
+  reviews + '\n' + worker + '\nexport default createSiteWorker(' +
   JSON.stringify({ catalog, assets, revision }) + ');\n');

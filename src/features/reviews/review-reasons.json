@@ -1,0 +1,40 @@
+{
+  "max": 3,
+  "items": [
+    {
+      "id": "features",
+      "like": "새 기능이 유용해요",
+      "dislike": "필요한 기능이 부족해요"
+    },
+    {
+      "id": "usability",
+      "like": "조작이 더 편해졌어요",
+      "dislike": "사용이 더 불편해졌어요"
+    },
+    {
+      "id": "speed",
+      "like": "반응이 더 빨라졌어요",
+      "dislike": "앱이 느려졌어요"
+    },
+    {
+      "id": "stability",
+      "like": "오류가 줄었어요",
+      "dislike": "오류가 생겨요"
+    },
+    {
+      "id": "design",
+      "like": "화면이 보기 좋아졌어요",
+      "dislike": "화면이 보기 어려워졌어요"
+    },
+    {
+      "id": "accessibility",
+      "like": "접근성이 좋아졌어요",
+      "dislike": "접근성이 떨어졌어요"
+    },
+    {
+      "id": "resources",
+      "like": "배터리·데이터 부담이 줄었어요",
+      "dislike": "배터리·데이터 소모가 늘었어요"
+    }
+  ]
+}
