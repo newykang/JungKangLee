@@ -4,6 +4,7 @@ import { ReleaseCards } from "./ReleaseCards";
 import { AppIcon } from "../feed/AppIcon";
 import {
   dateLabel,
+  latestUpdatesByPlatform,
   platformLabel,
   sections,
   type FeedApp,
@@ -16,6 +17,7 @@ interface Props {
   update: FeedUpdate;
   history?: readonly FeedUpdate[];
   onBack: () => void;
+  onOpenUpdate?: (update: FeedUpdate) => void;
   backLabel?: string;
   review?: ReactNode;
 }
@@ -24,6 +26,7 @@ export function UpdateDetail({
   update,
   history = [],
   onBack,
+  onOpenUpdate,
   backLabel = "업데이트 피드",
   review,
 }: Props) {
@@ -33,6 +36,12 @@ export function UpdateDetail({
     )
     .slice()
     .sort((a, b) => b.releaseDate.localeCompare(a.releaseDate));
+  const otherPlatforms = latestUpdatesByPlatform(
+    history.filter(
+      (item) => item.appId === app.id && item.platform !== update.platform,
+    ),
+  );
+  const otherVersions = versions.filter((item) => item.id !== update.id);
   return (
     <article className="ad-detail">
       <button className="ad-back" onClick={onBack}>
@@ -48,7 +57,45 @@ export function UpdateDetail({
           v{update.version} · {dateLabel(update.releaseDate)}
         </p>
       </div>
+      {onOpenUpdate && otherPlatforms.length > 0 && (
+        <div
+          className="ad-links ad-platform-links"
+          aria-label="다른 플랫폼 업데이트"
+        >
+          {otherPlatforms.map((item) => (
+            <button
+              type="button"
+              className="ad-back"
+              key={item.id}
+              onClick={() => onOpenUpdate(item)}
+            >
+              {platformLabel(item)} 업데이트
+            </button>
+          ))}
+        </div>
+      )}
       <ReleaseCards key={update.id} app={app} update={update} />
+      {onOpenUpdate && otherVersions.length > 0 && (
+        <details className="ad-block">
+          <summary>{platformLabel(update)} 버전 기록</summary>
+          <ul>
+            {otherVersions.map((item) => (
+              <li key={item.id}>
+                <button
+                  type="button"
+                  className="ad-back"
+                  onClick={() => onOpenUpdate(item)}
+                >
+                  {item.version === "미확인"
+                    ? "버전 미확인"
+                    : "v" + item.version}{" "}
+                  {dateLabel(item.releaseDate)}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </details>
+      )}
       {versions[0]?.id === update.id &&
         new Set(versions.map((v) => v.version)).size > 1 && (
           <VersionComparison key={update.id} versions={versions} />

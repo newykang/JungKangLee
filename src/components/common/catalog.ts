@@ -26,10 +26,10 @@ export const apps: FeedApp[] = catalog.map(app => {
   const listing = app.stores.find(store => store.platform === 'ios') ?? app.stores[0]
   return {
     id: app.id,
-    developer: publisherByApp[app.id] ?? profile?.developer,
+    developer: app.developer ?? publisherByApp[app.id] ?? profile?.developer,
     name: profile?.name ?? app.name,
     category: app.id === 'kakao-bank' ? '은행' : profile?.category ?? app.category,
-    bankFeatures: bankFeatures[app.id] ?? (profile?.category === '은행' ? profile.features : undefined),
+    bankFeatures: app.bankFeatures ?? bankFeatures[app.id] ?? (profile?.category === '은행' ? profile.features : undefined),
     iconUrl: icons.has(app.id) ? '/icons/' + app.id + '.jpg' : listing?.iconUrl ?? '',
     storeUrl: listing?.storeUrl ?? '',
   }

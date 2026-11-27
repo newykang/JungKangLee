@@ -49,9 +49,11 @@ export default function App() {
       <div hidden={onboarding || active !== 'feed' || Boolean(release && app)}><UpdateFeed apps={apps} updates={updates} selectedAppIds={selection.selectedAppIds} onOpenUpdate={item => { location.hash = 'update/' + item.id }} /></div>
       {active === 'banks' && !release && <BankOverview apps={apps} updates={updates} onOpenUpdate={item => { location.hash = 'banks/' + item.id }} />}
       {release && app && <UpdateDetail key={release.card.id} app={{...app, storeUrl: release.storeUrl}} update={release.card} history={updates} onBack={() => { location.hash = active === 'banks' ? 'banks' : 'feed' }}
+        onOpenUpdate={item => { location.hash = (active === 'banks' ? 'banks/' : 'update/') + item.id }}
         backLabel={active === 'banks' ? '은행 앱 한눈에 보기' : undefined}
         review={release.canVote ? <ReleaseReview key={release.card.id} id={release.card.id} version={release.card.version} /> : <p className="pane">버전이 확인되면 평가할 수 있어요.</p>} />}
-      {active === 'myapps' && <><a className="ad-group-settings" href="#groups">앱 그룹 변경</a><MyApps apps={apps} {...selection} /></>}
+      {active === 'myapps' && <MyApps apps={apps} {...selection}
+        groupNames={appGroups.filter(group => groupSelection?.groups.includes(group.id)).map(group => group.name)} />}
       {active === 'ecosystem' && <Ecosystem selectedAppIds={selection.selectedAppIds} />}
       {active === 'reviews' && <Reviews />}
     </main>
