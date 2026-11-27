@@ -21,7 +21,7 @@ export interface FeedUpdate {
   improved: string[];
   changed: string[];
   sourceUrl: string;
-  /** Set for a verified release containing only bug fixes. */
+  /** Optional catalog override for releases without specific user-facing changes. */
   bugFixOnly?: boolean;
 }
 export const sections = [
@@ -29,14 +29,40 @@ export const sections = [
   { key: "improved", label: "개선" },
   { key: "changed", label: "변경" },
 ] as const;
+const genericMaintenance =
+  /^(?:(?:앱(?:의|\s*사용\s*중)?|서비스|사용자?|이용|일부|기타|소소한|전반적인)\s*)*(?:버그|오류|사용성|편의성|안정성|성능|사용\s*환경|기능|불편한\s*부분|앱)(?:을|를|이|가|의)?\s*(?:수정|개선|향상|최적화|픽스)(?:합니다|했습니다|하였습니다|했어요|되었습니다|됐습니다|됐어요)?$/;
+const genericNotes = new Set([
+  "세부 내용 미공개",
+  "구체적인 변경 사항 미공개",
+  "앱 안정성을 높이기 위한 수정이 포함됐습니다",
+  "앱 안정화를 위한 관련 수정",
+  "안정화",
+  "안정선 개선",
+  "(공식 원문 발췌)",
+]);
+const genericEnglish =
+  /^(?:bug fixes?|(?:performance|stability|usability) improvements?|minor fixes)$/i;
+
 export function isBugFixOnly(update: FeedUpdate) {
   if (update.bugFixOnly !== undefined) return update.bugFixOnly;
-  if (update.added.length || update.changed.length) return false;
-  const genericFix =
-    /^(?:버그\s*(?:수정|픽스)|오류\s*수정|bug\s*fix(?:es)?)[.!]?$/i;
-  return [update.releaseNotes, ...update.improved].every((line) =>
-    genericFix.test(line.trim()),
-  );
+  const classified = sections.flatMap(({ key }) => update[key]);
+  const notes = classified.some((line) => line.trim())
+    ? classified
+    : [update.releaseNotes];
+  return notes
+    .flatMap((line) =>
+      line.split(
+        /[\r\n]+|[.!。](?:\s+|$)|\s+및\s+|(?<=수정|개선|향상)하고\s+|\s+(?:and|&)\s+/i,
+      ),
+    )
+    .map((line) => line.replace(/^[\s•●·*–—-]+/, "").trim())
+    .filter(Boolean)
+    .every(
+      (line) =>
+        genericNotes.has(line) ||
+        genericMaintenance.test(line) ||
+        genericEnglish.test(line),
+    );
 }
 export function dateLabel(date: string) {
   return date.slice(0, 10).replaceAll("-", ".");
@@ -45,6 +71,12 @@ export function platformLabel(update: FeedUpdate) {
   return update.platform === "ios" ? "iOS" : "Android";
 }
 export function feedChanges(update: FeedUpdate) {
+  if (isBugFixOnly(update)) {
+    return {
+      items: [{ label: "버그 픽스", text: "구체적인 변경 사항 미공개" }],
+      limited: false,
+    };
+  }
   const classified = sections.flatMap(({ key, label }) =>
     update[key].map((text) => ({ label, text })),
   );

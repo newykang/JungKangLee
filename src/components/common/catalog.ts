@@ -40,7 +40,6 @@ export const releases = catalog.flatMap(app => app.stores.flatMap(store => store
     id: release.id, appId: app.id, platform: store.platform, version: release.version ?? '미확인',
     releaseDate: release.updatedOn ?? '', releaseNotes: (release.releaseNotes ?? '') + (release.notesAreExcerpt ? '\n(공식 원문 발췌)' : ''),
     added: release.added, changed: release.changed, improved: release.improved, sourceUrl: release.sourceUrl,
-    bugFixOnly: release.id === 'ios:839333328:5.286.0' || undefined,
   }
   return { card, storeUrl: store.storeUrl, canVote: Boolean(release.version) }
 })))

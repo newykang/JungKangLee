@@ -85,7 +85,6 @@ const updates: FeedUpdate[] = snapshot.map((item) => ({
   releaseDate: item.date.slice(0, 10),
   releaseNotes: item.notes,
   sourceUrl: item.url,
-  bugFixOnly: item.id === "839333328" && item.version === "5.286.0",
   added: [],
   improved: [],
   changed: [],
