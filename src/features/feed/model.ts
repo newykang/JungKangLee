@@ -4,6 +4,7 @@ export interface FeedApp {
   name: string;
   category: string;
   developer?: string;
+  bankFeatures?: readonly string[];
   /** Set when the catalog has verified a mandatory latest-version policy. */
   requiresLatestVersion?: boolean;
   iconUrl: string;
@@ -65,7 +66,8 @@ export function feedChanges(update: FeedUpdate) {
       .filter((item) => item.text),
   );
   const limited =
-    !items.length || source.some(({ text }) => text.includes("세부 내용 미공개"));
+    !items.length ||
+    source.some(({ text }) => text.includes("세부 내용 미공개"));
   return { items, limited };
 }
 export function safeLink(value: string) {

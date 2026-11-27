@@ -1,0 +1,250 @@
+.ad-shell [hidden] {
+  display: none;
+}
+
+.ad-view-nav {
+  display: flex;
+  gap: 24px;
+  max-width: 960px;
+  margin: auto;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--line);
+}
+.ad-view-nav a {
+  padding: 12px 0;
+  border-bottom: 2px solid transparent;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+}
+.ad-view-nav a[aria-current] {
+  border-color: var(--violet);
+  color: var(--ink);
+}
+.ad-overview {
+  max-width: 960px;
+  margin: auto;
+  padding: 40px 24px 56px;
+}
+.ad-overview :focus-visible,
+.ad-view-nav :focus-visible {
+  outline: 2px solid var(--violet);
+  outline-offset: 3px;
+}
+.ad-overview h1 {
+  margin: 0;
+  font-size: clamp(28px, 4.5vw, 44px);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.18;
+}
+.ad-overview header p,
+.ad-landing-intro p {
+  color: var(--muted);
+  margin: 12px 0 0;
+}
+.ad-landing {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 48px;
+  padding-top: 64px;
+}
+.ad-landing-intro p {
+  max-width: 22ch;
+}
+.ad-group-picker fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.ad-group-picker legend {
+  padding: 0;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+.ad-group-option {
+  position: relative;
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr) 20px;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  cursor: pointer;
+}
+.ad-group-option + .ad-group-option {
+  margin-top: 8px;
+}
+.ad-group-option:has(input:checked) {
+  border-color: var(--violet);
+}
+.ad-group-option:focus-within {
+  outline: 2px solid var(--violet);
+  outline-offset: 2px;
+}
+.ad-group-icons {
+  display: flex;
+  gap: 4px;
+}
+.ad-group-icons .ad-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+}
+.ad-group-name strong,
+.ad-group-name small {
+  display: block;
+}
+.ad-group-name strong {
+  font-weight: 600;
+}
+.ad-group-name small {
+  font-size: 12px;
+  color: var(--muted);
+}
+.ad-group-option input {
+  position: absolute;
+  opacity: 0;
+}
+.ad-group-check {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #8b8999;
+  border-radius: 4px;
+}
+.ad-group-check svg {
+  visibility: hidden;
+}
+.ad-group-option input:checked + .ad-group-check {
+  border-color: var(--violet);
+  background: var(--violet);
+  color: #fff;
+}
+.ad-group-option input:checked + .ad-group-check svg {
+  visibility: visible;
+}
+.ad-group-actions {
+  margin-top: 16px;
+}
+.ad-start {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--violet);
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: var(--violet);
+  color: #fff;
+}
+.ad-bank-group {
+  margin-top: 32px;
+}
+.ad-bank-group h2 {
+  margin: 0 0 8px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 600;
+}
+.ad-bank-group h2 small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+.ad-bank-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.ad-bank-app {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) auto;
+  gap: 12px;
+  padding: 16px;
+}
+.ad-bank-app + .ad-bank-app {
+  border-top: 1px solid var(--line);
+}
+.ad-bank-info h3 {
+  font-size: 16px;
+  margin: 0 0 4px;
+  font-weight: 600;
+}
+.ad-bank-info p,
+.ad-bank-info ul {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0;
+}
+.ad-bank-info ul {
+  padding-inline-start: 16px;
+}
+.ad-bank-versions {
+  display: grid;
+  gap: 4px;
+  align-content: start;
+  justify-items: end;
+  color: var(--muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.ad-bank-versions button {
+  display: grid;
+  justify-items: end;
+  gap: 2px;
+  padding: 4px 8px;
+  color: var(--ink);
+  background: #f5f4f8;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 12px;
+}
+.ad-bank-versions time {
+  color: var(--muted);
+}
+.ad-bank-versions a {
+  color: var(--violet);
+  padding: 4px 0;
+}
+@media (max-width: 640px) {
+  .ad-overview {
+    padding: 32px 16px 40px;
+  }
+  .ad-view-nav {
+    padding: 0 16px;
+  }
+  .ad-landing {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .ad-landing-intro p {
+    max-width: none;
+  }
+  .ad-landing-intro br {
+    display: none;
+  }
+}
+@media (max-width: 360px) {
+  .ad-bank-app {
+    grid-template-columns: 44px minmax(0, 1fr);
+  }
+  .ad-bank-versions {
+    grid-column: 2;
+    justify-items: start;
+  }
+  .ad-bank-versions button {
+    justify-items: start;
+  }
+}
