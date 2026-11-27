@@ -81,7 +81,7 @@
 .ad-group-option:has(input:checked) {
   border-color: var(--violet);
 }
-.ad-group-option:focus-within {
+.ad-group-option:has(input:focus-visible) {
   outline: 2px solid var(--violet);
   outline-offset: 2px;
 }
