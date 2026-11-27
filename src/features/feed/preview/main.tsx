@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { Bookmark, Layers2 } from "lucide-react";
 import { UpdateFeed } from "../UpdateFeed";
+import brandWordmark from "../appdate-wordmark.png";
 import { usePlatformFeed, type PlatformChoice } from "../usePlatformFeed";
 import { AppGroupLanding, type AppGroup } from "../AppGroupLanding";
 import { BankOverview } from "../BankOverview";
@@ -186,7 +187,7 @@ function Preview() {
             <span className="ad-brand-mark">
               <Layers2 size={18} />
             </span>
-            appdate
+            <img className="brand-wordmark" src={brandWordmark} alt="appdate" />
           </span>
           <button
             className="ad-mine"
