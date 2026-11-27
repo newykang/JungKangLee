@@ -32,7 +32,7 @@ function VoteButtons({ release, vote, onVote }: {
   const label = release.version ?? '버전 미확인'
   const buttons = [
     { id: 'like', label: '좋아요', icon: ThumbsUp },
-    { id: 'dislike', label: '싫어요', icon: ThumbsDown },
+    { id: 'dislike', label: '아쉬워요', icon: ThumbsDown },
   ] as const
 
   return (
@@ -142,11 +142,15 @@ export default function Reviews() {
                         {release.updatedOn && <time className="text-xs text-slate-600" dateTime={release.updatedOn}>{release.updatedOn}</time>}
                       </div>
                       {release.summaryKo && <p className="mt-2 text-sm leading-6 text-slate-700">{release.summaryKo}</p>}
+                      <a href={release.sourceUrl} target="_blank" rel="noreferrer"
+                        className="my-1 inline-flex min-h-8 items-center gap-1 text-xs font-semibold text-indigo-700 underline underline-offset-2">
+                        공식 출처 <ExternalLink size={13} aria-hidden="true" />
+                      </a>
                       {release.version ? (
                         <>
                           <p aria-live="polite" className="mb-3 mt-3 flex flex-wrap gap-x-3 text-sm text-slate-600">
                             <span>좋아요 {likes}건</span>
-                            <span>싫어요 {dislikes}건</span>
+                            <span>아쉬워요 {dislikes}건</span>
                             <span>{rate === null ? '총 0건 · 긍정 비율 —' : `긍정 비율 ${rate}%`}</span>
                           </p>
                           <VoteButtons release={release} vote={vote} onVote={choice => recordVote(release.id, choice)} />
