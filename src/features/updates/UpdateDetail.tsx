@@ -1,10 +1,10 @@
-import type { ReactNode } from "react";
-import { ArrowLeft, ExternalLink } from "lucide-react";
+import { useState, type ReactNode } from "react";
+import { ArrowLeft } from "lucide-react";
+import { ReleaseCards } from "./ReleaseCards";
 import { AppIcon } from "../feed/AppIcon";
 import {
   dateLabel,
   platformLabel,
-  safeLink,
   sections,
   type FeedApp,
   type FeedUpdate,
@@ -33,9 +33,6 @@ export function UpdateDetail({
     )
     .slice()
     .sort((a, b) => b.releaseDate.localeCompare(a.releaseDate));
-  const source = safeLink(update.sourceUrl);
-  const store = safeLink(app.storeUrl);
-  const hasSummary = sections.some((s) => update[s.key].length > 0);
   return (
     <article className="ad-detail">
       <button className="ad-back" onClick={onBack}>
@@ -51,39 +48,7 @@ export function UpdateDetail({
           v{update.version} · {dateLabel(update.releaseDate)}
         </p>
       </div>
-      <h2>이번 버전의 변경 사항</h2>
-      {sections.map(
-        (s) =>
-          update[s.key].length > 0 && (
-            <section className="ad-block" key={s.key}>
-              <span className="ad-label">{s.label}</span>
-              <ul>
-                {update[s.key].map((line, i) => (
-                  <li key={i}>{line}</li>
-                ))}
-              </ul>
-            </section>
-          ),
-      )}
-      {!hasSummary && <p>세부 내용 미공개</p>}
-      <details className="ad-block" key={update.id}>
-        <summary>공식 업데이트 원문</summary>
-        <p className="ad-original">
-          {update.releaseNotes || "세부 내용 미공개"}
-        </p>
-      </details>
-      <div className="ad-links">
-        {source && (
-          <a href={source} target="_blank" rel="noreferrer">
-            공식 출처 <ExternalLink size={15} />
-          </a>
-        )}
-        {store && (
-          <a href={store} target="_blank" rel="noreferrer">
-            스토어에서 보기 <ExternalLink size={15} />
-          </a>
-        )}
-      </div>
+      <ReleaseCards key={update.id} app={app} update={update} />
       {versions[0]?.id === update.id &&
         new Set(versions.map((v) => v.version)).size > 1 && (
           <VersionComparison key={update.id} versions={versions} />
@@ -92,7 +57,6 @@ export function UpdateDetail({
     </article>
   );
 }
-import { useState } from "react";
 function VersionComparison({ versions }: { versions: FeedUpdate[] }) {
   const [base, setBase] = useState("");
   const end = versions.findIndex((item) => item.id === base);
