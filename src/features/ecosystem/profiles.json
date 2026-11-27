@@ -11,7 +11,10 @@
     ],
     "developer": "Kakao Corp.",
     "storeUrl": "https://apps.apple.com/kr/app/id362057947",
-    "iconUrl": "/icons/kakaotalk.jpg"
+    "iconUrl": "/icons/kakaotalk.jpg",
+    "kind": "app",
+    "operator": "카카오",
+    "aliases": []
   },
   {
     "id": "kakao-pay",
@@ -25,7 +28,10 @@
     ],
     "developer": "kakaopay corp.",
     "storeUrl": "https://apps.apple.com/kr/app/id1464496236",
-    "iconUrl": "/icons/kakao-pay.jpg"
+    "iconUrl": "/icons/kakao-pay.jpg",
+    "kind": "app",
+    "operator": "카카오페이",
+    "aliases": []
   },
   {
     "id": "kb-star",
@@ -39,7 +45,12 @@
     ],
     "developer": "Kookmin Bank Co., Ltd.",
     "storeUrl": "https://apps.apple.com/kr/app/id373742138",
-    "iconUrl": "/icons/kb-star.jpg"
+    "iconUrl": "/icons/kb-star.jpg",
+    "kind": "app",
+    "operator": "KB국민은행",
+    "aliases": [
+      "국민은행"
+    ]
   },
   {
     "id": "kb-pay",
@@ -53,7 +64,13 @@
     ],
     "developer": "KB KOOKMINCARD CO., LTD.",
     "storeUrl": "https://apps.apple.com/kr/app/id695436326",
-    "iconUrl": "/icons/kb-pay.jpg"
+    "iconUrl": "/icons/kb-pay.jpg",
+    "kind": "app",
+    "operator": "KB국민카드",
+    "aliases": [
+      "KB페이",
+      "케이비페이"
+    ]
   },
   {
     "id": "kb-mable",
@@ -67,7 +84,13 @@
     ],
     "developer": "KB Securities Co., Ltd.",
     "storeUrl": "https://apps.apple.com/kr/app/id350742701",
-    "iconUrl": "/icons/kb-mable.jpg"
+    "iconUrl": "/icons/kb-mable.jpg",
+    "kind": "app",
+    "operator": "KB증권",
+    "aliases": [
+      "KB M-able",
+      "마블"
+    ]
   },
   {
     "id": "kakao-map",
@@ -81,7 +104,10 @@
     ],
     "developer": "Kakao Corp.",
     "storeUrl": "https://apps.apple.com/kr/app/id304608425",
-    "iconUrl": "/icons/kakao-map.jpg"
+    "iconUrl": "/icons/kakao-map.jpg",
+    "kind": "app",
+    "operator": "카카오",
+    "aliases": []
   },
   {
     "id": "naver-map",
@@ -95,6 +121,9 @@
     ],
     "developer": "NAVER Corp.",
     "storeUrl": "https://apps.apple.com/kr/app/id311867728",
-    "iconUrl": "/icons/naver-map.jpg"
+    "iconUrl": "/icons/naver-map.jpg",
+    "kind": "app",
+    "operator": "네이버",
+    "aliases": []
   }
 ]

@@ -1,68 +1,80 @@
 import { useState } from 'react'
-import { Bookmark, ExternalLink, GitCompareArrows } from 'lucide-react'
-import { edges, groups, profilesById, relationNames } from './graph'
-import type { AppRelationship } from './graph'
+import { ArrowLeft, Bookmark, ExternalLink, History, Layers, Search } from 'lucide-react'
+import RelationshipMap from './RelationshipMap'
+import { byId, isDirectional, kindLabels, neighbors, nodes, palette, relations, topics, verifiedOn } from './graph'
+import type { GraphNode, Filter } from './graph'
+import './explorer.css'
 
 export interface EcosystemProps { selectedAppIds: readonly string[] }
 
-const strokes: Record<AppRelationship['kind'], { color: string; dash?: string }> = {
-  company: { color: '#6150bd' }, group: { color: '#75570b', dash: '8 3' },
-  link: { color: '#0c7573', dash: '5 4' }, similar: { color: '#536991', dash: '2 4' },
+function Profile({ node, saved }: { node: GraphNode; saved: boolean }) {
+  const Symbol = node.kind === 'service' ? Layers : History
+  return <article className="profile">
+    <div className="profile-heading">
+      {node.iconUrl ? <img src={node.iconUrl} alt=""/> : <span className="rel-symbol"><Symbol size={21}/></span>}
+      <div><h3>{node.name}</h3><small>{node.operator} · {kindLabels[node.kind]}</small></div>
+      {saved && <span className="saved"><Bookmark size={12}/>내 앱</span>}
+    </div>
+    <p>{node.purpose}</p><ul className="features">{node.features.map(feature => <li key={feature}>{feature}</li>)}</ul>
+    <a href={node.sourceUrl} target="_blank" rel="noreferrer">{node.kind === 'app' ? '공식 App Store' : node.kind === 'service' ? '서비스 안내' : '변경 공지'} <ExternalLink size={14}/></a>
+  </article>
 }
 
+const normalize = (value: string) => value.normalize('NFKC').toLowerCase().replace(/[\s·-]/g, '')
+
 export default function Ecosystem({ selectedAppIds }: EcosystemProps) {
-  const [group, setGroup] = useState(groups[0])
-  const [selected, setSelected] = useState(group.ids[0])
-  const [compare, setCompare] = useState(group.ids[1])
-  const app = profilesById.get(selected)!
-  const other = profilesById.get(compare)!
-  const lines = edges.filter(edge => group.ids.includes(edge.from) && group.ids.includes(edge.to))
-  const points = group.ids.length === 2 ? [[93, 100], [259, 100]] : [[176, 56], [77, 164], [275, 164]]
-  function select(id: string) {
-    if (id === compare) setCompare(selected)
-    setSelected(id)
+  const [trail, setTrail] = useState<string[]>(['kb-pay'])
+  const [query, setQuery] = useState('')
+  const [filter, setFilter] = useState<Filter>('전체')
+  const [compareId, setCompareId] = useState('')
+  const center = byId.get(trail[trail.length - 1])!
+  const all = neighbors(center.id, '전체')
+  const connected = filter === '전체' ? all : neighbors(center.id, filter)
+  const choice = connected.find(item => item.node.id === compareId) ?? connected[0]
+  const available = new Set(all.flatMap(item => item.reasons.map(edge => relations[edge.kind][1])))
+  const needle = normalize(query.trim())
+  const matches = needle ? nodes.filter(node => [node.name, node.operator, ...(node.aliases ?? [])].some(value => normalize(value).includes(needle))) : []
+
+  function explore(id: string) {
+    setQuery(''); setFilter('전체'); setCompareId(center.id)
+    if (id !== center.id) setTrail([...trail, id])
   }
-  return <section className="ecosystem">
-    <h1>앱 관계도</h1><p className="subtext">앱을 눌러 연결된 서비스와 각 앱이 잘하는 일을 살펴보세요.</p>
-    <div className="group-tabs">{groups.map(item => <button className="pill" key={item.name} aria-pressed={item === group} onClick={() => {
-      setGroup(item); setSelected(item.ids[0]); setCompare(item.ids[1])
-    }}>{item.name}</button>)}</div>
+  function back() {
+    setFilter('전체'); setQuery(''); setCompareId(center.id); setTrail(trail.slice(0, -1))
+  }
+  return <section className="ecosystem rel-explorer">
+    <h1>앱 관계도</h1><p className="subtext">앱 이름과 운영사, 예전 이름으로 연결된 서비스를 찾아보세요.</p>
+    <div className="rel-controls"><div className="rel-search">
+      <label className="searchbox"><Search size={18}/><input type="search" aria-label="앱·운영사·이전 이름 검색" placeholder="예: KB Pay, 리브메이트" value={query} onChange={e => setQuery(e.target.value)}
+        onKeyDown={e => { if (e.key === 'Escape') setQuery('') }}/></label>
+      {query.trim() && <div className="rel-results"><p role="status">{matches.length ? '검색 결과 ' + matches.length + '개' : '일치하는 앱이나 서비스가 없어요.'}</p>
+        {matches.map(node => <button key={node.id} onClick={() => explore(node.id)}>{node.name} <small>{kindLabels[node.kind]} · {node.operator}</small></button>)}</div>}
+    </div>
+    <label className="rel-topic">주제별 탐색<select value={topics.some(([,id])=>id === center.id) ? center.id : ''} onChange={e=>explore(e.target.value)}>
+      <option value="" disabled>주제 선택</option>{topics.map(([title,id])=><option key={id} value={id}>{title}</option>)}</select></label></div>
+
     <div className="eco-columns"><section className="graph-pane">
-      <div className="graph-heading"><h2>{group.name} 앱 관계</h2><small>앱 {group.ids.length}개</small></div>
-      <svg className="app-graph" viewBox={'0 0 352 ' + (group.ids.length === 2 ? 190 : 230)} role="group" aria-label={group.name + ' 앱 노드'}>
-        {lines.map(edge => {
-          const [x1,y1] = points[group.ids.indexOf(edge.from)], [x2,y2] = points[group.ids.indexOf(edge.to)]
-          const style = strokes[edge.kind]
-          return <line key={edge.from + edge.to} {...{ x1, y1, x2, y2 }} strokeWidth="3" stroke={style.color} strokeDasharray={style.dash} />
-        })}
-        {group.ids.map((id, index) => {
-          const node = profilesById.get(id)!
-          const [x,y] = points[index]
-          return <g key={id} role="button" tabIndex={0} aria-label={node.name + ' 선택'} aria-pressed={selected === id} className="graph-node"
-            onClick={() => select(id)} onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); select(id) } }}>
-            <title>{node.name}{selectedAppIds.includes(id) ? ' · 내 앱' : ''}</title>
-            <rect x={x-52} y={y-34} width="104" height="82" rx="16" fill="white" stroke={id === selected ? '#6650cc' : '#d9d8eb'} strokeWidth={id === selected ? 3 : 1} />
-            <defs><clipPath id={'clip-' + id}><rect x={x-18} y={y-25} width="36" height="36" rx="9" /></clipPath></defs>
-            <image href={node.iconUrl} x={x-18} y={y-25} width="36" height="36" clipPath={'url(#clip-' + id + ')'} />
-            <text x={x} y={y+32} textAnchor="middle" fill="#28243f" fontSize="14" fontWeight="650">{node.name}</text>
-            {selectedAppIds.includes(id) && <g aria-hidden="true"><circle cx={x+25} cy={y-18} r="8" fill="#5341b6"/><path d={`M${x+21} ${y-18}l3 3 5-6`} stroke="white" fill="none" strokeWidth="2"/></g>}
-          </g>
-        })}
-      </svg>
-      <ul className="edge-list">{lines.map(edge => <li key={edge.from + edge.to}>
-        <span className="edge-label" style={{color:strokes[edge.kind].color}}>{relationNames[edge.kind]}</span>
-        <span>{edge.description} <a href={edge.sourceUrl} target="_blank" rel="noreferrer" aria-label={edge.description + ' 근거 보기'}>근거 <ExternalLink size={13}/></a></span>
-      </li>)}</ul>
+      {trail.length > 1 && <button className="rel-back" onClick={back}><ArrowLeft size={16}/>{byId.get(trail[trail.length-2])!.name}로 돌아가기</button>}
+      <div className="graph-heading"><h2>{center.name} 관계도</h2><small>연결 {connected.length}개</small></div>
+      <div className="rel-filters" role="group" aria-label="관계 유형">
+        {(['전체', ...available] as Filter[]).map(item => <button key={item} aria-pressed={filter === item} onClick={() => setFilter(item)}>{item}</button>)}
+      </div>
+      <RelationshipMap center={center} connections={connected} selectedAppIds={selectedAppIds} onExplore={explore}/>
+      <p className="rel-hint">연결된 항목을 누르면 그 항목을 중심으로 탐색해요.</p>
     </section>
-    <section className="compare-pane"><h2><GitCompareArrows size={20} /> 앱 기능 비교</h2>
-      <label className="compare-select">비교할 앱<select value={compare} onChange={event => setCompare(event.target.value)}>
-        {group.ids.filter(id => id !== selected).map(id => <option key={id} value={id}>{profilesById.get(id)?.name}</option>)}</select></label>
-      {[app, other].map(item => <article key={item.id} className="profile">
-        <div className="profile-heading"><img src={item.iconUrl} alt="" /><div><h3>{item.name}</h3><small>{item.category}</small></div>
-          {selectedAppIds.includes(item.id) && <span className="saved"><Bookmark size={12} />내 앱</span>}</div>
-        <p>{item.purpose}</p><ul className="features">{item.features.map(feature => <li key={feature}>{feature}</li>)}</ul>
-        <a href={item.storeUrl} target="_blank" rel="noreferrer">공식 App Store <ExternalLink size={14} /></a>
-      </article>)}
+    <section className="compare-pane"><h2>관계와 기능 비교</h2>
+      {choice && <>
+        <label className="compare-select">비교할 대상<select value={choice.node.id} onChange={e=>setCompareId(e.target.value)}>
+          {connected.map(({node}) => <option key={node.id} value={node.id}>{node.name}</option>)}</select></label>
+        <ul className="rel-evidence">{choice.reasons.map(edge => <li key={edge.kind}>
+          <span className="edge-label" style={{color:palette[relations[edge.kind][1]].color}}>{relations[edge.kind][0]}</span>
+          {edge.effective && <time dateTime={edge.effective}>{edge.effective.replaceAll('-','.')}</time>}
+          {isDirectional(edge.kind) && <div className="rel-direction">{byId.get(edge.from)!.name} → {byId.get(edge.to)!.name}</div>}
+          <p>{edge.reason} <a href={edge.source} target="_blank" rel="noreferrer">근거 <ExternalLink size={13}/></a></p>
+        </li>)}</ul>
+        {[center, choice.node].map(node=><Profile key={node.id} node={node} saved={selectedAppIds.includes(node.id)}/>)}
+        <p className="rel-hint">자료 확인일 <time dateTime={verifiedOn}>{verifiedOn.replaceAll('-','.')}</time></p>
+      </>}
     </section></div>
   </section>
 }

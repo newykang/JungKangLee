@@ -1,0 +1,204 @@
+[
+  {
+    "id": "kb-business",
+    "name": "KB스타기업뱅킹",
+    "kind": "app",
+    "operator": "KB국민은행",
+    "category": "기업뱅킹",
+    "purpose": "사업자 계좌와 회사 자금을 관리할 때",
+    "features": [
+      "기업 이체",
+      "자금 보고서"
+    ],
+    "sourceUrl": "https://apps.apple.com/kr/app/id660616512",
+    "iconUrl": "/icons/kb-business.jpg"
+  },
+  {
+    "id": "shinhan-super-sol",
+    "name": "신한 슈퍼SOL",
+    "kind": "app",
+    "operator": "신한은행",
+    "category": "금융",
+    "purpose": "은행·카드·증권·보험 업무를 한 앱에서 볼 때",
+    "features": [
+      "계좌 이체",
+      "간편 결제",
+      "주식 매매"
+    ],
+    "sourceUrl": "https://apps.apple.com/kr/app/id357484932",
+    "iconUrl": "/icons/shinhan-super-sol.jpg"
+  },
+  {
+    "id": "shinhan-pay",
+    "name": "신한 SOL페이",
+    "kind": "app",
+    "operator": "신한카드",
+    "category": "카드",
+    "purpose": "카드 내역을 확인하고 현장에서 결제할 때",
+    "features": [
+      "간편 결제",
+      "이용 내역"
+    ],
+    "sourceUrl": "https://apps.apple.com/kr/app/id572462317",
+    "iconUrl": "shinhan-pay.jpg"
+  },
+  {
+    "id": "nh-all",
+    "name": "NH올원뱅크",
+    "kind": "app",
+    "operator": "NH농협은행",
+    "category": "은행",
+    "purpose": "계좌를 조회하고 송금하거나 증명서를 발급할 때",
+    "features": [
+      "계좌 조회",
+      "송금",
+      "증명서 발급"
+    ],
+    "sourceUrl": "https://apps.apple.com/kr/app/id1641628055",
+    "iconUrl": "nh-all.jpg"
+  },
+  {
+    "id": "nh-cok",
+    "name": "NH콕뱅크",
+    "kind": "app",
+    "operator": "농협 상호금융",
+    "category": "상호금융",
+    "purpose": "농·축협 금융 업무와 영농 정보를 함께 볼 때",
+    "features": [
+      "계좌 조회",
+      "송금",
+      "영농 정보"
+    ],
+    "sourceUrl": "https://apps.apple.com/kr/app/id1131147442",
+    "iconUrl": "nh-cok.jpg"
+  },
+  {
+    "id": "toss",
+    "name": "토스",
+    "kind": "app",
+    "operator": "비바리퍼블리카",
+    "category": "금융",
+    "purpose": "송금과 은행·증권 서비스를 한곳에서 이용할 때",
+    "features": [
+      "송금",
+      "계좌 조회",
+      "주식 투자"
+    ],
+    "sourceUrl": "https://apps.apple.com/kr/app/id839333328",
+    "iconUrl": "/icons/toss.jpg"
+  },
+  {
+    "id": "gov24",
+    "name": "정부24",
+    "kind": "app",
+    "operator": "행정안전부",
+    "category": "행정",
+    "purpose": "민원 서류를 발급하고 정부 혜택을 찾을 때",
+    "features": [
+      "민원 신청",
+      "증명서 발급",
+      "혜택 조회"
+    ],
+    "sourceUrl": "https://apps.apple.com/kr/app/id586454505",
+    "iconUrl": "gov24.jpg"
+  },
+  {
+    "id": "work24",
+    "name": "고용24",
+    "kind": "app",
+    "operator": "한국고용정보원",
+    "category": "고용",
+    "purpose": "일자리를 찾거나 직업훈련을 신청할 때",
+    "features": [
+      "구직 신청",
+      "직업훈련",
+      "실업급여"
+    ],
+    "sourceUrl": "https://apps.apple.com/kr/app/id6478366140",
+    "iconUrl": "work24.jpg"
+  },
+  {
+    "id": "safety",
+    "name": "안전신문고",
+    "kind": "app",
+    "operator": "행정안전부",
+    "category": "신고",
+    "purpose": "생활 속 위험 요소를 신고할 때",
+    "features": [
+      "위험 신고",
+      "처리 결과"
+    ],
+    "sourceUrl": "https://apps.apple.com/kr/app/id963555704",
+    "iconUrl": "safety.jpg"
+  },
+  {
+    "id": "petition",
+    "name": "국민신문고",
+    "kind": "app",
+    "operator": "국민권익위원회",
+    "category": "민원",
+    "purpose": "행정기관에 민원이나 제안을 제출할 때",
+    "features": [
+      "민원 신청",
+      "국민 제안"
+    ],
+    "sourceUrl": "https://apps.apple.com/kr/app/id495869152",
+    "iconUrl": "petition.jpg"
+  },
+  {
+    "id": "uplus",
+    "name": "U+one",
+    "kind": "app",
+    "operator": "LG유플러스",
+    "category": "통신",
+    "purpose": "통신 요금과 멤버십 혜택을 확인할 때",
+    "features": [
+      "요금 조회",
+      "멤버십 혜택"
+    ],
+    "sourceUrl": "https://apps.apple.com/kr/app/id945578864",
+    "iconUrl": "uplus.jpg"
+  },
+  {
+    "id": "pass-skt",
+    "name": "PASS by SKT",
+    "kind": "app",
+    "operator": "SK텔레콤",
+    "category": "인증",
+    "purpose": "SK텔레콤망 회선으로 본인을 확인할 때",
+    "features": [
+      "본인 확인",
+      "전자서명"
+    ],
+    "sourceUrl": "https://apps.apple.com/kr/app/id1141258007",
+    "iconUrl": "pass-skt.jpg"
+  },
+  {
+    "id": "pass-kt",
+    "name": "PASS by KT",
+    "kind": "app",
+    "operator": "KT",
+    "category": "인증",
+    "purpose": "KT망 회선으로 본인을 확인할 때",
+    "features": [
+      "본인 확인",
+      "전자서명"
+    ],
+    "sourceUrl": "https://apps.apple.com/kr/app/id1134371550",
+    "iconUrl": "pass-kt.jpg"
+  },
+  {
+    "id": "pass-u",
+    "name": "PASS by U+",
+    "kind": "app",
+    "operator": "LG유플러스",
+    "category": "인증",
+    "purpose": "LG유플러스망 회선으로 본인을 확인할 때",
+    "features": [
+      "본인 확인",
+      "전자서명"
+    ],
+    "sourceUrl": "https://apps.apple.com/kr/app/id1147394645",
+    "iconUrl": "pass-u.jpg"
+  }
+]
