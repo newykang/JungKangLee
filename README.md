@@ -2,6 +2,8 @@
 
 ## appdate
 
+[appdate 바로가기](https://appdate-qa.sleekbeacon8.chatgpt.site/)
+
 모바일에서 앱 업데이트를 읽고, 관련 앱의 기능과 버전별 반응을 확인한다. 스토어 스냅샷과 아이콘을 포함하므로 핵심 화면은 외부 API 없이 동작한다.
 
 ### 실행
