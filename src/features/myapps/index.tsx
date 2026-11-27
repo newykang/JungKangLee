@@ -1,6 +1,7 @@
 import { Check, Plus, Search } from 'lucide-react'
 import { useState } from 'react'
 import type { FeedApp } from '../feed/model'
+import { searchApps } from '../feed/search'
 import { AppIcon } from '../feed/AppIcon'
 
 export interface MyAppsProps {
@@ -18,8 +19,9 @@ export default function MyApps({ apps, selectedAppIds, onToggleApp, storageMessa
   const [notice, setNotice] = useState('')
   const registeredIds = new Set(selectedAppIds)
   const onboardingIds = new Set(onboardingAppIds)
+  const results = searchApps(apps, query)
   const matches = apps
-    .filter(app => app.name.toLowerCase().includes(query.trim().toLowerCase()) && registeredIds.has(app.id) !== adding)
+    .filter(app => results.has(app.id) && registeredIds.has(app.id) !== adding)
     .sort((a,b) => Number(onboardingIds.has(b.id)) - Number(onboardingIds.has(a.id)))
   return <section className="library">
     <h1>내 앱</h1><p className="subtext">사용하는 앱을 등록하면 업데이트 피드에서 먼저 보여요.</p>
@@ -28,7 +30,7 @@ export default function MyApps({ apps, selectedAppIds, onToggleApp, storageMessa
       <a className="ad-group-settings" href="#groups">앱 그룹 변경</a>
     </div>
     <div className="library-controls">
-      <label className="searchbox"><Search size={18} /><input aria-label={adding ? '등록할 앱 검색' : '내 앱 검색'} placeholder="앱 이름 검색" value={query} onChange={e => setQuery(e.target.value)} /></label>
+      <label className="searchbox"><Search size={18} /><input aria-label={adding ? '등록할 앱 검색' : '내 앱 검색'} placeholder="지금 이름이나 예전 이름 검색" value={query} onChange={e => setQuery(e.target.value)} /></label>
       <button className="pill" onClick={() => { setQuery(''); setNotice(''); setAdding(!adding) }}>{adding ? '내 앱 목록으로' : <><Plus size={16} aria-hidden="true" /> 추가 등록</>}</button>
     </div>
     <h2 className="ad-library-heading">{adding ? '추가할 앱' : '등록된 앱 ' + selectedAppIds.length + '개'}</h2>
@@ -36,7 +38,7 @@ export default function MyApps({ apps, selectedAppIds, onToggleApp, storageMessa
     <p className={notice ? 'subtext ad-library-notice' : 'sr-only'} role="status">{notice}</p>
     <div className="library-list">{matches.map(app => {
       const registered = registeredIds.has(app.id)
-      return <div key={app.id} className="library-item"><AppIcon app={app} /><div><strong>{app.name}</strong><small>{app.category}</small></div>
+      return <div key={app.id} className="library-item"><AppIcon app={app} /><div><strong>{app.name}</strong><small>{app.category}</small>{results.get(app.id)?.map(note => <p className="app-history-text" key={note}>{note}</p>)}</div>
         <button className="toggle" aria-label={app.name + (registered ? ' 해제' : ' 등록')} aria-pressed={registered} onClick={() => {
           onToggleApp(app.id)
           setNotice(app.name + (registered ? ' 등록 해제' : ' 등록 완료'))

@@ -1143,6 +1143,175 @@
           ]
         }
       ]
+    },
+    {
+      "id": "shinhan-pay",
+      "name": "신한 SOL페이",
+      "category": "카드",
+      "stores": [
+        {
+          "platform": "ios",
+          "storeId": "572462317",
+          "name": "신한 SOL페이 - 신한카드 대표플랫폼",
+          "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/94/26/68/9426681f-caa0-0f24-0271-15b57dea1e25/AppIcon-0-0-1x_U007emarketing-0-6-0-85-220.png/100x100bb.jpg",
+          "storeUrl": "https://apps.apple.com/kr/app/id572462317",
+          "sourceUrl": "https://itunes.apple.com/lookup?country=kr&id=572462317",
+          "releases": [
+            {
+              "id": "ios:572462317:6.0.8",
+              "version": "6.0.8",
+              "updatedOn": "2026-11-20",
+              "releaseNotes": "[v6.0.8] 업데이트 주요 변경 사항\n- 원활한 서비스 이용을 위해 앱의 안정성과 성능을 개선했어요",
+              "summaryKo": "앱의 안정성과 성능을 개선했어요.",
+              "notesAreExcerpt": false,
+              "sourceUrl": "https://itunes.apple.com/lookup?country=kr&id=572462317",
+              "added": [],
+              "improved": [
+                "앱 안정성과 성능 개선"
+              ],
+              "changed": []
+            }
+          ]
+        },
+        {
+          "platform": "android",
+          "storeId": "com.shcard.smartpay",
+          "name": "신한 SOL페이 - 신한카드 대표플랫폼",
+          "iconUrl": "https://play-lh.googleusercontent.com/Y2-sVm4TNp5QG__Ac8Ysug7Il9sfBM61L0sJ7zb4vuu98793AG21gaekossyHcOzOrwjHCZ-bXarM4eCzv8nBg",
+          "storeUrl": "https://play.google.com/store/apps/details?id=com.shcard.smartpay&hl=ko&gl=KR",
+          "sourceUrl": "https://play.google.com/store/apps/details?id=com.shcard.smartpay&hl=ko&gl=KR",
+          "releases": [
+            {
+              "id": "android:com.shcard.smartpay:6.0.7",
+              "version": "6.0.7",
+              "updatedOn": "2026-11-12",
+              "releaseNotes": "[v6.0.7] 업데이트 주요 변경 사항 * 실손24와 연동을 시작했어요. SOLPay에서 보험금을 청구해보세요! * 원활한 서비스 이용을 위해 앱의 안정성과 성능을 개선했어요.",
+              "summaryKo": "실손24와 연결해 SOL페이에서 보험금을 청구할 수 있어요.",
+              "notesAreExcerpt": false,
+              "sourceUrl": "https://play.google.com/store/apps/details?id=com.shcard.smartpay&hl=ko&gl=KR",
+              "added": [
+                "실손24 연동으로 보험금 청구"
+              ],
+              "improved": [
+                "앱 안정성과 성능 개선"
+              ],
+              "changed": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "uplus",
+      "name": "U+one",
+      "category": "통신",
+      "stores": [
+        {
+          "platform": "ios",
+          "storeId": "945578864",
+          "name": "U+one-요금/가입/로밍/멤버십",
+          "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/39/8c/60/398c60de-a30e-52d6-98d5-daaa3ab83b16/AppIcon-0-0-1x_U007ephone-0-1-0-0-85-220.png/100x100bb.jpg",
+          "storeUrl": "https://apps.apple.com/kr/app/id945578864",
+          "sourceUrl": "https://itunes.apple.com/lookup?country=kr&id=945578864",
+          "releases": [
+            {
+              "id": "ios:945578864:4.0.34",
+              "version": "4.0.34",
+              "updatedOn": "2026-11-19",
+              "releaseNotes": "더 편리한 이용을 위해 사용성을 보완했어요.",
+              "summaryKo": "앱을 더 편리하게 이용할 수 있도록 사용성을 보완했어요.",
+              "notesAreExcerpt": false,
+              "sourceUrl": "https://itunes.apple.com/lookup?country=kr&id=945578864",
+              "added": [],
+              "improved": [
+                "앱 사용성 보완"
+              ],
+              "changed": []
+            }
+          ]
+        },
+        {
+          "platform": "android",
+          "storeId": "com.lguplus.mobile.cs",
+          "name": "U+one-요금/가입/로밍/멤버십",
+          "iconUrl": "https://play-lh.googleusercontent.com/gzlMLyXobhr93hWIjyRBDRM3Jkd0-dan-FbJo9IsZt_mDtKl30jBXn06NdsC5lljIhGCbWi92RNSrIpcVsU3iw",
+          "storeUrl": "https://play.google.com/store/apps/details?id=com.lguplus.mobile.cs&hl=ko&gl=KR",
+          "sourceUrl": "https://play.google.com/store/apps/details?id=com.lguplus.mobile.cs&hl=ko&gl=KR",
+          "releases": [
+            {
+              "id": "android:com.lguplus.mobile.cs:7.0.33",
+              "version": "7.0.33",
+              "updatedOn": "2026-11-13",
+              "releaseNotes": "더 편리한 이용을 위해 사용성을 보완했어요.",
+              "summaryKo": "앱을 더 편리하게 이용할 수 있도록 사용성을 보완했어요.",
+              "notesAreExcerpt": false,
+              "sourceUrl": "https://play.google.com/store/apps/details?id=com.lguplus.mobile.cs&hl=ko&gl=KR",
+              "added": [],
+              "improved": [
+                "앱 사용성 보완"
+              ],
+              "changed": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "work24",
+      "name": "고용24",
+      "category": "고용",
+      "stores": [
+        {
+          "platform": "ios",
+          "storeId": "6478366140",
+          "name": "고용24(Work24)",
+          "iconUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/0f/2e/fc/0f2efcac-1142-c16c-f2e4-95e12e3dc3f7/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/100x100bb.jpg",
+          "storeUrl": "https://apps.apple.com/kr/app/id6478366140",
+          "sourceUrl": "https://itunes.apple.com/lookup?country=kr&id=6478366140",
+          "releases": [
+            {
+              "id": "ios:6478366140:1.3.4",
+              "version": "1.3.4",
+              "updatedOn": "2026-11-23",
+              "releaseNotes": "- 앱 접근 권한 안내 화면 개선\n- 서비스 안정성 향상 및 기타 오류 수정",
+              "summaryKo": "앱 접근 권한 안내 화면을 개선하고 오류를 수정했어요.",
+              "notesAreExcerpt": false,
+              "sourceUrl": "https://itunes.apple.com/lookup?country=kr&id=6478366140",
+              "added": [],
+              "improved": [
+                "앱 접근 권한 안내 화면 개선",
+                "서비스 안정성 향상 및 기타 오류 수정"
+              ],
+              "changed": []
+            }
+          ]
+        },
+        {
+          "platform": "android",
+          "storeId": "kr.or.keis.mo",
+          "name": "고용24",
+          "iconUrl": "https://play-lh.googleusercontent.com/FXvD0-sCjxkrdXR9Q9ntxI7hfIxWzKGY-XQwDRTTzDkc8FnJTzsaoCk8aXeeRr03AV6YJohgJSoc-iLHApe3kg",
+          "storeUrl": "https://play.google.com/store/apps/details?id=kr.or.keis.mo&hl=ko&gl=KR",
+          "sourceUrl": "https://play.google.com/store/apps/details?id=kr.or.keis.mo&hl=ko&gl=KR",
+          "releases": [
+            {
+              "id": "android:kr.or.keis.mo:1.3.4",
+              "version": "1.3.4",
+              "updatedOn": "2026-11-19",
+              "releaseNotes": "- 앱 접근 권한 안내 화면 개선 - 다양한 기기 환경에서의 앱 호환성 개선 - 서비스 안정성 향상 및 기타 오류 수정",
+              "summaryKo": "접근 권한 안내 화면과 기기 호환성을 개선하고 오류를 수정했어요.",
+              "notesAreExcerpt": false,
+              "sourceUrl": "https://play.google.com/store/apps/details?id=kr.or.keis.mo&hl=ko&gl=KR",
+              "added": [],
+              "improved": [
+                "접근 권한 안내 화면과 기기 호환성 개선",
+                "서비스 안정성 향상 및 오류 수정"
+              ],
+              "changed": []
+            }
+          ]
+        }
+      ]
     }
   ]
 }

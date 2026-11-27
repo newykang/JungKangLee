@@ -437,11 +437,36 @@
     margin-top: 12px;
   }
 }
-.ad-mine-filter {
-  margin-bottom: 12px;
+
+.ad-feed .ad-feed-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-top: .65rem;
 }
-.ad-mine-filter[aria-pressed="true"] {
-  color: white;
-  background: var(--violet);
-  border-color: var(--violet);
+.ad-feed-tools button, .ad-feed .ad-open-update, .ad-empty a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .45rem;
+  min-height: 3rem;
+  padding: .5rem .8rem;
+  border-radius: .65rem;
+  font-size: 1rem;
+  font-weight: 650;
+  color: #493886;
+}
+.ad-feed-tools button { border: 1px solid #c8c3d7; background: white; }
+.ad-feed-tools button[aria-pressed="true"], .ad-feed-tools button[aria-expanded="true"] {
+  background: #4e3a94; border-color: #4e3a94; color: white;
+}
+.ad-feed .ad-change-lead { font-size: 1.125rem; line-height: 1.6; margin: .7rem 0 .4rem; }
+.ad-feed .ad-release-meta { font-size: .9375rem; margin-top: auto; }
+.ad-feed .ad-open-update { align-self: flex-start; margin-top: .55rem; background: #f1eef9; }
+.ad-feed .ad-app strong { font-size: 1.125rem; }
+.ad-history { display: flex; align-items: center; gap: .75rem; padding: .8rem; margin-top: .8rem; background: #f0edf8; border-radius: .75rem; }
+.ad-history p, .app-history-text { margin: .25rem 0 0; font-size: 1rem; color: #483d60; line-height: 1.6; }
+.ad-empty a { text-decoration: underline; }
+@media (max-width: 600px) {
+  .ad-feed { padding: 0 0 2rem; }
 }
