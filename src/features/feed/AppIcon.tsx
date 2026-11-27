@@ -1,13 +1,16 @@
 import { useState } from "react";
 import type { FeedApp } from "./model";
 export function AppIcon({ app }: { app: FeedApp }) {
-  const [failed, setFailed] = useState("");
-  return app.iconUrl && failed !== app.iconUrl ? (
+  const [failedUrls, setFailedUrls] = useState<string[]>([]);
+  const iconUrl = [app.iconUrl, app.fallbackIconUrl].find(
+    (url) => url && !failedUrls.includes(url),
+  );
+  return iconUrl ? (
     <img
       className="ad-icon"
-      src={app.iconUrl}
+      src={iconUrl}
       alt=""
-      onError={() => setFailed(app.iconUrl)}
+      onError={() => setFailedUrls((urls) => [...urls, iconUrl])}
     />
   ) : (
     <span className="ad-icon ad-initial" aria-hidden="true">

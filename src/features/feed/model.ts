@@ -8,6 +8,7 @@ export interface FeedApp {
   /** Set when the catalog has verified a mandatory latest-version policy. */
   requiresLatestVersion?: boolean;
   iconUrl: string;
+  fallbackIconUrl?: string;
   storeUrl: string;
 }
 export interface FeedUpdate {

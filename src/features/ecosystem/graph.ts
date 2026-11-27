@@ -5,7 +5,10 @@ export const groups = [
   { name: 'KB금융', ids: ['kb-star', 'kb-pay', 'kb-mable'] },
   { name: '지도', ids: ['kakao-map', 'naver-map'] },
 ]
-export const profilesById = new Map(profiles.map(app => [app.id, app]))
+export const profilesById = new Map(profiles.map(app => [app.id, {
+  ...app,
+  iconUrl: import.meta.env.BASE_URL + app.iconUrl.slice(1),
+}]))
 export const relationNames = { company: '동일 개발사', link: '기능 연동', similar: '유사 서비스', group: '같은 그룹' }
 export interface AppRelationship {
   from: string

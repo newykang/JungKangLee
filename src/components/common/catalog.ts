@@ -24,13 +24,16 @@ const bankFeatures: Record<string, readonly string[]> = {
 export const apps: FeedApp[] = catalog.map(app => {
   const profile = profilesById.get(app.id)
   const listing = app.stores.find(store => store.platform === 'ios') ?? app.stores[0]
+  const storeIconUrl = listing?.iconUrl || app.stores.find(store => store.iconUrl)?.iconUrl || ''
+  const localIconUrl = icons.has(app.id) ? `${import.meta.env.BASE_URL}icons/${app.id}.jpg` : ''
   return {
     id: app.id,
     developer: publisherByApp[app.id] ?? profile?.developer,
     name: profile?.name ?? app.name,
     category: app.id === 'kakao-bank' ? '은행' : profile?.category ?? app.category,
     bankFeatures: bankFeatures[app.id] ?? (profile?.category === '은행' ? profile.features : undefined),
-    iconUrl: icons.has(app.id) ? '/icons/' + app.id + '.jpg' : listing?.iconUrl ?? '',
+    iconUrl: localIconUrl || storeIconUrl,
+    fallbackIconUrl: localIconUrl && storeIconUrl ? storeIconUrl : undefined,
     storeUrl: listing?.storeUrl ?? '',
   }
 })
