@@ -6,6 +6,7 @@ import {
   isBugFixOnly,
   dateLabel,
   feedChanges,
+  latestUpdatesByPlatform,
   platformLabel,
   type FeedApp,
   type FeedUpdate,
@@ -38,7 +39,8 @@ export function UpdateFeed({
   const selected = new Set(selectedAppIds);
   const catalog = new Map(apps.map((app) => [app.id, app]));
   const search = query.trim().toLocaleLowerCase();
-  const rows = updates
+  const shown = new Set<string>();
+  const rows = latestUpdatesByPlatform(updates)
     .flatMap((update) => {
       const app = catalog.get(update.appId);
       if (
@@ -57,8 +59,17 @@ export function UpdateFeed({
       (a, b) =>
         Number(selected.has(b.app.id)) - Number(selected.has(a.app.id)) ||
         b.update.releaseDate.localeCompare(a.update.releaseDate) ||
+        Number(b.update.version !== "미확인") -
+          Number(a.update.version !== "미확인") ||
+        Number(b.update.platform === "ios") -
+          Number(a.update.platform === "ios") ||
         a.update.id.localeCompare(b.update.id),
-    );
+    )
+    .filter(({ app }) => {
+      if (shown.has(app.id)) return false;
+      shown.add(app.id);
+      return true;
+    });
   return (
     <section className="ad-feed">
       <h1>업데이트 피드</h1>
@@ -186,7 +197,9 @@ export function UpdateFeed({
               {limited && <small>세부 내용 미공개</small>}
               <button
                 className="ad-open-update"
-                aria-label={app.name + " " + update.version + " 업데이트 상세 보기"}
+                aria-label={
+                  app.name + " " + update.version + " 업데이트 상세 보기"
+                }
                 onClick={() => onOpenUpdate(update)}
               >
                 {items.length > 3 && <small>외 {items.length - 3}건</small>}

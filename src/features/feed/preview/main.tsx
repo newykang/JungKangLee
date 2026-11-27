@@ -252,6 +252,9 @@ function Preview() {
             app={apps.find((app) => app.id === item.appId)!}
             update={item}
             history={updates}
+            onOpenUpdate={(item) => {
+              location.hash = (banking ? "banks/" : "feed/") + item.id;
+            }}
             onBack={() => {
               location.hash = banking ? "banks" : "feed";
             }}

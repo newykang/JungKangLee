@@ -1,0 +1,687 @@
+[
+  {
+    "id": "hana",
+    "name": "하나원큐",
+    "category": "은행",
+    "developer": "Hana Bank",
+    "bankFeatures": [
+      "계좌 조회·이체",
+      "금융상품",
+      "자산관리"
+    ],
+    "stores": [
+      {
+        "platform": "ios",
+        "storeId": "6743190232",
+        "name": "하나은행, 새로워진 하나원큐를 경험해 보세요",
+        "iconUrl": "/icons/hana.jpg",
+        "storeUrl": "https://apps.apple.com/kr/app/%ED%95%98%EB%82%98%EC%9D%80%ED%96%89-%EC%83%88%EB%A1%9C%EC%9B%8C%EC%A7%84-%ED%95%98%EB%82%98%EC%9B%90%ED%81%90%EB%A5%BC-%EA%B2%BD%ED%97%98%ED%95%B4-%EB%B3%B4%EC%84%B8%EC%9A%94/id6743190232",
+        "sourceUrl": "https://apps.apple.com/kr/app/%ED%95%98%EB%82%98%EC%9D%80%ED%96%89-%EC%83%88%EB%A1%9C%EC%9B%8C%EC%A7%84-%ED%95%98%EB%82%98%EC%9B%90%ED%81%90%EB%A5%BC-%EA%B2%BD%ED%97%98%ED%95%B4-%EB%B3%B4%EC%84%B8%EC%9A%94/id6743190232",
+        "releases": [
+          {
+            "id": "ios:6743190232:1.0.28",
+            "version": "1.0.28",
+            "updatedOn": "2026-11-26",
+            "releaseNotes": "기타 사용성 개선.",
+            "summaryKo": null,
+            "notesAreExcerpt": false,
+            "sourceUrl": "https://apps.apple.com/kr/app/%ED%95%98%EB%82%98%EC%9D%80%ED%96%89-%EC%83%88%EB%A1%9C%EC%9B%8C%EC%A7%84-%ED%95%98%EB%82%98%EC%9B%90%ED%81%90%EB%A5%BC-%EA%B2%BD%ED%97%98%ED%95%B4-%EB%B3%B4%EC%84%B8%EC%9A%94/id6743190232",
+            "added": [],
+            "improved": [],
+            "changed": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "hana-business",
+    "name": "하나원큐 기업",
+    "category": "은행",
+    "developer": "Hana Bank",
+    "bankFeatures": [
+      "기업 계좌·이체",
+      "전자결재",
+      "외환"
+    ],
+    "stores": [
+      {
+        "platform": "ios",
+        "storeId": "395878804",
+        "name": "하나원큐 기업 - 하나은행 기업스마트폰뱅킹",
+        "iconUrl": "/icons/hana-business.jpg",
+        "storeUrl": "https://apps.apple.com/kr/app/%ED%95%98%EB%82%98%EC%9B%90%ED%81%90-%EA%B8%B0%EC%97%85-%ED%95%98%EB%82%98%EC%9D%80%ED%96%89-%EA%B8%B0%EC%97%85%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%8F%B0%EB%B1%85%ED%82%B9/id395878804",
+        "sourceUrl": "https://apps.apple.com/kr/app/%ED%95%98%EB%82%98%EC%9B%90%ED%81%90-%EA%B8%B0%EC%97%85-%ED%95%98%EB%82%98%EC%9D%80%ED%96%89-%EA%B8%B0%EC%97%85%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%8F%B0%EB%B1%85%ED%82%B9/id395878804",
+        "releases": [
+          {
+            "id": "ios:395878804:6.2.4",
+            "version": "6.2.4",
+            "updatedOn": "2026-10-21",
+            "releaseNotes": "1. 기타 사용성 개선",
+            "summaryKo": null,
+            "notesAreExcerpt": false,
+            "sourceUrl": "https://apps.apple.com/kr/app/%ED%95%98%EB%82%98%EC%9B%90%ED%81%90-%EA%B8%B0%EC%97%85-%ED%95%98%EB%82%98%EC%9D%80%ED%96%89-%EA%B8%B0%EC%97%85%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%8F%B0%EB%B1%85%ED%82%B9/id395878804",
+            "added": [],
+            "improved": [],
+            "changed": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "hana-ez",
+    "name": "Hana EZ",
+    "category": "은행",
+    "developer": "Hana Bank",
+    "bankFeatures": [
+      "해외송금",
+      "다국어 지원"
+    ],
+    "stores": [
+      {
+        "platform": "ios",
+        "storeId": "1472964746",
+        "name": "Hana EZ 하나은행 해외송금 전용 다국어 뱅킹",
+        "iconUrl": "/icons/hana-ez.jpg",
+        "storeUrl": "https://apps.apple.com/kr/app/hana-ez-%ED%95%98%EB%82%98%EC%9D%80%ED%96%89-%ED%95%B4%EC%99%B8%EC%86%A1%EA%B8%88-%EC%A0%84%EC%9A%A9-%EB%8B%A4%EA%B5%AD%EC%96%B4-%EB%B1%85%ED%82%B9/id1472964746",
+        "sourceUrl": "https://apps.apple.com/kr/app/hana-ez-%ED%95%98%EB%82%98%EC%9D%80%ED%96%89-%ED%95%B4%EC%99%B8%EC%86%A1%EA%B8%88-%EC%A0%84%EC%9A%A9-%EB%8B%A4%EA%B5%AD%EC%96%B4-%EB%B1%85%ED%82%B9/id1472964746",
+        "releases": [
+          {
+            "id": "ios:1472964746:1.52",
+            "version": "1.52",
+            "updatedOn": "2026-11-09",
+            "releaseNotes": "일부 기능이 개선되었어요",
+            "summaryKo": null,
+            "notesAreExcerpt": false,
+            "sourceUrl": "https://apps.apple.com/kr/app/hana-ez-%ED%95%98%EB%82%98%EC%9D%80%ED%96%89-%ED%95%B4%EC%99%B8%EC%86%A1%EA%B8%88-%EC%A0%84%EC%9A%A9-%EB%8B%A4%EA%B5%AD%EC%96%B4-%EB%B1%85%ED%82%B9/id1472964746",
+            "added": [],
+            "improved": [],
+            "changed": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nh-allone",
+    "name": "NH올원뱅크",
+    "category": "은행",
+    "developer": "NH농협은행",
+    "bankFeatures": [
+      "계좌 조회·이체",
+      "금융상품",
+      "생활 서비스"
+    ],
+    "stores": [
+      {
+        "platform": "ios",
+        "storeId": "1641628055",
+        "name": "NH올원뱅크(농협은행 대표 플랫폼)",
+        "iconUrl": "/icons/nh-allone.jpg",
+        "storeUrl": "https://apps.apple.com/kr/app/nh%EC%98%AC%EC%9B%90%EB%B1%85%ED%81%AC-%EB%86%8D%ED%98%91%EC%9D%80%ED%96%89-%EB%8C%80%ED%91%9C-%ED%94%8C%EB%9E%AB%ED%8F%BC/id1641628055",
+        "sourceUrl": "https://apps.apple.com/kr/app/nh%EC%98%AC%EC%9B%90%EB%B1%85%ED%81%AC-%EB%86%8D%ED%98%91%EC%9D%80%ED%96%89-%EB%8C%80%ED%91%9C-%ED%94%8C%EB%9E%AB%ED%8F%BC/id1641628055",
+        "releases": [
+          {
+            "id": "ios:1641628055:1.7.7",
+            "version": "1.7.7",
+            "updatedOn": "2026-11-20",
+            "releaseNotes": "앱 성능 및 안정성 개선",
+            "summaryKo": null,
+            "notesAreExcerpt": false,
+            "sourceUrl": "https://apps.apple.com/kr/app/nh%EC%98%AC%EC%9B%90%EB%B1%85%ED%81%AC-%EB%86%8D%ED%98%91%EC%9D%80%ED%96%89-%EB%8C%80%ED%91%9C-%ED%94%8C%EB%9E%AB%ED%8F%BC/id1641628055",
+            "added": [],
+            "improved": [],
+            "changed": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nh-smart",
+    "name": "NH스마트뱅킹",
+    "category": "은행",
+    "developer": "National Agricultural Cooperative Federation",
+    "bankFeatures": [
+      "계좌 조회·이체",
+      "금융상품"
+    ],
+    "stores": [
+      {
+        "platform": "ios",
+        "storeId": "1444712671",
+        "name": "NH스마트뱅킹",
+        "iconUrl": "/icons/nh-smart.jpg",
+        "storeUrl": "https://apps.apple.com/kr/app/nh%EC%8A%A4%EB%A7%88%ED%8A%B8%EB%B1%85%ED%82%B9/id1444712671",
+        "sourceUrl": "https://apps.apple.com/kr/app/nh%EC%8A%A4%EB%A7%88%ED%8A%B8%EB%B1%85%ED%82%B9/id1444712671",
+        "releases": [
+          {
+            "id": "ios:1444712671:2.4.6",
+            "version": "2.4.6",
+            "updatedOn": "2026-11-25",
+            "releaseNotes": "앱 안정성 향상",
+            "summaryKo": null,
+            "notesAreExcerpt": false,
+            "sourceUrl": "https://apps.apple.com/kr/app/nh%EC%8A%A4%EB%A7%88%ED%8A%B8%EB%B1%85%ED%82%B9/id1444712671",
+            "added": [],
+            "improved": [],
+            "changed": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nh-business",
+    "name": "NH기업뱅킹",
+    "category": "은행",
+    "developer": "NH농협은행",
+    "bankFeatures": [
+      "기업 계좌·이체",
+      "결재·승인",
+      "공과금·외환"
+    ],
+    "stores": [
+      {
+        "platform": "ios",
+        "storeId": "1611270718",
+        "name": "NH기업뱅킹",
+        "iconUrl": "/icons/nh-business.jpg",
+        "storeUrl": "https://apps.apple.com/kr/app/nh%EA%B8%B0%EC%97%85%EB%B1%85%ED%82%B9/id1611270718",
+        "sourceUrl": "https://apps.apple.com/kr/app/nh%EA%B8%B0%EC%97%85%EB%B1%85%ED%82%B9/id1611270718",
+        "releases": [
+          {
+            "id": "ios:1611270718:1.3.0",
+            "version": "1.3.0",
+            "updatedOn": "2026-11-13",
+            "releaseNotes": "앱 안정성 향상",
+            "summaryKo": null,
+            "notesAreExcerpt": false,
+            "sourceUrl": "https://apps.apple.com/kr/app/nh%EA%B8%B0%EC%97%85%EB%B1%85%ED%82%B9/id1611270718",
+            "added": [],
+            "improved": [],
+            "changed": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ibk-personal",
+    "name": "i-ONE Bank 개인",
+    "category": "은행",
+    "developer": "INDUSTRIAL BANK OF KOREA",
+    "bankFeatures": [
+      "개인 계좌·이체",
+      "금융상품"
+    ],
+    "stores": [
+      {
+        "platform": "ios",
+        "storeId": "1460543865",
+        "name": "i-ONE Bank - 개인고객용",
+        "iconUrl": "/icons/ibk-personal.jpg",
+        "storeUrl": "https://apps.apple.com/kr/app/i-one-bank-%EA%B0%9C%EC%9D%B8%EA%B3%A0%EA%B0%9D%EC%9A%A9/id1460543865",
+        "sourceUrl": "https://apps.apple.com/kr/app/i-one-bank-%EA%B0%9C%EC%9D%B8%EA%B3%A0%EA%B0%9D%EC%9A%A9/id1460543865",
+        "releases": [
+          {
+            "id": "ios:1460543865:3.2.6",
+            "version": "3.2.6",
+            "updatedOn": "2026-11-24",
+            "releaseNotes": "고객님의 편리한 이용을 위해 앱을 개선했습니다.\n- 안정성을 강화하고, 일부 기능을 최적화하였습니다.",
+            "summaryKo": null,
+            "notesAreExcerpt": false,
+            "sourceUrl": "https://apps.apple.com/kr/app/i-one-bank-%EA%B0%9C%EC%9D%B8%EA%B3%A0%EA%B0%9D%EC%9A%A9/id1460543865",
+            "added": [],
+            "improved": [],
+            "changed": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ibk-business",
+    "name": "i-ONE Bank 기업",
+    "category": "은행",
+    "developer": "INDUSTRIAL BANK OF KOREA",
+    "bankFeatures": [
+      "기업 계좌 관리",
+      "이체·결재"
+    ],
+    "stores": [
+      {
+        "platform": "ios",
+        "storeId": "6738371777",
+        "name": "i-ONE Bank - 기업고객용",
+        "iconUrl": "/icons/ibk-business.jpg",
+        "storeUrl": "https://apps.apple.com/kr/app/i-one-bank-%EA%B8%B0%EC%97%85%EA%B3%A0%EA%B0%9D%EC%9A%A9/id6738371777",
+        "sourceUrl": "https://apps.apple.com/kr/app/i-one-bank-%EA%B8%B0%EC%97%85%EA%B3%A0%EA%B0%9D%EC%9A%A9/id6738371777",
+        "releases": [
+          {
+            "id": "ios:6738371777:1.2.4",
+            "version": "1.2.4",
+            "updatedOn": "2026-11-17",
+            "releaseNotes": "(IBK기업은행) 보다 더 안전하고 편리한 i-ONE Bank 기업 이용을 위해 서비스를 안정화했어요!",
+            "summaryKo": null,
+            "notesAreExcerpt": false,
+            "sourceUrl": "https://apps.apple.com/kr/app/i-one-bank-%EA%B8%B0%EC%97%85%EA%B3%A0%EA%B0%9D%EC%9A%A9/id6738371777",
+            "added": [],
+            "improved": [],
+            "changed": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "im-bank",
+    "name": "iM뱅크",
+    "category": "은행",
+    "developer": "iM Bank Co., Ltd.",
+    "bankFeatures": [
+      "계좌 조회·이체",
+      "금융상품"
+    ],
+    "stores": [
+      {
+        "platform": "ios",
+        "storeId": "1067748687",
+        "name": "iM뱅크 - 아이엠뱅크 모바일뱅킹",
+        "iconUrl": "/icons/im-bank.jpg",
+        "storeUrl": "https://apps.apple.com/kr/app/im%EB%B1%85%ED%81%AC-%EC%95%84%EC%9D%B4%EC%97%A0%EB%B1%85%ED%81%AC-%EB%AA%A8%EB%B0%94%EC%9D%BC%EB%B1%85%ED%82%B9/id1067748687",
+        "sourceUrl": "https://apps.apple.com/kr/app/im%EB%B1%85%ED%81%AC-%EC%95%84%EC%9D%B4%EC%97%A0%EB%B1%85%ED%81%AC-%EB%AA%A8%EB%B0%94%EC%9D%BC%EB%B1%85%ED%82%B9/id1067748687",
+        "releases": [
+          {
+            "id": "ios:1067748687:7.3.17",
+            "version": "7.3.17",
+            "updatedOn": "2026-11-23",
+            "releaseNotes": "수많은 선택이 오가는 일상에서\n고객님께 필요한 순간만큼은\n더 쉽고 편리하게 이어지도록.\n\n금융은 늘 믿을 수 있어야 하니까\niM뱅크는 언제나 고객님 입장에서 먼저 생각합니다.\n다음 업데이트에서도 더 좋은 모습으로 찾아뵐게요.\n감사합니다.",
+            "summaryKo": null,
+            "notesAreExcerpt": false,
+            "sourceUrl": "https://apps.apple.com/kr/app/im%EB%B1%85%ED%81%AC-%EC%95%84%EC%9D%B4%EC%97%A0%EB%B1%85%ED%81%AC-%EB%AA%A8%EB%B0%94%EC%9D%BC%EB%B1%85%ED%82%B9/id1067748687",
+            "added": [],
+            "improved": [],
+            "changed": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "im-business",
+    "name": "iM뱅크 기업",
+    "category": "은행",
+    "developer": "iM Bank Co., Ltd.",
+    "bankFeatures": [
+      "기업 계좌·이체",
+      "결재·승인"
+    ],
+    "stores": [
+      {
+        "platform": "ios",
+        "storeId": "966412270",
+        "name": "iM뱅크 기업",
+        "iconUrl": "/icons/im-business.jpg",
+        "storeUrl": "https://apps.apple.com/kr/app/im%EB%B1%85%ED%81%AC-%EA%B8%B0%EC%97%85/id966412270",
+        "sourceUrl": "https://apps.apple.com/kr/app/im%EB%B1%85%ED%81%AC-%EA%B8%B0%EC%97%85/id966412270",
+        "releases": [
+          {
+            "id": "ios:966412270:7.1.16",
+            "version": "7.1.16",
+            "updatedOn": "2026-09-08",
+            "releaseNotes": "놓치기 쉬운 소식까지 세심하게 챙겨드릴게요.\n알림을 켜고, 중요한 순간을 놓치지 마세요.",
+            "summaryKo": null,
+            "notesAreExcerpt": false,
+            "sourceUrl": "https://apps.apple.com/kr/app/im%EB%B1%85%ED%81%AC-%EA%B8%B0%EC%97%85/id966412270",
+            "added": [],
+            "improved": [],
+            "changed": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "bnk-busan",
+    "name": "BNK부산은행 모바일뱅킹",
+    "category": "은행",
+    "developer": "Busan Bank",
+    "bankFeatures": [
+      "계좌 조회·이체",
+      "금융상품"
+    ],
+    "stores": [
+      {
+        "platform": "ios",
+        "storeId": "1445137607",
+        "name": "BNK부산은행모바일뱅킹",
+        "iconUrl": "/icons/bnk-busan.jpg",
+        "storeUrl": "https://apps.apple.com/kr/app/bnk%EB%B6%80%EC%82%B0%EC%9D%80%ED%96%89%EB%AA%A8%EB%B0%94%EC%9D%BC%EB%B1%85%ED%82%B9/id1445137607",
+        "sourceUrl": "https://apps.apple.com/kr/app/bnk%EB%B6%80%EC%82%B0%EC%9D%80%ED%96%89%EB%AA%A8%EB%B0%94%EC%9D%BC%EB%B1%85%ED%82%B9/id1445137607",
+        "releases": [
+          {
+            "id": "ios:1445137607:5.1.5",
+            "version": "5.1.5",
+            "updatedOn": "2026-11-26",
+            "releaseNotes": "BNK부산은행은 더 좋은 서비스를 제공하기 위해 정기적으로 업데이트를 진행합니다.\n새로운 기능과 개선 사항이 모두 적용된 최신 버전을 이용하시기 바랍니다.\n이용해주셔서 감사합니다.\n\n- 기타버그 수정",
+            "summaryKo": null,
+            "notesAreExcerpt": false,
+            "sourceUrl": "https://apps.apple.com/kr/app/bnk%EB%B6%80%EC%82%B0%EC%9D%80%ED%96%89%EB%AA%A8%EB%B0%94%EC%9D%BC%EB%B1%85%ED%82%B9/id1445137607",
+            "added": [],
+            "improved": [],
+            "changed": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "bnk-busan-business",
+    "name": "BNK부산은행 기업뱅킹",
+    "category": "은행",
+    "developer": "Busan Bank",
+    "bankFeatures": [
+      "기업 계좌·이체",
+      "결재·승인"
+    ],
+    "stores": [
+      {
+        "platform": "ios",
+        "storeId": "1634125167",
+        "name": "BNK 부산은행 기업뱅킹",
+        "iconUrl": "/icons/bnk-busan-business.jpg",
+        "storeUrl": "https://apps.apple.com/kr/app/bnk-%EB%B6%80%EC%82%B0%EC%9D%80%ED%96%89-%EA%B8%B0%EC%97%85%EB%B1%85%ED%82%B9/id1634125167",
+        "sourceUrl": "https://apps.apple.com/kr/app/bnk-%EB%B6%80%EC%82%B0%EC%9D%80%ED%96%89-%EA%B8%B0%EC%97%85%EB%B1%85%ED%82%B9/id1634125167",
+        "releases": [
+          {
+            "id": "ios:1634125167:2.0.0",
+            "version": "2.0.0",
+            "updatedOn": "2026-11-16",
+            "releaseNotes": "BNK부산은행은 더 좋은 서비스를 제공하기 위해 정기적으로 업데이트를 진행합니다.\n새로운 기능과 개선 사항이 모두 적용된 최신 버전을 이용하시기 바랍니다.\n이용해주셔서 감사합니다.\n\n변경사항\n- 버그 수정 및 성능 개선",
+            "summaryKo": null,
+            "notesAreExcerpt": false,
+            "sourceUrl": "https://apps.apple.com/kr/app/bnk-%EB%B6%80%EC%82%B0%EC%9D%80%ED%96%89-%EA%B8%B0%EC%97%85%EB%B1%85%ED%82%B9/id1634125167",
+            "added": [],
+            "improved": [],
+            "changed": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "bnk-kyongnam",
+    "name": "BNK경남은행 모바일뱅킹",
+    "category": "은행",
+    "developer": "KYONGNAMBANK",
+    "bankFeatures": [
+      "계좌 조회·이체",
+      "금융상품"
+    ],
+    "stores": [
+      {
+        "platform": "ios",
+        "storeId": "678852685",
+        "name": "BNK경남은행 모바일뱅킹",
+        "iconUrl": "/icons/bnk-kyongnam.jpg",
+        "storeUrl": "https://apps.apple.com/kr/app/bnk%EA%B2%BD%EB%82%A8%EC%9D%80%ED%96%89-%EB%AA%A8%EB%B0%94%EC%9D%BC%EB%B1%85%ED%82%B9/id678852685",
+        "sourceUrl": "https://apps.apple.com/kr/app/bnk%EA%B2%BD%EB%82%A8%EC%9D%80%ED%96%89-%EB%AA%A8%EB%B0%94%EC%9D%BC%EB%B1%85%ED%82%B9/id678852685",
+        "releases": [
+          {
+            "id": "ios:678852685:5.5.4",
+            "version": "5.5.4",
+            "updatedOn": "2026-11-02",
+            "releaseNotes": "- 기타 기능 개선",
+            "summaryKo": null,
+            "notesAreExcerpt": false,
+            "sourceUrl": "https://apps.apple.com/kr/app/bnk%EA%B2%BD%EB%82%A8%EC%9D%80%ED%96%89-%EB%AA%A8%EB%B0%94%EC%9D%BC%EB%B1%85%ED%82%B9/id678852685",
+            "added": [],
+            "improved": [],
+            "changed": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "bnk-kyongnam-business",
+    "name": "BNK경남은행 기업모바일뱅킹",
+    "category": "은행",
+    "developer": "KYONGNAMBANK",
+    "bankFeatures": [
+      "기업 계좌·이체",
+      "결재·승인"
+    ],
+    "stores": [
+      {
+        "platform": "ios",
+        "storeId": "718821674",
+        "name": "BNK경남은행 기업모바일뱅킹",
+        "iconUrl": "/icons/bnk-kyongnam-business.jpg",
+        "storeUrl": "https://apps.apple.com/kr/app/bnk%EA%B2%BD%EB%82%A8%EC%9D%80%ED%96%89-%EA%B8%B0%EC%97%85%EB%AA%A8%EB%B0%94%EC%9D%BC%EB%B1%85%ED%82%B9/id718821674",
+        "sourceUrl": "https://apps.apple.com/kr/app/bnk%EA%B2%BD%EB%82%A8%EC%9D%80%ED%96%89-%EA%B8%B0%EC%97%85%EB%AA%A8%EB%B0%94%EC%9D%BC%EB%B1%85%ED%82%B9/id718821674",
+        "releases": [
+          {
+            "id": "ios:718821674:2.4.3",
+            "version": "2.4.3",
+            "updatedOn": "2026-04-22",
+            "releaseNotes": "- 기타 기능 개선",
+            "summaryKo": null,
+            "notesAreExcerpt": false,
+            "sourceUrl": "https://apps.apple.com/kr/app/bnk%EA%B2%BD%EB%82%A8%EC%9D%80%ED%96%89-%EA%B8%B0%EC%97%85%EB%AA%A8%EB%B0%94%EC%9D%BC%EB%B1%85%ED%82%B9/id718821674",
+            "added": [],
+            "improved": [],
+            "changed": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "kj-bank",
+    "name": "광주 와뱅크",
+    "category": "은행",
+    "developer": "The Kwangju Bank, Ltd.",
+    "bankFeatures": [
+      "계좌 조회·이체",
+      "금융상품"
+    ],
+    "stores": [
+      {
+        "platform": "ios",
+        "storeId": "1576149106",
+        "name": "광주 와뱅크",
+        "iconUrl": "/icons/kj-bank.jpg",
+        "storeUrl": "https://apps.apple.com/kr/app/%EA%B4%91%EC%A3%BC-%EC%99%80%EB%B1%85%ED%81%AC/id1576149106",
+        "sourceUrl": "https://apps.apple.com/kr/app/%EA%B4%91%EC%A3%BC-%EC%99%80%EB%B1%85%ED%81%AC/id1576149106",
+        "releases": [
+          {
+            "id": "ios:1576149106:3.0.13",
+            "version": "3.0.13",
+            "updatedOn": "2026-11-26",
+            "releaseNotes": "광주 와뱅크 업데이트\n - 사용성 개선",
+            "summaryKo": null,
+            "notesAreExcerpt": false,
+            "sourceUrl": "https://apps.apple.com/kr/app/%EA%B4%91%EC%A3%BC-%EC%99%80%EB%B1%85%ED%81%AC/id1576149106",
+            "added": [],
+            "improved": [],
+            "changed": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "kj-business",
+    "name": "광주은행 기업뱅킹",
+    "category": "은행",
+    "developer": "The Kwangju Bank, Ltd.",
+    "bankFeatures": [
+      "기업 계좌·이체",
+      "전자결재"
+    ],
+    "stores": [
+      {
+        "platform": "ios",
+        "storeId": "1596261784",
+        "name": "광주은행 기업뱅킹",
+        "iconUrl": "/icons/kj-business.jpg",
+        "storeUrl": "https://apps.apple.com/kr/app/%EA%B4%91%EC%A3%BC%EC%9D%80%ED%96%89-%EA%B8%B0%EC%97%85%EB%B1%85%ED%82%B9/id1596261784",
+        "sourceUrl": "https://apps.apple.com/kr/app/%EA%B4%91%EC%A3%BC%EC%9D%80%ED%96%89-%EA%B8%B0%EC%97%85%EB%B1%85%ED%82%B9/id1596261784",
+        "releases": [
+          {
+            "id": "ios:1596261784:1.1.16",
+            "version": "1.1.16",
+            "updatedOn": "2026-11-26",
+            "releaseNotes": "광주 와뱅크 업데이트\n - 사용성 개선",
+            "summaryKo": null,
+            "notesAreExcerpt": false,
+            "sourceUrl": "https://apps.apple.com/kr/app/%EA%B4%91%EC%A3%BC%EC%9D%80%ED%96%89-%EA%B8%B0%EC%97%85%EB%B1%85%ED%82%B9/id1596261784",
+            "added": [],
+            "improved": [],
+            "changed": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "jb-bank",
+    "name": "전북은행 쏙뱅크",
+    "category": "은행",
+    "developer": "JEONBUK BANK",
+    "bankFeatures": [
+      "계좌 조회·이체",
+      "금융상품"
+    ],
+    "stores": [
+      {
+        "platform": "ios",
+        "storeId": "1547903285",
+        "name": "전북은행 - 쏙뱅크",
+        "iconUrl": "/icons/jb-bank.jpg",
+        "storeUrl": "https://apps.apple.com/kr/app/%EC%A0%84%EB%B6%81%EC%9D%80%ED%96%89-%EC%8F%99%EB%B1%85%ED%81%AC/id1547903285",
+        "sourceUrl": "https://apps.apple.com/kr/app/%EC%A0%84%EB%B6%81%EC%9D%80%ED%96%89-%EC%8F%99%EB%B1%85%ED%81%AC/id1547903285",
+        "releases": [
+          {
+            "id": "ios:1547903285:1.4.20",
+            "version": "1.4.20",
+            "updatedOn": "2026-11-10",
+            "releaseNotes": "이번 새로운(업데이트)\u001c기능은 다음과 같습니다.\n\n• 안정성 향상 및 오류 수정 \n• 다양한 개선 사항 추가",
+            "summaryKo": null,
+            "notesAreExcerpt": false,
+            "sourceUrl": "https://apps.apple.com/kr/app/%EC%A0%84%EB%B6%81%EC%9D%80%ED%96%89-%EC%8F%99%EB%B1%85%ED%81%AC/id1547903285",
+            "added": [],
+            "improved": [],
+            "changed": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "jb-business",
+    "name": "전북은행 기업뱅킹",
+    "category": "은행",
+    "developer": "JEONBUK BANK",
+    "bankFeatures": [
+      "기업 계좌·이체",
+      "결재·승인"
+    ],
+    "stores": [
+      {
+        "platform": "ios",
+        "storeId": "1071766252",
+        "name": "전북은행 기업뱅킹",
+        "iconUrl": "/icons/jb-business.jpg",
+        "storeUrl": "https://apps.apple.com/kr/app/%EC%A0%84%EB%B6%81%EC%9D%80%ED%96%89-%EA%B8%B0%EC%97%85%EB%B1%85%ED%82%B9/id1071766252",
+        "sourceUrl": "https://apps.apple.com/kr/app/%EC%A0%84%EB%B6%81%EC%9D%80%ED%96%89-%EA%B8%B0%EC%97%85%EB%B1%85%ED%82%B9/id1071766252",
+        "releases": [
+          {
+            "id": "ios:1071766252:3.1.7",
+            "version": "3.1.7",
+            "updatedOn": "2026-02-03",
+            "releaseNotes": "이번 새로운(업데이트)\u001c기능은 다음과 같습니다.\n\n• 안정성 향상 및 오류 수정 \n• 보안강화 및 기능 개선 사항 추가",
+            "summaryKo": null,
+            "notesAreExcerpt": false,
+            "sourceUrl": "https://apps.apple.com/kr/app/%EC%A0%84%EB%B6%81%EC%9D%80%ED%96%89-%EA%B8%B0%EC%97%85%EB%B1%85%ED%82%B9/id1071766252",
+            "added": [],
+            "improved": [],
+            "changed": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "jeju-bank",
+    "name": "제주은행 JBANK",
+    "category": "은행",
+    "developer": "Jeju Bank",
+    "bankFeatures": [
+      "계좌 조회·이체",
+      "금융상품"
+    ],
+    "stores": [
+      {
+        "platform": "ios",
+        "storeId": "6443788309",
+        "name": "제주은행 JBANK",
+        "iconUrl": "/icons/jeju-bank.jpg",
+        "storeUrl": "https://apps.apple.com/kr/app/%EC%A0%9C%EC%A3%BC%EC%9D%80%ED%96%89-jbank/id6443788309",
+        "sourceUrl": "https://apps.apple.com/kr/app/%EC%A0%9C%EC%A3%BC%EC%9D%80%ED%96%89-jbank/id6443788309",
+        "releases": [
+          {
+            "id": "ios:6443788309:1.0.20",
+            "version": "1.0.20",
+            "updatedOn": "2026-09-21",
+            "releaseNotes": "서비스 안정화 및 버그 수정",
+            "summaryKo": null,
+            "notesAreExcerpt": false,
+            "sourceUrl": "https://apps.apple.com/kr/app/%EC%A0%9C%EC%A3%BC%EC%9D%80%ED%96%89-jbank/id6443788309",
+            "added": [],
+            "improved": [],
+            "changed": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "kbank",
+    "name": "케이뱅크",
+    "category": "은행",
+    "developer": "케이뱅크",
+    "bankFeatures": [
+      "계좌 조회·이체",
+      "예금·적금",
+      "대출"
+    ],
+    "stores": [
+      {
+        "platform": "ios",
+        "storeId": "1178872627",
+        "name": "케이뱅크",
+        "iconUrl": "/icons/kbank.jpg",
+        "storeUrl": "https://apps.apple.com/kr/app/%EC%BC%80%EC%9D%B4%EB%B1%85%ED%81%AC/id1178872627",
+        "sourceUrl": "https://apps.apple.com/kr/app/%EC%BC%80%EC%9D%B4%EB%B1%85%ED%81%AC/id1178872627",
+        "releases": [
+          {
+            "id": "ios:1178872627:2.1.3",
+            "version": "2.1.3",
+            "updatedOn": "2026-11-18",
+            "releaseNotes": "■ 구석구석, 꼼꼼하게! 앱을 더 편하게 사용하시도록 자잘한 기능들을 개선했어요.",
+            "summaryKo": null,
+            "notesAreExcerpt": false,
+            "sourceUrl": "https://apps.apple.com/kr/app/%EC%BC%80%EC%9D%B4%EB%B1%85%ED%81%AC/id1178872627",
+            "added": [],
+            "improved": [],
+            "changed": []
+          }
+        ]
+      }
+    ]
+  }
+]

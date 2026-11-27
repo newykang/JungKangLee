@@ -69,6 +69,16 @@ export function isBugFixOnly(update: FeedUpdate) {
 export function dateLabel(date: string) {
   return date.slice(0, 10).replaceAll("-", ".");
 }
+export function latestUpdatesByPlatform(updates: readonly FeedUpdate[]) {
+  const latest = new Map<string, FeedUpdate>();
+  for (const update of updates) {
+    const key = update.appId + ":" + update.platform;
+    const current = latest.get(key);
+    if (!current || update.releaseDate > current.releaseDate)
+      latest.set(key, update);
+  }
+  return [...latest.values()];
+}
 export function platformLabel(update: FeedUpdate) {
   return update.platform === "ios" ? "iOS" : "Android";
 }

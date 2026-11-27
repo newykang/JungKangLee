@@ -257,4 +257,32 @@
   color: var(--accent);
   text-decoration: underline;
 }
-.ad-bank-info ul { list-style: disc; }
+.ad-my-groups {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.ad-my-groups p,
+.ad-my-groups a {
+  margin: 0;
+}
+.ad-my-groups strong {
+  color: var(--ink);
+  font-weight: 600;
+  margin-right: 4px;
+}
+.ad-library-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.ad-bank-info ul {
+  list-style: disc;
+}
+.ad-bank-filter {
+  margin-top: 16px;
+}
