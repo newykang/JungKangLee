@@ -32,7 +32,7 @@ export function AppGroupLanding({
     >
       <div className="ad-landing-intro">
         <h1 id="ad-landing-title">
-          어떤 앱을
+          어떤 앱을{" "}
           <br />
           자주 쓰시나요?
         </h1>
