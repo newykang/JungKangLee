@@ -1,0 +1,72 @@
+[
+    {
+        "id":  "362057947",
+        "name":  "카카오톡 KakaoTalk",
+        "developer":  "Kakao Corp.",
+        "version":  "26.10.1",
+        "date":  "2026-11-19T14:08:00Z",
+        "notes":  "● 채팅방 게시판이 \u0027톡보드\u0027로 새로워졌어요. \n: 친구와 함께 글을 쓰고 주제별 폴더에 모아 정리해 보세요.\n\n● 채팅방에 공지를 최대 10개까지 등록할 수 있어요. \n: 말풍선, 투표, 톡보드 글까지 중요한 내용을 모아 확인해 보세요.\n\n● 외국어 메시지를 자동으로 번역해 드려요. \n: 카나나 연구소에서 자동 번역을 켜고 채팅방 설정에서 원하는 채팅방에 적용해 보세요.\n\n● 어떤 프로필에서 작성을 시작했든, 게시물이나 펑을 올릴 프로필을 고를 수 있어요.\n\n● 게시물을 쓰다가 사진이나 동영상을 더 넣어도 편집한 내용이 그대로 남아요.\n\n\n카카오톡은 모두가 더 자유롭고 안전하게 대화할 수 있는 서비스를 만들기 위해 열심히 노력하고 있어요. 최신 버전에서 새로운 기능으로 친구들과 즐겁게 대화해보세요.",
+        "url":  "https://apps.apple.com/kr/app/%EC%B9%B4%EC%B9%B4%EC%98%A4%ED%86%A1-kakaotalk/id362057947?uo=4",
+        "category":  "Social Networking"
+    },
+    {
+        "id":  "373742138",
+        "name":  "KB스타뱅킹",
+        "developer":  "Kookmin Bank Co., Ltd.",
+        "version":  "6.5.17",
+        "date":  "2026-11-27T00:10:59Z",
+        "notes":  "KB스타뱅킹을 더욱 편리하게 이용하실 수 있도록 일부 서비스 사용성을 개선했어요.",
+        "url":  "https://apps.apple.com/kr/app/kb%EC%8A%A4%ED%83%80%EB%B1%85%ED%82%B9/id373742138?uo=4",
+        "category":  "Finance"
+    },
+    {
+        "id":  "839333328",
+        "name":  "토스",
+        "developer":  "Viva Republica",
+        "version":  "5.286.0",
+        "date":  "2026-11-20T06:09:41Z",
+        "notes":  "• 구석구석 숨어있던 버그들을 잡았어요. 또 다른 버그가 나타나면 토스 고객센터를 찾아주세요. 늘 열려있답니다. 365일 24시간 언제든지요.",
+        "url":  "https://apps.apple.com/kr/app/%ED%86%A0%EC%8A%A4/id839333328?uo=4",
+        "category":  "Finance"
+    },
+    {
+        "id":  "304608425",
+        "name":  "카카오맵 - 지도 / 내비게이션 / 길찾기 / 친구위치",
+        "developer":  "Kakao Corp.",
+        "version":  "6.33.0",
+        "date":  "2026-11-24T00:00:47Z",
+        "notes":  "• 즐겨찾기 그룹에 이모지를 지정하고 지도에서 한눈에 확인할 수 있어요.\n• 혼자 달리기 기능이 새로 생겼어요.\n• 홈에서 최근 본 장소를 바로 확인할 수 있어요.\n• 장소 정보에서 해당 장소가 포함된 테마지도를 볼 수 있어요.\n\n카카오맵을 더 편리하게 사용할 수 있도록 꾸준히 개선하고 있어요.",
+        "url":  "https://apps.apple.com/kr/app/%EC%B9%B4%EC%B9%B4%EC%98%A4%EB%A7%B5-%EC%A7%80%EB%8F%84-%EB%82%B4%EB%B9%84%EA%B2%8C%EC%9D%B4%EC%85%98-%EA%B8%B8%EC%B0%BE%EA%B8%B0-%EC%B9%9C%EA%B5%AC%EC%9C%84%EC%B9%98/id304608425?uo=4",
+        "category":  "Navigation"
+    },
+    {
+        "id":  "389801252",
+        "name":  "Instagram",
+        "developer":  "Instagram, Inc.",
+        "version":  "457.0.0",
+        "date":  "2026-11-23T13:20:47Z",
+        "notes":  "이번 최신 버전에서는 버그가 수정되고 성능이 향상되었습니다.",
+        "url":  "https://apps.apple.com/kr/app/instagram/id389801252?uo=4",
+        "category":  "Photo \u0026 Video"
+    },
+    {
+        "id":  "1232780281",
+        "name":  "Notion: 메모, 작업, AI",
+        "developer":  "Notion Labs, Incorporated",
+        "version":  "1.7.356",
+        "date":  "2026-11-20T17:58:35Z",
+        "notes":  "버그 수정 \u0026 성능 개선",
+        "url":  "https://apps.apple.com/kr/app/notion-%EB%A9%94%EB%AA%A8-%EC%9E%91%EC%97%85-ai/id1232780281?uo=4",
+        "category":  "Productivity"
+    },
+    {
+        "id":  "431589174",
+        "name":  "티맵 - 장소추천, 지도, 운전점수, 대중교통, 대리",
+        "developer":  "TMAP MOBILITY",
+        "version":  "11.9.2",
+        "date":  "2026-11-21T01:00:13Z",
+        "notes":  "원활한 사용을 위해 성능을 개선하였습니다",
+        "url":  "https://apps.apple.com/kr/app/%ED%8B%B0%EB%A7%B5-%EC%9E%A5%EC%86%8C%EC%B6%94%EC%B2%9C-%EC%A7%80%EB%8F%84-%EC%9A%B4%EC%A0%84%EC%A0%90%EC%88%98-%EB%8C%80%EC%A4%91%EA%B5%90%ED%86%B5-%EB%8C%80%EB%A6%AC/id431589174?uo=4",
+        "category":  "Navigation"
+    }
+]
