@@ -3,6 +3,7 @@ import { Bookmark, ChartNoAxesColumn, House, Landmark, Network } from 'lucide-re
 import { apps, appIds, releases, updates } from './components/common/catalog'
 import ReleaseReview from './components/common/ReleaseReview'
 import { UpdateFeed } from './features/feed/UpdateFeed'
+import brandWordmark from './features/feed/appdate-wordmark.png'
 import { usePlatformFeed } from './features/feed/usePlatformFeed'
 import { AppGroupLanding } from './features/feed/AppGroupLanding'
 import { BankOverview } from './features/feed/BankOverview'
@@ -44,7 +45,7 @@ export default function App() {
   const nav = tabs.map(({ id, label, icon: Icon }) => <a key={id} href={'#' + id} aria-current={active === id ? 'page' : undefined}><Icon size={19} /><span>{label}</span></a>)
   return <>
     <a className="skip" href="#content" onClick={event => { event.preventDefault(); document.getElementById('content')?.focus() }}>본문으로 이동</a>
-    <header className="frame-header"><div><a className="brand" href="#feed"><img src="/appdate.svg" alt=""/>appdate</a>{!onboarding && <nav className="top-nav" aria-label="주 메뉴">{nav}</nav>}</div></header>
+    <header className="frame-header"><div><a className="brand" href="#feed"><img src="/appdate.svg" alt=""/><img className="brand-wordmark" src={brandWordmark} alt="appdate" /></a>{!onboarding && <nav className="top-nav" aria-label="주 메뉴">{nav}</nav>}</div></header>
     <main id="content" tabIndex={-1} className="frame-main">
       {onboarding && <AppGroupLanding groups={appGroups} selected={groupSelection?.groups ?? []} platform={platform} onSave={(ids, nextPlatform) => {
         savePlatform(nextPlatform)

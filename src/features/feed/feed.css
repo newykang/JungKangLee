@@ -44,6 +44,10 @@
   letter-spacing: -1.6px;
   color: #282337;
 }
+.ad-brand .brand-wordmark {
+  width: 5.5rem;
+  height: auto;
+}
 .ad-brand-mark {
   width: 29px;
   height: 29px;
