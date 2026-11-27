@@ -5,9 +5,8 @@ import { useFeedPreferences } from "./preferences";
 import {
   isBugFixOnly,
   dateLabel,
-  headline,
+  feedChanges,
   platformLabel,
-  sections,
   type FeedApp,
   type FeedUpdate,
 } from "./model";
@@ -155,20 +154,9 @@ export function UpdateFeed({
       </div>
       <div className="ad-grid">
         {rows.map(({ app, update }) => {
-          const summary = headline(update);
-          const limited = summary.endsWith("세부 내용 미공개.");
-          const title = limited
-            ? summary
-                .slice(0, -"세부 내용 미공개.".length)
-                .trim()
-                .replace(/\.$/, "")
-            : summary;
+          const { items, limited } = feedChanges(update);
           return (
-            <button
-              key={update.id}
-              className="ad-card"
-              onClick={() => onOpenUpdate(update)}
-            >
+            <article key={update.id} className="ad-card">
               <div className="ad-app">
                 <AppIcon app={app} />
                 <div>
@@ -185,19 +173,26 @@ export function UpdateFeed({
                   <BookmarkCheck size={18} aria-label="내 앱" />
                 )}
               </div>
-              <div className="ad-tags">
-                {sections
-                  .filter((s) => update[s.key].length)
-                  .map((s) => (
-                    <span key={s.key}>{s.label}</span>
+              {items.length > 0 && (
+                <ul className="ad-changes">
+                  {items.slice(0, 3).map(({ label, text }, index) => (
+                    <li key={index}>
+                      <span>{label}</span>
+                      {text}
+                    </li>
                   ))}
-              </div>
-              <div className="ad-summary">
-                <h3>{title || "업데이트"}</h3>
-                <ChevronRight size={16} aria-hidden="true" />
-              </div>
+                </ul>
+              )}
               {limited && <small>세부 내용 미공개</small>}
-            </button>
+              <button
+                className="ad-open-update"
+                aria-label={app.name + " " + update.version + " 업데이트 상세 보기"}
+                onClick={() => onOpenUpdate(update)}
+              >
+                {items.length > 3 && <small>외 {items.length - 3}건</small>}
+                <ChevronRight size={16} aria-hidden="true" />
+              </button>
+            </article>
           );
         })}
       </div>

@@ -43,11 +43,30 @@ export function dateLabel(date: string) {
 export function platformLabel(update: FeedUpdate) {
   return update.platform === "ios" ? "iOS" : "Android";
 }
-export function headline(update: FeedUpdate) {
-  for (const section of sections) {
-    if (update[section.key].length) return update[section.key][0];
-  }
-  return update.releaseNotes.trim().split("\n")[0] || "세부 내용 미공개";
+export function feedChanges(update: FeedUpdate) {
+  const classified = sections.flatMap(({ key, label }) =>
+    update[key].map((text) => ({ label, text })),
+  );
+  const source = classified.length
+    ? classified
+    : [{ label: "원문", text: update.releaseNotes }];
+  const items = source.flatMap(({ label, text }) =>
+    text
+      .split(/\r?\n/)
+      .map((line) => ({
+        label,
+        text: line
+          .trim()
+          .replace(/^[•●]\s*/, "")
+          .replace(/(?:^|\s)세부 내용 미공개[.]?$/, "")
+          .trim()
+          .replace(/[.]$/, ""),
+      }))
+      .filter((item) => item.text),
+  );
+  const limited =
+    !items.length || source.some(({ text }) => text.includes("세부 내용 미공개"));
+  return { items, limited };
 }
 export function safeLink(value: string) {
   try {
